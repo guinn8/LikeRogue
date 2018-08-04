@@ -136,7 +136,9 @@ public abstract class Actors {
 
 		return true;
 	}
-	
+	/**
+	 * 
+	 */
 	public void move() {
 		for (int i = 0; i < 10; i++) {
 			if (Core.getPlayer1().check(Core.getPlayer1().getDeltaX(), Core.getPlayer1().getDeltaY()) == true) {

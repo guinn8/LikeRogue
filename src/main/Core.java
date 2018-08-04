@@ -95,20 +95,17 @@ public class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 
-				getPlayer1().getDamageView().setLayoutX(-1000);
+				getPlayer1().getDamageView().setLayoutX(-1000);//todo change so this lives in player
 				getPlayer1().getDamageView().setLayoutY(-1000);
+				
 				player1.move();
 
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
 
-				if (attack == true) {
-					player1.attack();
-					attack = false;
-				}
+				attack=(player1.attack(attack));// this is super convoluted. comment later
 			}
-		};
-		animator.start();
+		}; animator.start();
 	}
 
 	/**
