@@ -13,7 +13,7 @@ public class Player extends Actors {
 	private Image playerLeft = new Image("file:data/player/linkLeft.png");
 	private Image playerDown = new Image("file:data/player/linkDown.png");
 	private Image playerUp = new Image("file:data/player/linkUp.png");
-	private Image damage = new Image("file:data/player/damage.png");
+	private Image damage = new Image("file:data/player/damage.png"); 
 	
 	/**
 	 * 

@@ -12,7 +12,7 @@ public class Map {
 	Image brick = new Image("file:data/map/wall3.png");
 	private Group walls = new Group();
 	private Group chests = new Group();
-
+	
 	public Map() {
 		Core.layout.getChildren().add(getWalls());
 		Core.layout.getChildren().add(getChests());
@@ -48,6 +48,7 @@ public class Map {
 				map[posX][posY].setImage(brick);
 				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
 				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
+				getWalls().getChildren().add(map[posX][posY]);
 			}
 
 			else if (layout.charAt(i) == '!') {
@@ -57,16 +58,36 @@ public class Map {
 				map[posX][posY].setFitWidth(50);
 				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
 				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
+				getChests().getChildren().add(map[posX][posY]);
 			}
-			
-		/*	else if (layout.charAt(i) == 'X') {
-				map[posX][posY] = new ImageView();
-				map[posX][posY].setImage(fin);
-				map[posX][posY].setFitHeight(50);
-				map[posX][posY].setFitWidth(50);
-				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
-				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
-				fins.getChildren().add(map[posX][posY]);			
-		}*/
+		}
+	}
+
+	/**
+	 * @return the chests
+	 */
+	public Group getChests() {
+		return chests;
+	}
+
+	/**
+	 * @param chests the chests to set
+	 */
+	public void setChests(Group chests) {
+		this.chests = chests;
+	}
+
+	/**
+	 * @return the walls
+	 */
+	public Group getWalls() {
+		return walls;
+	}
+
+	/**
+	 * @param walls the walls to set
+	 */
+	public void setWalls(Group walls) {
+		this.walls = walls;
 	}
 }
