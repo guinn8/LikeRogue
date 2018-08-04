@@ -29,10 +29,11 @@ public class Core extends Application {
 
 	private Map map1 = new Map();
 	private Inventory inventory = new Inventory();
-	private Player player1 = new Player(75,75,10,5);
-	private Enemy enemy1 = new Enemy(400,400,10,2);
-
-
+	public static Player player1 = new Player(75,75,10,5);
+	public static Enemy enemy1 = new Enemy(400,400,10,2);
+	private MyCanvas mCanvas=new MyCanvas(WIDTH,HEIGHT);
+	private static final int WIDTH=600;
+	private static final int HEIGHT=650;
 	
 	private boolean attack = false;
 
@@ -41,9 +42,9 @@ public class Core extends Application {
 	public void start(Stage stage) throws InterruptedException {
 
 		stage.setTitle("Demo 2 player Fight");
-		Scene scene = new Scene(layout, 600, 650);
+		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
-
+		layout.getChildren().add(mCanvas);
 		map1.createMap("void");
 
 		stage.show();
