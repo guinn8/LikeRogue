@@ -1,6 +1,9 @@
 package main;
 
 import javafx.scene.layout.*;
+
+import java.io.FileNotFoundException;
+
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -17,7 +20,7 @@ import javafx.scene.input.KeyCode;
  */
 
 //changed player,enemy, healthbag calls to getters
-public abstract class Core extends Application {
+public  class Core extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -37,7 +40,7 @@ public abstract class Core extends Application {
 
 
 	@Override
-	public void start(Stage stage) throws InterruptedException {
+	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 
 		stage.setTitle("Demo 2 player Fight");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);

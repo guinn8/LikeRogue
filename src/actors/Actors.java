@@ -109,7 +109,7 @@ public abstract class Actors {
 				return false;
 			}
 		}
-
+		
 		for (Node object : Core.map1.getWalls().getChildren()) {
 			if (object.getBoundsInParent().intersects(pBound.getMinX() + xDelt, pBound.getMinY() + yDelt,
 				pBound.getWidth(), pBound.getHeight()))
