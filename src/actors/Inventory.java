@@ -18,13 +18,13 @@ public class Inventory {
 	private int chestchose = 0;
 
 	private ImageView sworda = new ImageView();
-	private Image sword = new Image("file:data/inventory/sword.jpg");
+	private Image sword = new Image("file:res/sprites/inventory/sword.jpg");
 
 	private ImageView healthbag = new ImageView();
-	private Image health = new Image("file:data/inventory/health.png");
+	private Image health = new Image("file:res/sprites/inventory/health.png");
 
 	private ImageView inventory = new ImageView();
-	private Image inventorybar = new Image("file:data/inventory/inventorybar.png");
+	private Image inventorybar = new Image("file:res/sprites/inventory/inventorybar.png");
 
 	/**
 	 * Those method in which add Image to the Core

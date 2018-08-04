@@ -8,7 +8,7 @@ import main.*;
 //Eric's changes: Added getter and setter to Imageview enemy, hostileG.
 public class Enemy extends Actors {
 	private Group hostiles = new Group();
-	private Image enemySprite = new Image("file:data/enemy/frown.png");
+	private Image enemySprite = new Image("file:res/sprites/enemy/frown.png");
 	private ImageView enemy = new ImageView();
 
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {

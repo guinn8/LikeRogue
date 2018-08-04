@@ -9,11 +9,11 @@ public class Player extends Actors {
 	private ImageView damageView = new ImageView();
 	public ImageView player = new ImageView(); // Public Awareness
 	
-	private Image playerRight = new Image("file:data/player/linkRight.png");
-	private Image playerLeft = new Image("file:data/player/linkLeft.png");
-	private Image playerDown = new Image("file:data/player/linkDown.png");
-	private Image playerUp = new Image("file:data/player/linkUp.png");
-	private Image damage = new Image("file:data/player/damage.png"); 
+	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
+	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
+	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
+	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
+	private Image damage = new Image("file:res/sprites/player/damage.png"); 
 	
 	/**
 	 * 

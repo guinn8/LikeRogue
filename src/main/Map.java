@@ -10,10 +10,11 @@ import java.util.*;
 import java.io.*;
 public class Map {
 	int size = 12;
+	File map1=new File("res/layouts/map1.txt");
 	ImageView[][] map = new ImageView[size][size];
-	Image chest = new Image("file:data/map/Chest.jpg");
-	Image brick = new Image("file:data/map/wall3.png");
-	//Image fin = new Image("file:data/map/X.png");
+	Image chest = new Image("file:res/sprites/map/Chest.jpg");
+	Image brick = new Image("file:res/sprites/map/wall3.png");
+	//Image fin = new Image("file:res/map/sprites/X.png");
 	Group walls = new Group();
 	Group chests = new Group();
 	//Group fins = new Group();
@@ -27,7 +28,7 @@ public class Map {
 		int posX = 0;
 		int posY = 0;
 		//File has to stay in the "Main Folder". Cant be in sub folders or packages.
-	    Scanner mapMaker = new Scanner(new File("map1.txt"));
+	    Scanner mapMaker = new Scanner(map1);
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()){
 			mapLayout = mapLayout + mapMaker.nextLine(); 
