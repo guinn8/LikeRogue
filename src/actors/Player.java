@@ -1,7 +1,13 @@
 package actors;
 
+
+
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import main.*;
 
 //Erics changes: added getters and setters for every instance variables.
@@ -34,6 +40,14 @@ public class Player extends Actors {
 
 		Core.layout.getChildren().add(player);
 		Core.layout.getChildren().add(getDamageView());
+		Text t = new Text();
+		t.setText("Player's Health                 "+ " "+"Emeny's Health   "
+				);
+		t.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		t.setLayoutX(50);
+		t.setLayoutY(40);
+		Core.layout.getChildren().add(t);
+       
 	}
 	
 	/**
