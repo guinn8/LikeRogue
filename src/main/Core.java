@@ -17,7 +17,7 @@ import javafx.scene.input.KeyCode;
  */
 
 //changed player,enemy, healthbag calls to getters
-public class Core extends Application {
+public abstract class Core extends Application {
 
 	public static void main(String[] args) {
 		launch(args);

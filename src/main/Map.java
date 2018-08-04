@@ -13,7 +13,7 @@ public class Map {
 	private Group walls = new Group();
 	private Group chests = new Group();
 
-	Map() {
+	public Map() {
 		Core.layout.getChildren().add(getWalls());
 		Core.layout.getChildren().add(getChests());
 	}
