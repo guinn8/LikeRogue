@@ -10,12 +10,12 @@ public class Map {
 	ImageView[][] map = new ImageView[size][size];
 	Image chest = new Image("file:data/map/Chest.jpg");
 	Image brick = new Image("file:data/map/wall3.png");
-	Group walls = new Group();
-	Group chests = new Group();
+	private Group walls = new Group();
+	private Group chests = new Group();
 
 	Map() {
-		Core.layout.getChildren().add(walls);
-		Core.layout.getChildren().add(chests);
+		Core.layout.getChildren().add(getWalls());
+		Core.layout.getChildren().add(getChests());
 	}
 
 	public void createMap(String layout) {
@@ -48,7 +48,7 @@ public class Map {
 				map[posX][posY].setImage(brick);
 				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
 				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
-				walls.getChildren().add(map[posX][posY]);
+				getWalls().getChildren().add(map[posX][posY]);
 			}
 
 			else if (layout.charAt(i) == '!') {
@@ -58,8 +58,36 @@ public class Map {
 				map[posX][posY].setFitWidth(50);
 				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
 				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
-				chests.getChildren().add(map[posX][posY]);
+				getChests().getChildren().add(map[posX][posY]);
 			}
 		}
+	}
+
+	/**
+	 * @return the chests
+	 */
+	public Group getChests() {
+		return chests;
+	}
+
+	/**
+	 * @param chests the chests to set
+	 */
+	public void setChests(Group chests) {
+		this.chests = chests;
+	}
+
+	/**
+	 * @return the walls
+	 */
+	public Group getWalls() {
+		return walls;
+	}
+
+	/**
+	 * @param walls the walls to set
+	 */
+	public void setWalls(Group walls) {
+		this.walls = walls;
 	}
 }

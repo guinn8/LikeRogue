@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 
 public class MyCanvas extends Canvas {
 	  private GraphicsContext gc;
-	  private double xp=Core.player1.getHealth()/9;
-	  private double xe=Core.enemy1.getHealth()/9;
+	  private double xp=Core.getPlayer1().getHealth()/9;
+	  private double xe=Core.getEnemy1().getHealth()/9;
 
 	    public MyCanvas(int width, int height) {
 	    	super(width,height);
