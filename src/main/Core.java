@@ -29,23 +29,27 @@ public  class Core extends Application {
 	public static Pane layout = new Pane();// Public Awareness
 
 	public static Map map1 = new Map();// Public Awareness
+	public static Map map2 = new Map();
+	public static Map map3 = new Map();
+	public static Map map4 = new Map();
+	
 	public static Inventory inventory = new Inventory();// Public Awareness
 	private static Player player1 = new Player(75,75,10,5);
 	private static Enemy enemy1 = new Enemy(400,400,10,2);
 	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=650;
-	
+	private MyCanvas mCanvas = new MyCanvas(WIDTH, HEIGHT);
 	private boolean attack = false;
 
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 
-		stage.setTitle("Demo 2 player Fight");
+		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
-		//layout.getChildren().add(mCanvas);
+		layout.getChildren().add(mCanvas);
 		map1.createMap("void");
 
 		stage.show();
@@ -77,15 +81,24 @@ public  class Core extends Application {
 				getPlayer1().setDeltaX(0);
 				getPlayer1().player.setImage(getPlayer1().getPlayerUp());
 			}
-
+			if(getEnemy1().getHealth() <= 0 || getPlayer1().getHealth() <= 0){
+				Core.layout.getChildren().remove(mCanvas);
+				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
+				Core.layout.getChildren().add(mCanvas2);
+			
+			
 			if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthbag().isVisible() == true) {
 					getPlayer1().setHealth(10);
 					inventory.getHealthbag().setVisible(false);
+					Core.layout.getChildren().remove(mCanvas2);
+					MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
+					Core.layout.getChildren().add(mCanvas3);
 					System.out.println("pHealth " + getPlayer1().getHealth());
 				}
 			}
-
+			}
+			
 			if (e.getCode() == KeyCode.SPACE) {
 				attack = true;
 			}
@@ -101,8 +114,7 @@ public  class Core extends Application {
 				getPlayer1().getDamageView().setLayoutX(-1000);//todo change so this lives in player
 				getPlayer1().getDamageView().setLayoutY(-1000);
 				
-				player1.move(player1);
-				enemy1.enemyMove(enemy1);
+				player1.move();
 
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
