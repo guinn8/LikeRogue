@@ -1,6 +1,7 @@
 package actors;
 
 import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import main.Core;
@@ -10,17 +11,15 @@ public abstract class Actors {
 	private double deltaX = 0;
 	private double deltaY = 0;
 	
-	private int xPos;
-	private int yPos;
+
 	private int health;
 	private int damage;
 	
 	private int hitCount=0;
 	
 	
-	Actors(int setX, int setY, int setHealth, int setDamage){
-		xPos=setX;
-		yPos=setY;
+	Actors( int setHealth, int setDamage){
+
 		damage=setDamage;
 		health=setHealth;
 	}
@@ -29,17 +28,11 @@ public abstract class Actors {
 		return moveRes;
 	}
 	
-	public double getDeltaX() {
-		return deltaX;
-	}
 	
 	public void setDeltaX(double setDeltaX) {
 		deltaX=setDeltaX;
 	}
 	
-	public double getDeltaY() {
-		return deltaY;
-	}
 	
 	public void setDeltaY(double setDeltaY) {
 		deltaY=setDeltaY;
@@ -61,24 +54,19 @@ public abstract class Actors {
 		damage=setDamage;
 	}
 	
-	public int getXpos() {
-		return xPos;
-	}
 	
-	public void setXpos(int setXpos) {
-		xPos=setXpos;
-	}
-	
-	public int getYpos() {
-		return yPos;
-	}
-	
-	public void setYpos(int setYpos) {
-		yPos=setYpos;
+	public void checkAlive() {
+		if (health <= 0) {
+			System.out.println("ran");
+			getGroup().getChildren().remove(getImageView());
+			getImageView().setLayoutX(-10000);
+			getImageView().setLayoutY(-10000);
+		}
 	}
 	
 	public abstract Bounds getBounds();
 	public abstract ImageView getImageView();
+	public abstract Group getGroup();
 	
 	/**
 	 * check handles the collision detection
@@ -89,39 +77,26 @@ public abstract class Actors {
 	 **/
 	public boolean check( Actors actor) {
 	
-	
 		/**
 		 * handles enemy/player collision 
 		 */
 		if(actor instanceof Player) {
-		for (Node object : Core.getEnemy1().getHostileG().getChildren()) {
+			for (Node object : Core.getEnemy1().getGroup().getChildren()) {
 			
-				if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-						getBounds().getWidth(), getBounds().getHeight())) {
-				
+				if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY, 
+					getBounds().getWidth(), getBounds().getHeight())){
+		
 					hitCount++;
+					
 					if (hitCount==100) {
 						Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
 						Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
 						hitCount=0;
 					}
+		
 					
-					System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
-					System.out.println("Player Health " + Core.getPlayer1().getHealth());
-	
-					
-					
-					// "Deaths of the sprites"
-					if (Core.getPlayer1().getHealth() <= 0) {
-						Core.layout.getChildren().remove(Core.getPlayer1().player);
-						System.out.println("You died!");
-					}
-	
-					if (Core.getEnemy1().getHealth() <= 0) {
-						Core.layout.getChildren().remove(Core.getEnemy1().getEnemy());
-						Core.getEnemy1().getEnemy().setLayoutX(-10000);
-						Core.getEnemy1().getEnemy().setLayoutY(-10000);
-					}
+					checkAlive();
+
 					return false;
 				}
 			}
@@ -137,8 +112,7 @@ public abstract class Actors {
 							hitCount=0;
 						}
 						
-						System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
-						System.out.println("Player Health " + Core.getPlayer1().getHealth());
+						checkAlive();
 						return false;
 			}
 		}
@@ -147,11 +121,10 @@ public abstract class Actors {
 		 * handles wall collision
 		 */
 		for (Node object : Core.map1.getWalls().getChildren()) {
-		
-				if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-						getBounds().getWidth(), getBounds().getHeight()))
+			if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
+				getBounds().getWidth(), getBounds().getHeight())) {		
 					return false;
-			
+				}
 		}
 		
 		/**
@@ -159,7 +132,8 @@ public abstract class Actors {
 		 */
 		for (Node chest : Core.map1.getChests().getChildren()) {
 			if (chest.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-					getBounds().getWidth(), getBounds().getHeight())) {
+				getBounds().getWidth(), getBounds().getHeight())) {
+				
 				Core.map1.getChests().getChildren().remove(chest);
 
 				if (Core.inventory.getchestchose() == 1) {
@@ -170,7 +144,6 @@ public abstract class Actors {
 				if (Core.inventory.getchestchose() == 2) {
 					Core.inventory.getHealthbag().setVisible(true);
 				}
-
 				return false;
 			}
 		}
@@ -179,11 +152,9 @@ public abstract class Actors {
 			if (chest.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
 					getBounds().getWidth(), getBounds().getHeight())) {
 			}
-			
 		}
-
-		return true;
-	
+		
+	return true;
 	}
 	
 	/**
@@ -196,22 +167,20 @@ public abstract class Actors {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
 				getImageView().setLayoutX(getImageView().getLayoutX() + deltaX);
 				canMove=false;
-				
 			}
 		}
 		return canMove;
 	}
+	
 	public boolean move(Actors actor,int xDir,int yDir) {
 		deltaX=xDir;
 		deltaY=yDir;
 		boolean canMove=true;
 		for (int i = 0; i < 10; i++) {
 			if (check(actor)) {
-				
 				getImageView().setLayoutY(getImageView().getLayoutY() + yDir);
 				getImageView().setLayoutX(getImageView().getLayoutX() + xDir);
-				canMove=false;
-				
+				canMove=false;			
 			}
 		}
 		return canMove;

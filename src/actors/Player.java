@@ -1,6 +1,7 @@
 package actors;
 
 import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -18,7 +19,8 @@ public class Player extends Actors {
 	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
 	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
 	private Image damage = new Image("file:res/sprites/player/damage.png"); 
-	
+	private Group players = new Group();
+	Text heathText = new Text();
 	/**
 	 * 
 	 * @param setX
@@ -28,24 +30,26 @@ public class Player extends Actors {
 	 */
 	public Player(int setX, int setY, int setHealth, int setDamage) {
 		
-		super(setX, setY, setHealth, setDamage);
+		super(setHealth, setDamage);
 		
-		getDamageView().setImage(damage);
+		damageView.setImage(damage);
 
 		player.setLayoutX(setX);
 		player.setLayoutY(setY);
 		player.setImage(playerDown);
-
-		Core.layout.getChildren().add(player);
-		Core.layout.getChildren().add(getDamageView());
-		Text t = new Text();
-		t.setText("Player's Health                 "+ " "+"Emeny's Health   "
-				);
-		t.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-		t.setLayoutX(50);
-		t.setLayoutY(40);
-		Core.layout.getChildren().add(t);
-       
+		
+		Core.layout.getChildren().add(players);
+		players.getChildren().add(player);
+		
+		Core.layout.getChildren().add(damageView);
+		
+		
+		heathText.setText("Player's Health                 "+ " "+"Enemy's Health   ");
+		heathText.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		heathText.setLayoutX(50);
+		heathText.setLayoutY(40);
+		
+		Core.layout.getChildren().add(heathText);
 	}
 	
 	/**
@@ -55,29 +59,15 @@ public class Player extends Actors {
 	public Image getPlayerRight() {
 		return playerRight;
 	}
-	/**
-	 * 
-	 * @param playerRight
-	 */
-	public void setPlayerRight(Image playerRight) {
-		this.playerRight = playerRight;
-	}
-	
-	/**
+		
+	/** 
 	 * 
 	 * @return
 	 */
 	public Image getPlayerLeft() {
 		return playerLeft;
 	}
-	
-	/**
-	 * 
-	 * @param playerLeft
-	 */
-	public void setPlayerLeft(Image playerLeft) {
-		this.playerLeft = playerLeft;
-	}
+
 	/**
 	 * 
 	 * @return
@@ -85,15 +75,7 @@ public class Player extends Actors {
 	public Image getPlayerDown() {
 		return playerDown;
 	}
-	
-	/**
-	 * 
-	 * @param playerDown
-	 */
-	public void setPlayerDown(Image playerDown) {
-		this.playerDown = playerDown;
-	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -104,35 +86,34 @@ public class Player extends Actors {
 	
 	/**
 	 * 
-	 * @param playerUp
-	 */
-	public void setPlayerUp(Image playerUp) {
-		this.playerUp = playerUp;
-	}
-	/**
-	 * 
 	 * @return
 	 */
 	public ImageView getDamageView() {
 		return damageView;
 	}
+	
 	/**
 	 * 
-	 * @param damageView
 	 */
-	public void setDamageView(ImageView damageView) {
-		this.damageView = damageView;
-	}
-	
-	
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
-	
 	}
 	
+	/**
+	 * 
+	 */
 	public ImageView getImageView() {
 		return player;	
 	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public Group getGroup() {
+		return players;
+	}
+	
 	/**
 	 * 
 	 * @param attack
@@ -140,37 +121,34 @@ public class Player extends Actors {
 	 */
 	public boolean attack(boolean attack) {
 		if (attack==true) {
-			if (Core.getPlayer1().player.getImage() == Core.getPlayer1().getPlayerUp()) {
-				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() - 20);
-				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() - 75);
+			if (player.getImage() == playerUp) {
+				damageView.setLayoutX(player.getLayoutX() - 20);
+				damageView.setLayoutY(player.getLayoutY() - 75);
 			}
 	
-			if (Core.getPlayer1().player.getImage() == Core.getPlayer1().getPlayerDown()) {
-				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() - 15);
-				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() + 50);
+			if (player.getImage() == playerDown) {
+				damageView.setLayoutX(player.getLayoutX() - 15);
+				damageView.setLayoutY(player.getLayoutY() + 50);
 			}
 			
-			if (Core.getPlayer1().player.getImage() == Core.getPlayer1().getPlayerLeft()) {
-				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() - 75);
-				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() - 15);
+			if (player.getImage() == playerLeft) {
+				damageView.setLayoutX(player.getLayoutX() - 75);
+				damageView.setLayoutY(player.getLayoutY() - 15);
 			}
 	
-			if (Core.getPlayer1().player.getImage() == Core.getPlayer1().getPlayerRight()) {
-				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() + 50);
-				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() - 10);
+			if (player.getImage() == playerRight) {
+				damageView.setLayoutX(player.getLayoutX() + 50);
+				damageView.setLayoutY(player.getLayoutY() - 10);
 			}
 	
-			if (Core.getPlayer1().getDamageView().getBoundsInParent().intersects(Core.getEnemy1().getEnemy().getBoundsInParent())) {
-				System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
-				System.out.println("Player Health " + Core.getPlayer1().getHealth());
-				System.out.println();
+			if (damageView.getBoundsInParent().intersects(Core.getEnemy1().getBounds())) {
 				
 				Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
 				
 				if (Core.getEnemy1().getHealth() <= 0) {
-					Core.layout.getChildren().remove(Core.getEnemy1().getEnemy());
-					Core.getEnemy1().getEnemy().setLayoutX(-10000);
-					Core.getEnemy1().getEnemy().setLayoutY(-10000);
+					Core.layout.getChildren().remove(Core.getEnemy1().getImageView());
+					Core.getEnemy1().getImageView().setLayoutX(-10000);
+					Core.getEnemy1().getImageView().setLayoutY(-10000);
 				}
 			}
 		}

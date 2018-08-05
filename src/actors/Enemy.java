@@ -1,9 +1,5 @@
 package actors;
 
-
-
-
-
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -18,30 +14,18 @@ public class Enemy extends Actors {
 	boolean right=true;
 
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
-		super(setX, setY, setHealth, setDamage);
+		super(setHealth, setDamage);
 		getEnemy().setLayoutX(setX);
 		getEnemy().setLayoutY(setY);
 		getEnemy().setImage(enemySprite);
-		getHostileG().getChildren().add(enemy);
+		hostiles.getChildren().add(enemy);
 		Core.layout.getChildren().add(hostiles);
-
 	}
 
 	public ImageView getEnemy() {
 		return enemy;
 	}
 
-	public void setEnemy(ImageView enemy) {
-		this.enemy = enemy;
-	}
-
-	public Group getHostileG() {
-		return hostiles;
-	}
-
-	public void setHostileG(Group hostileG) {
-		this.hostiles = hostileG;
-	}
 
 	@Override
 	public Bounds getBounds() {
@@ -54,23 +38,21 @@ public class Enemy extends Actors {
 	}
 
 	public void enemyMove(Enemy e) {
-		
-		
+			
 		if (right==true) {
 			 move(e,-1,0);
-			 
-			 if (move(e,-1,0)==true)right=false;	 
-				
+			 if (move(e,-1,0)==true) right=false;	 
+		}
 		
-		}
-		else {
-			
+		else if (right==false) {
 			move(e,1,0);
-			if (move(e,1,0)==true)right=true;	
-			
-			
+			if (move(e,1,0)==true) right=true;	
 		}
-	
+	}
+
+	@Override
+	public Group getGroup() {
+		return hostiles;
 	}
 
 }

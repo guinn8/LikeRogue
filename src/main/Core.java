@@ -82,18 +82,14 @@ public  class Core extends Application {
 				getPlayer1().player.setImage(getPlayer1().getPlayerUp());
 			}
 			if(getEnemy1().getHealth() <= 0 || getPlayer1().getHealth() <= 0){
-				Core.layout.getChildren().remove(mCanvas);
-				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
-				Core.layout.getChildren().add(mCanvas2);
+
 			
 			
 			if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthbag().isVisible() == true) {
 					getPlayer1().setHealth(10);
 					inventory.getHealthbag().setVisible(false);
-					Core.layout.getChildren().remove(mCanvas2);
-					MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
-					Core.layout.getChildren().add(mCanvas3);
+					updateBar();
 					System.out.println("pHealth " + getPlayer1().getHealth());
 				}
 			}
@@ -118,6 +114,7 @@ public  class Core extends Application {
 				player1.move(player1);
 				
 				if (counter%5==0)enemy1.enemyMove(enemy1);
+				if (counter%20==0)updateBar();
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
 				
@@ -134,23 +131,15 @@ public  class Core extends Application {
 	}
 
 	/**
-	 * @param player1 the player1 to set
-	 */
-	public static void setPlayer1(Player player1) {
-		Core.player1 = player1;
-	}
-
-	/**
 	 * @return the enemy1
 	 */
 	public static Enemy getEnemy1() {
 		return enemy1;
 	}
-
-	/**
-	 * @param enemy1 the enemy1 to set
-	 */
-	public static void setEnemy1(Enemy enemy1) {
-		Core.enemy1 = enemy1;
+	
+	public void updateBar() {
+		Core.layout.getChildren().remove(mCanvas);
+		MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
+		Core.layout.getChildren().add(mCanvas2);
 	}
 }
