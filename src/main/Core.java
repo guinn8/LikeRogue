@@ -23,19 +23,19 @@ import javafx.scene.input.KeyCode;
 public  class Core extends Application {
 
 	public static void main(String[] args) {
+		 
+				
 		launch(args);
 	}
 	
-	public static Pane layout = new Pane();// Public Awareness
-
+	public static Pane layout = new Pane();// Public Awareness	
 	public static Map map1 = new Map();// Public Awareness
 	public static Inventory inventory = new Inventory();// Public Awareness
 	private static Player player1 = new Player(75,75,10,5);
 	private static Enemy enemy1 = new Enemy(400,400,10,2);
-	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=650;
-	
+	private  MyCanvas mCanvas=new MyCanvas(WIDTH,HEIGHT);
 	private boolean attack = false;
 
 
@@ -45,15 +45,18 @@ public  class Core extends Application {
 		stage.setTitle("Demo 2 player Fight");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
-		//layout.getChildren().add(mCanvas);
+		Core.layout.getChildren().add(mCanvas);	
+	  
+	
+		
 		map1.createMap("void");
-
 		stage.show();
 
 		/**
 		 * this handles player input
 		 */
 		scene.setOnKeyPressed(e -> {
+					
 			if (e.getCode() == KeyCode.D) {
 				getPlayer1().player.setImage(getPlayer1().getPlayerRight());
 				getPlayer1().setDeltaX(Actors.getMoveRes()); 
@@ -78,14 +81,24 @@ public  class Core extends Application {
 				getPlayer1().player.setImage(getPlayer1().getPlayerUp());
 			}
 
+			
+			
+			if(getEnemy1().getHealth()<=0||getPlayer1().getHealth()<=0) {
+				Core.layout.getChildren().remove(mCanvas);	
+				MyCanvas mCanvas2=new MyCanvas(WIDTH,HEIGHT);
+				Core.layout.getChildren().add(mCanvas2);
+			
 			if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthbag().isVisible() == true) {
 					getPlayer1().setHealth(10);
-					inventory.getHealthbag().setVisible(false);
+					inventory.getHealthbag().setVisible(false);		
+					Core.layout.getChildren().remove(mCanvas2);	
+					MyCanvas mCanvas3=new MyCanvas(WIDTH,HEIGHT);
+					Core.layout.getChildren().add(mCanvas3);
 					System.out.println("pHealth " + getPlayer1().getHealth());
 				}
 			}
-
+			}
 			if (e.getCode() == KeyCode.SPACE) {
 				attack = true;
 			}
