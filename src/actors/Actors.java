@@ -155,6 +155,13 @@ public abstract class Actors {
 				return false;
 			}
 		}
+		
+		for (Node chest : Core.map1.getFins().getChildren()) {
+			if (chest.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
+					getBounds().getWidth(), getBounds().getHeight())) {
+			}
+			
+		}
 
 		return true;
 	}

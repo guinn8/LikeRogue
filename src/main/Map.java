@@ -14,10 +14,10 @@ public class Map {
 	ImageView[][] map = new ImageView[size][size];
 	Image chest = new Image("file:res/sprites/map/Chest.jpg");
 	Image brick = new Image("file:res/sprites/map/wall3.png");
-	//Image fin = new Image("file:res/map/sprites/X.png");
+	Image fin = new Image("file:res/map/sprites/X.png");
 	Group walls = new Group();
 	Group chests = new Group();
-	//Group fins = new Group();
+	Group fins = new Group();
 	Map() {
 		Core.layout.getChildren().add(walls);
 		Core.layout.getChildren().add(chests);
@@ -63,7 +63,7 @@ public class Map {
 				chests.getChildren().add(map[posX][posY]);
 			}
 			
-		/*	else if (layout.charAt(i) == 'X') {
+			else if (layout.charAt(i) == 'X') {
 				map[posX][posY] = new ImageView();
 				map[posX][posY].setImage(fin);
 				map[posX][posY].setFitHeight(50);
@@ -71,7 +71,7 @@ public class Map {
 				map[posX][posY].setLayoutX(posX * 50);// map[i][j].getLayoutBounds().getWidth());
 				map[posX][posY].setLayoutY(posY * 50);// map[i][j].getLayoutBounds().getHeight());
 				fins.getChildren().add(map[posX][posY]);			
-		}*/
+		}
 	}
 	mapMaker.close();
 }
@@ -84,5 +84,10 @@ public class Map {
 	public Group getChests() {
 		// TODO Auto-generated method stub
 		return chests;
+	}
+
+	public Group getFins() {
+		// TODO Auto-generated method stub
+		return fins;
 	}
 }
