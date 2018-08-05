@@ -1,8 +1,5 @@
 package actors;
 
-
-
-
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,9 +10,9 @@ import main.*;
 
 //Erics changes: added getters and setters for every instance variables.
 public class Player extends Actors {
+	
 	private ImageView damageView = new ImageView();
 	public ImageView player = new ImageView(); // Public Awareness
-	
 	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
 	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
 	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
@@ -29,7 +26,6 @@ public class Player extends Actors {
 	 * @param setHealth
 	 * @param setDamage
 	 */
-
 	public Player(int setX, int setY, int setHealth, int setDamage) {
 		
 		super(setX, setY, setHealth, setDamage);
