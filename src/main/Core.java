@@ -108,17 +108,19 @@ public  class Core extends Application {
 		 * this handles the main game loop
 		 */
 		AnimationTimer animator = new AnimationTimer() {
+			int counter;
 			@Override
 			public void handle(long arg0) {
-
+				counter++;
 				getPlayer1().getDamageView().setLayoutX(-1000);//todo change so this lives in player
 				getPlayer1().getDamageView().setLayoutY(-1000);
 				
-				player1.move();
-
+				player1.move(player1);
+				
+				if (counter%5==0)enemy1.enemyMove(enemy1);
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
-
+				
 				attack=(player1.attack(attack));// this is super convoluted. comment later
 			}
 		}; animator.start();

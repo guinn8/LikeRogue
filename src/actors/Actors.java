@@ -89,41 +89,60 @@ public abstract class Actors {
 	 **/
 	public boolean check( Actors actor) {
 	
-		
+	
 		/**
 		 * handles enemy/player collision 
 		 */
-		/*for (Node object : Core.getEnemy1().getHostileG().getChildren()) {
-
-			if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-					getBounds().getWidth(), getBounds().getHeight())) {
+		if(actor instanceof Player) {
+		for (Node object : Core.getEnemy1().getHostileG().getChildren()) {
 			
-				hitCount++;
-				if (hitCount==100) {
-					Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
-					Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
-					hitCount=0;
-				}
+				if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
+						getBounds().getWidth(), getBounds().getHeight())) {
 				
-				System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
-				System.out.println("Player Health " + Core.getPlayer1().getHealth());
-
-				
-				
-				// "Deaths of the sprites"
-				if (Core.getPlayer1().getHealth() <= 0) {
-					Core.layout.getChildren().remove(Core.getPlayer1().player);
-					System.out.println("You died!");
+					hitCount++;
+					if (hitCount==100) {
+						Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
+						Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
+						hitCount=0;
+					}
+					
+					System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
+					System.out.println("Player Health " + Core.getPlayer1().getHealth());
+	
+					
+					
+					// "Deaths of the sprites"
+					if (Core.getPlayer1().getHealth() <= 0) {
+						Core.layout.getChildren().remove(Core.getPlayer1().player);
+						System.out.println("You died!");
+					}
+	
+					if (Core.getEnemy1().getHealth() <= 0) {
+						Core.layout.getChildren().remove(Core.getEnemy1().getEnemy());
+						Core.getEnemy1().getEnemy().setLayoutX(-10000);
+						Core.getEnemy1().getEnemy().setLayoutY(-10000);
+					}
+					return false;
 				}
-
-				if (Core.getEnemy1().getHealth() <= 0) {
-					Core.layout.getChildren().remove(Core.getEnemy1().getEnemy());
-					Core.getEnemy1().getEnemy().setLayoutX(-10000);
-					Core.getEnemy1().getEnemy().setLayoutY(-10000);
-				}
-				return false;
-			}*/
-		//}
+			}
+		}
+		
+		if(actor instanceof Enemy) {
+			if (Core.getPlayer1().getBounds().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
+					getBounds().getWidth(), getBounds().getHeight())) {
+						hitCount++;
+						if (hitCount==100) {
+							Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
+							Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
+							hitCount=0;
+						}
+						
+						System.out.println("Enemy Health " + Core.getEnemy1().getHealth());
+						System.out.println("Player Health " + Core.getPlayer1().getHealth());
+						return false;
+			}
+		}
+		
 		/**
 		 * handles wall collision
 		 */
@@ -164,6 +183,7 @@ public abstract class Actors {
 		}
 
 		return true;
+	
 	}
 	
 	/**
@@ -182,12 +202,14 @@ public abstract class Actors {
 		return canMove;
 	}
 	public boolean move(Actors actor,int xDir,int yDir) {
+		deltaX=xDir;
+		deltaY=yDir;
 		boolean canMove=true;
 		for (int i = 0; i < 10; i++) {
 			if (check(actor)) {
-				System.out.println(getBounds());
-				getImageView().setLayoutY(getImageView().getLayoutY() + xDir);
-				getImageView().setLayoutX(getImageView().getLayoutX() + yDir);
+				
+				getImageView().setLayoutY(getImageView().getLayoutY() + yDir);
+				getImageView().setLayoutX(getImageView().getLayoutX() + xDir);
 				canMove=false;
 				
 			}
