@@ -11,24 +11,41 @@ import java.io.*;
 public class Map {
 	int size = 12;
 	File map1=new File("res/layouts/map1.txt");
+	File map2=new File("res/layouts/map2.txt");
+	File map3=new File("res/layouts/map3.txt");
+	File map4=new File("res/layouts/map4.txt");
 	ImageView[][] map = new ImageView[size][size];
 	Image chest = new Image("file:res/sprites/map/Chest.jpg");
 	Image brick = new Image("file:res/sprites/map/wall3.png");
-	Image fin = new Image("file:res/map/sprites/X.png");
+	Image fin = new Image("file:res/sprites/map/X.png");
 	Group walls = new Group();
 	Group chests = new Group();
 	Group fins = new Group();
 	Map() {
 		Core.layout.getChildren().add(walls);
 		Core.layout.getChildren().add(chests);
-		//Core.layout.getChildren().add(fins);
+		Core.layout.getChildren().add(fins);
 	}
 	
 	public void createMap(String layout) throws FileNotFoundException {
 		int posX = 0;
 		int posY = 0;
 		//File has to stay in the "Main Folder". Cant be in sub folders or packages.
-	    Scanner mapMaker = new Scanner(map1);
+	    File X = null;
+	    int random = (int)(Math.random()*4 + 1);
+	    if(random == 1) {
+	    	X = map1;
+	    }
+	    else if(random == 2) {
+	    	X = map2;
+	    }
+	    else if(random == 3) {
+	    	X = map3;
+	    }
+	    else if(random == 4) {
+	    	X = map4;
+	    }
+		Scanner mapMaker = new Scanner(X);
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()){
 			mapLayout = mapLayout + mapMaker.nextLine(); 
