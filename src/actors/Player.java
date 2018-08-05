@@ -3,6 +3,7 @@ package actors;
 
 
 
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -28,6 +29,7 @@ public class Player extends Actors {
 	 * @param setHealth
 	 * @param setDamage
 	 */
+
 	public Player(int setX, int setY, int setHealth, int setDamage) {
 		
 		super(setX, setY, setHealth, setDamage);
@@ -126,6 +128,15 @@ public class Player extends Actors {
 		this.damageView = damageView;
 	}
 	
+	
+	public Bounds getBounds() {
+		return player.getBoundsInParent();
+	
+	}
+	
+	public ImageView getImageView() {
+		return player;	
+	}
 	/**
 	 * 
 	 * @param attack
@@ -142,7 +153,7 @@ public class Player extends Actors {
 				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() - 15);
 				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() + 50);
 			}
-	
+			
 			if (Core.getPlayer1().player.getImage() == Core.getPlayer1().getPlayerLeft()) {
 				Core.getPlayer1().getDamageView().setLayoutX(Core.getPlayer1().player.getLayoutX() - 75);
 				Core.getPlayer1().getDamageView().setLayoutY(Core.getPlayer1().player.getLayoutY() - 15);

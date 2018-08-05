@@ -16,7 +16,7 @@ public class Inventory {
 
 
 	private int chestchose = 0;
-
+	
 	private ImageView sworda = new ImageView();
 	private Image sword = new Image("file:res/sprites/inventory/sword.jpg");
 

@@ -101,7 +101,8 @@ public  class Core extends Application {
 				getPlayer1().getDamageView().setLayoutX(-1000);//todo change so this lives in player
 				getPlayer1().getDamageView().setLayoutY(-1000);
 				
-				player1.move();
+				player1.move(player1);
+				enemy1.enemyMove(enemy1);
 
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
