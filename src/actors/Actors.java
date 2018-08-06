@@ -113,6 +113,13 @@ public abstract class Actors {
 				if (object.getId().equals("finish")) {
 					return false;
 				}
+				
+				if (object.getId().equals("damage")) {
+					
+					Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
+					checkAlive(Core.getEnemy1());
+					return false;
+				}
 			}
 		}
 		return true;

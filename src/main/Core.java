@@ -26,9 +26,7 @@ public  class Core extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	
-	
+
 	public static Pane layout = new Pane();// Public Awareness
 	
 	public static Group solid= new Group();
@@ -66,42 +64,42 @@ public  class Core extends Application {
 		 */
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
-				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerRight());
-				getPlayer1().setDeltaX(Actors.getMoveRes()); 
-				getPlayer1().setDeltaY(0);
+				player1.getImageView().setImage(player1.getPlayerRight());
+				player1.setDeltaX(Actors.getMoveRes()); 
+				player1.setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.A) {
-				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerLeft());
-				getPlayer1().setDeltaX(-Actors.getMoveRes()); 
-				getPlayer1().setDeltaY(0);
+				player1.getImageView().setImage(player1.getPlayerLeft());
+				player1.setDeltaX(-Actors.getMoveRes()); 
+				player1.setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.S) {
-				getPlayer1().setDeltaY(Actors.getMoveRes());
-				getPlayer1().setDeltaX(0);
-				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerDown());
+				player1.setDeltaY(Actors.getMoveRes());
+				player1.setDeltaX(0);
+				player1.getImageView().setImage(player1.getPlayerDown());
 			}
 
 			if (e.getCode() == KeyCode.W) {
-				getPlayer1().setDeltaY(-Actors.getMoveRes());
-				getPlayer1().setDeltaX(0);
-				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerUp());
+				player1.setDeltaY(-Actors.getMoveRes());
+				player1.setDeltaX(0);
+				player1.getImageView().setImage(player1.getPlayerUp());
 			}
 			
-			if(getEnemy1().getHealth() <= 0 || getPlayer1().getHealth() <= 0){
-				Core.layout.getChildren().remove(mCanvas);
+			if(enemy1.getHealth() <= 0 || player1.getHealth() <= 0){
+				layout.getChildren().remove(mCanvas);
 				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
-				Core.layout.getChildren().add(mCanvas2);
+				layout.getChildren().add(mCanvas2);
 		
 				if (e.getCode() == KeyCode.H) {
-					if (getInventory().getHealthbag().isVisible() == true) {
-						getPlayer1().setHealth(10);
-						getInventory().getHealthbag().setVisible(false);
-						Core.layout.getChildren().remove(mCanvas2);
+					if (inventory.getHealthbag().isVisible() == true) {
+						player1.setHealth(10);
+						inventory.getHealthbag().setVisible(false);
+						layout.getChildren().remove(mCanvas2);
 						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
-						Core.layout.getChildren().add(mCanvas3);
-						System.out.println("pHealth " + getPlayer1().getHealth());
+						layout.getChildren().add(mCanvas3);
+						System.out.println("pHealth " + player1.getHealth());
 					}
 				}	
 			}
@@ -120,9 +118,8 @@ public  class Core extends Application {
 			public void handle(long arg0) {
 				counter++;
 				player1.move();
-				
+				player1.tryAttack();
 				if (counter%10==0) {
-					player1.tryAttack();
 					enemy1.move();
 				}
 				player1.setDeltaX(0);
@@ -132,7 +129,9 @@ public  class Core extends Application {
 			}
 		}; animator.start();
 	}
+	
 
+	
 	/**
 	 * @return the player1
 	 */
@@ -154,12 +153,6 @@ public  class Core extends Application {
 		return inventory;
 	}
 
-	/**
-	 * @param inventory the inventory to set
-	 */
-	public static void setInventory(Inventory inventory) {
-		Core.inventory = inventory;
-	}
 
 	/**
 	 * @return the attack

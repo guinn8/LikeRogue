@@ -11,6 +11,7 @@ import java.io.*;
 
 public class Map {
 	int size = 12;
+	int tileSize = 50;
 	File map1=new File("res/layouts/map1.txt");
 	File map2=new File("res/layouts/map2.txt");
 	File map3=new File("res/layouts/map3.txt");
