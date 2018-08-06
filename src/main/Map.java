@@ -31,7 +31,7 @@ public class Map {
 		int posX = 0;
 		int posY = 0;
 		//File has to stay in the "Main Folder". Cant be in sub folders or packages.
-	    File X = null;
+	    File X;
 	    int random = (int)(Math.random()*4 + 1);
 	    if(random == 1) {
 	    	X = map1;
@@ -45,7 +45,7 @@ public class Map {
 	    else if(random == 4) {
 	    	X = map4;
 	    }
-		Scanner mapMaker = new Scanner(X);
+		Scanner mapMaker = new Scanner(map1);//this is done for testing 
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()){
 			mapLayout = mapLayout + mapMaker.nextLine(); 
@@ -99,12 +99,12 @@ public class Map {
 	}
 
 	public Group getChests() {
-		// TODO Auto-generated method stub
+		
 		return chests;
 	}
 
 	public Group getFins() {
-		// TODO Auto-generated method stub
+
 		return fins;
 	}
 }

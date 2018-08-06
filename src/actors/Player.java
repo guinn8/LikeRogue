@@ -144,12 +144,8 @@ public class Player extends Actors {
 			if (damageView.getBoundsInParent().intersects(Core.getEnemy1().getBounds())) {
 				
 				Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
+				checkAlive(Core.getEnemy1());
 				
-				if (Core.getEnemy1().getHealth() <= 0) {
-					Core.layout.getChildren().remove(Core.getEnemy1().getImageView());
-					Core.getEnemy1().getImageView().setLayoutX(-10000);
-					Core.getEnemy1().getImageView().setLayoutY(-10000);
-				}
 			}
 		}
 	return false;

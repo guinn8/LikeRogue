@@ -11,6 +11,8 @@ import org.junit.Test;
 
 public class ActorsTest{
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+	
+	
 	@Test
 	public void testPlayerConst(){
 

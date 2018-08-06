@@ -23,12 +23,33 @@ public abstract class Actors {
 		damage=setDamage;
 		health=setHealth;
 	}
+
 	
 	public static int getMoveRes() {
 		return moveRes;
 	}
 	
+	/**
+	 * overload of check alive
+	 * @param a
+	 */
+	public static void checkAlive(Actors a) {
+		if (a.getHealth() <= 0) {
+				System.out.println("ran");
+				a.getGroup().getChildren().remove(a.getImageView());
+				a.getImageView().setLayoutX(-10000);
+				a.getImageView().setLayoutY(-10000);
+		}	
+	}
 	
+	public void checkAlive() {
+		if (health <= 0) {
+			System.out.println("ran");
+			getGroup().getChildren().remove(getImageView());
+			getImageView().setLayoutX(-10000);
+			getImageView().setLayoutY(-10000);
+		}
+	}
 	public void setDeltaX(double setDeltaX) {
 		deltaX=setDeltaX;
 	}
@@ -55,14 +76,9 @@ public abstract class Actors {
 	}
 	
 	
-	public void checkAlive() {
-		if (health <= 0) {
-			System.out.println("ran");
-			getGroup().getChildren().remove(getImageView());
-			getImageView().setLayoutX(-10000);
-			getImageView().setLayoutY(-10000);
-		}
-	}
+
+	
+
 	
 	public abstract Bounds getBounds();
 	public abstract ImageView getImageView();
