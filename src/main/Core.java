@@ -82,17 +82,20 @@ public  class Core extends Application {
 				getPlayer1().player.setImage(getPlayer1().getPlayerUp());
 			}
 			if(getEnemy1().getHealth() <= 0 || getPlayer1().getHealth() <= 0){
-
-			
-			
-			if (e.getCode() == KeyCode.H) {
-				if (inventory.getHealthbag().isVisible() == true) {
-					getPlayer1().setHealth(10);
-					inventory.getHealthbag().setVisible(false);
-					updateBar();
-					System.out.println("pHealth " + getPlayer1().getHealth());
-				}
-			}
+				Core.layout.getChildren().remove(mCanvas);
+				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
+				Core.layout.getChildren().add(mCanvas2);
+		
+				if (e.getCode() == KeyCode.H) {
+					if (inventory.getHealthbag().isVisible() == true) {
+						getPlayer1().setHealth(10);
+						inventory.getHealthbag().setVisible(false);
+						Core.layout.getChildren().remove(mCanvas2);
+						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
+						Core.layout.getChildren().add(mCanvas3);
+						System.out.println("pHealth " + getPlayer1().getHealth());
+					}
+				}	
 			}
 			
 			if (e.getCode() == KeyCode.SPACE) {
@@ -113,8 +116,7 @@ public  class Core extends Application {
 				
 				player1.move(player1);
 				
-				if (counter%5==0)enemy1.enemyMove(enemy1);
-				if (counter%20==0)updateBar();
+				if (counter%10==0)enemy1.enemyMove(enemy1);
 				getPlayer1().setDeltaX(0);
 				getPlayer1().setDeltaY(0);
 				
@@ -135,11 +137,5 @@ public  class Core extends Application {
 	 */
 	public static Enemy getEnemy1() {
 		return enemy1;
-	}
-	
-	public void updateBar() {
-		Core.layout.getChildren().remove(mCanvas);
-		MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
-		Core.layout.getChildren().add(mCanvas2);
 	}
 }
