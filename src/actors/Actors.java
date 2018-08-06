@@ -1,7 +1,6 @@
 package actors;
 
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import main.Core;
@@ -19,7 +18,6 @@ public abstract class Actors {
 	
 	
 	Actors( int setHealth, int setDamage){
-
 		damage=setDamage;
 		health=setHealth;
 	}
@@ -35,8 +33,7 @@ public abstract class Actors {
 	 */
 	public static void checkAlive(Actors a) {
 		if (a.getHealth() <= 0) {
-				System.out.println("ran");
-				a.getGroup().getChildren().remove(a.getImageView());
+				Core.solid.getChildren().remove(a.getImageView());
 				a.getImageView().setLayoutX(-10000);
 				a.getImageView().setLayoutY(-10000);
 		}	
@@ -44,12 +41,12 @@ public abstract class Actors {
 	
 	public void checkAlive() {
 		if (health <= 0) {
-			System.out.println("ran");
-			getGroup().getChildren().remove(getImageView());
+			Core.solid.getChildren().remove(getImageView());
 			getImageView().setLayoutX(-10000);
 			getImageView().setLayoutY(-10000);
 		}
 	}
+	
 	public void setDeltaX(double setDeltaX) {
 		deltaX=setDeltaX;
 	}
@@ -75,15 +72,9 @@ public abstract class Actors {
 		damage=setDamage;
 	}
 	
-	
-
-	
-
-	
 	public abstract Bounds getBounds();
 	public abstract ImageView getImageView();
-	public abstract Group getGroup();
-	
+
 	/**
 	 * check handles the collision detection
 	 * 
@@ -93,99 +84,67 @@ public abstract class Actors {
 	 **/
 	public boolean check( Actors actor) {
 	
-		/**
-		 * handles enemy/player collision 
-		 */
-		if(actor instanceof Player) {
-			for (Node object : Core.getEnemy1().getGroup().getChildren()) {
-			
-				if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY, 
-					getBounds().getWidth(), getBounds().getHeight())){
-		
-					hitCount++;
-					
-					if (hitCount==100) {
-						Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
-						Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
-						hitCount=0;
-					}
-		
-					
-					checkAlive();
-
-					return false;
-				}
-			}
-		}
-		
-		if(actor instanceof Enemy) {
-			if (Core.getPlayer1().getBounds().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-					getBounds().getWidth(), getBounds().getHeight())) {
-						hitCount++;
-						if (hitCount==100) {
-							Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
-							Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
-							hitCount=0;
-						}
-						
-						checkAlive();
+		for (Node object : Core.solid.getChildren()) {
+			if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY, 
+				getBounds().getWidth(), getBounds().getHeight()) && object.getId() != null) {
+							
+				if (object.getId().equals("wall")) return false;
+				
+				if (actor instanceof Player) {
+					if (object.getId().equals("enemy")){
+						hit();
 						return false;
-			}
-		}
-		
-		/**
-		 * handles wall collision
-		 */
-		for (Node object : Core.map1.getWalls().getChildren()) {
-			if (object.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-				getBounds().getWidth(), getBounds().getHeight())) {		
+					}
+				}
+				
+				if(actor instanceof Enemy) {
+					if (object.getId().equals("player")){
+						hit();
+						return false;
+					}
+				}
+				
+				if (object.getId().equals("chest")) {
+					Core.solid.getChildren().remove(object);
+					Core.getInventory().chestRoll();
 					return false;
 				}
-		}
-		
-		/**
-		 * handles chest collision
-		 */
-		for (Node chest : Core.map1.getChests().getChildren()) {
-			if (chest.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-				getBounds().getWidth(), getBounds().getHeight())) {
 				
-				Core.map1.getChests().getChildren().remove(chest);
-
-				if (Core.inventory.getchestchose() == 1) {
-					Core.inventory.getSworda().setVisible(true);
-					Core.getPlayer1().setDamage(3);
+				if (object.getId().equals("finish")) {
+					return false;
 				}
-				
-				if (Core.inventory.getchestchose() == 2) {
-					Core.inventory.getHealthbag().setVisible(true);
-				}
-				return false;
 			}
 		}
-		
-		for (Node chest : Core.map1.getFins().getChildren()) {
-			if (chest.getBoundsInParent().intersects(getBounds().getMinX() + deltaX, getBounds().getMinY() + deltaY,
-					getBounds().getWidth(), getBounds().getHeight())) {
-			}
-		}
-		
-	return true;
+		return true;
 	}
 	
 	/**
 	 * 
 	 */
-	public boolean move(Actors actor) {
-		boolean canMove=true;
+	public void hit() {
+		hitCount++;
+		if (hitCount==100) {
+			Core.getEnemy1().setHealth(Core.getEnemy1().getHealth()-Core.getPlayer1().getDamage());
+			Core.getPlayer1().setHealth(Core.getPlayer1().getHealth()-1);
+			hitCount=0;
+		}
+		checkAlive();
+	}
+
+	
+	/**
+	 * @return 
+	 * 
+	 */
+	public void move() {
+		
 		for (int i = 0; i < 10; i++) {
-			if (check(actor)) {
+			if (check(this)) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
 				getImageView().setLayoutX(getImageView().getLayoutX() + deltaX);
-				canMove=false;
+				
 			}
 		}
-		return canMove;
 	}
 	
 	public boolean move(Actors actor,int xDir,int yDir) {

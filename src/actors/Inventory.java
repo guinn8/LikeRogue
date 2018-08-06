@@ -64,9 +64,17 @@ public class Inventory {
 	 * 
 	 * @return 0,1,2
 	 */
-	public int getchestchose() {
+	public void chestRoll() {
 		chestchose = (int) (Math.ceil(Math.random() * 2));
-		return chestchose;
+		
+		if (chestchose== 1) {
+			Core.getInventory().getSworda().setVisible(true);
+			Core.getPlayer1().setDamage(3);
+		}
+		
+		if (chestchose == 2) {
+			Core.getInventory().getHealthbag().setVisible(true);
+		}
 	}
 
 	public ImageView getHealthbag() {

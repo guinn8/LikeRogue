@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
@@ -26,31 +27,37 @@ public  class Core extends Application {
 		launch(args);
 	}
 	
+	
+	
 	public static Pane layout = new Pane();// Public Awareness
+	
+	public static Group solid= new Group();
 
-	public static Map map1 = new Map();// Public Awareness
+	public static Map map1 = new Map();
 	public static Map map2 = new Map();
 	public static Map map3 = new Map();
 	public static Map map4 = new Map();
 	
-	public static Inventory inventory = new Inventory();// Public Awareness
+	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(75,75,10,5);
 	private static Enemy enemy1 = new Enemy(400,400,10,2);
 	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=650;
 	private MyCanvas mCanvas = new MyCanvas(WIDTH, HEIGHT);
-	private boolean attack = false;
+	private static boolean attack = false;
 
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
-
+		
 		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
 		layout.getChildren().add(mCanvas);
 		map1.createMap("void");
+		
+		layout.getChildren().add(solid);
 
 		stage.show();
 
@@ -59,13 +66,13 @@ public  class Core extends Application {
 		 */
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
-				getPlayer1().player.setImage(getPlayer1().getPlayerRight());
+				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerRight());
 				getPlayer1().setDeltaX(Actors.getMoveRes()); 
 				getPlayer1().setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.A) {
-				getPlayer1().player.setImage(getPlayer1().getPlayerLeft());
+				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerLeft());
 				getPlayer1().setDeltaX(-Actors.getMoveRes()); 
 				getPlayer1().setDeltaY(0);
 			}
@@ -73,23 +80,24 @@ public  class Core extends Application {
 			if (e.getCode() == KeyCode.S) {
 				getPlayer1().setDeltaY(Actors.getMoveRes());
 				getPlayer1().setDeltaX(0);
-				getPlayer1().player.setImage(getPlayer1().getPlayerDown());
+				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerDown());
 			}
 
 			if (e.getCode() == KeyCode.W) {
 				getPlayer1().setDeltaY(-Actors.getMoveRes());
 				getPlayer1().setDeltaX(0);
-				getPlayer1().player.setImage(getPlayer1().getPlayerUp());
+				getPlayer1().getPlayer().setImage(getPlayer1().getPlayerUp());
 			}
+			
 			if(getEnemy1().getHealth() <= 0 || getPlayer1().getHealth() <= 0){
 				Core.layout.getChildren().remove(mCanvas);
 				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
 				Core.layout.getChildren().add(mCanvas2);
 		
 				if (e.getCode() == KeyCode.H) {
-					if (inventory.getHealthbag().isVisible() == true) {
+					if (getInventory().getHealthbag().isVisible() == true) {
 						getPlayer1().setHealth(10);
-						inventory.getHealthbag().setVisible(false);
+						getInventory().getHealthbag().setVisible(false);
 						Core.layout.getChildren().remove(mCanvas2);
 						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
 						Core.layout.getChildren().add(mCanvas3);
@@ -99,7 +107,7 @@ public  class Core extends Application {
 			}
 			
 			if (e.getCode() == KeyCode.SPACE) {
-				attack = true;
+				setAttack(true);
 			}
 		});
 
@@ -111,16 +119,16 @@ public  class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 				counter++;
-				getPlayer1().getDamageView().setLayoutX(-1000);//todo change so this lives in player
-				getPlayer1().getDamageView().setLayoutY(-1000);
+				player1.move();
 				
-				player1.move(player1);
+				if (counter%10==0) {
+					player1.tryAttack();
+					enemy1.move();
+				}
+				player1.setDeltaX(0);
+				player1.setDeltaY(0);
 				
-				if (counter%10==0)enemy1.enemyMove(enemy1);
-				getPlayer1().setDeltaX(0);
-				getPlayer1().setDeltaY(0);
-				
-				attack=(player1.attack(attack));// this is super convoluted. comment later
+				if (counter==1000)counter=0;
 			}
 		}; animator.start();
 	}
@@ -137,5 +145,33 @@ public  class Core extends Application {
 	 */
 	public static Enemy getEnemy1() {
 		return enemy1;
+	}
+
+	/**
+	 * @return the inventory
+	 */
+	public static Inventory getInventory() {
+		return inventory;
+	}
+
+	/**
+	 * @param inventory the inventory to set
+	 */
+	public static void setInventory(Inventory inventory) {
+		Core.inventory = inventory;
+	}
+
+	/**
+	 * @return the attack
+	 */
+	public static boolean isAttack() {
+		return attack;
+	}
+
+	/**
+	 * @param attack the attack to set
+	 */
+	public static void setAttack(boolean setAttack) {
+		attack = setAttack;
 	}
 }

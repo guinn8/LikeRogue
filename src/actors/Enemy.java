@@ -8,18 +8,21 @@ import main.*;
 
 //Eric's changes: Added getter and setter to Imageview enemy, hostileG.
 public class Enemy extends Actors {
-	private Group hostiles = new Group();
+	
+	private static Group hostiles = new Group();
 	private Image enemySprite = new Image("file:res/sprites/enemy/frown.png");
 	private ImageView enemy = new ImageView();
 	boolean right=true;
-
+	
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
 		super(setHealth, setDamage);
 		getEnemy().setLayoutX(setX);
 		getEnemy().setLayoutY(setY);
 		getEnemy().setImage(enemySprite);
-		hostiles.getChildren().add(enemy);
-		Core.layout.getChildren().add(hostiles);
+		Core.solid.getChildren().add(enemy);
+//		hostiles.getChildren().add(enemy);
+//		Core.layout.getChildren().add(hostiles);
+		enemy.setId("enemy");
 	}
 
 	public ImageView getEnemy() {
@@ -37,20 +40,19 @@ public class Enemy extends Actors {
 		return enemy;
 	}
 
-	public void enemyMove(Enemy e) {
+	public void move() {
 			
 		if (right==true) {
-			 move(e,-1,0);
-			 if (move(e,-1,0)==true) right=false;	 
+			 move(this,-1,0);
+			 if (move(this,-1,0)==true) right=false;	 
 		}
 		
 		else if (right==false) {
-			move(e,1,0);
-			if (move(e,1,0)==true) right=true;	
+			move(this,1,0);
+			if (move(this,1,0)==true) right=true;	
 		}
 	}
 
-	@Override
 	public Group getGroup() {
 		return hostiles;
 	}

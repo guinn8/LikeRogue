@@ -1,7 +1,6 @@
 package actors;
 
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -13,13 +12,12 @@ import main.*;
 public class Player extends Actors {
 	
 	private ImageView damageView = new ImageView();
-	public ImageView player = new ImageView(); // Public Awareness
+	private ImageView player = new ImageView(); 
 	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
 	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
 	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
 	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
 	private Image damage = new Image("file:res/sprites/player/damage.png"); 
-	private Group players = new Group();
 	Text heathText = new Text();
 	/**
 	 * 
@@ -32,16 +30,17 @@ public class Player extends Actors {
 		
 		super(setHealth, setDamage);
 		
+		getPlayer().setId("player");
+		damageView.setId("damage");
+		
 		damageView.setImage(damage);
 
-		player.setLayoutX(setX);
-		player.setLayoutY(setY);
-		player.setImage(playerDown);
+		getPlayer().setLayoutX(setX);
+		getPlayer().setLayoutY(setY);
+		getPlayer().setImage(playerDown);
 		
-		Core.layout.getChildren().add(players);
-		players.getChildren().add(player);
-		
-		Core.layout.getChildren().add(damageView);
+		Core.solid.getChildren().add(getPlayer());
+		Core.solid.getChildren().add(damageView);
 		
 		
 		heathText.setText("Player's Health                 "+ " "+"Enemy's Health   ");
@@ -67,7 +66,7 @@ public class Player extends Actors {
 	public Image getPlayerLeft() {
 		return playerLeft;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -96,49 +95,43 @@ public class Player extends Actors {
 	 * 
 	 */
 	public Bounds getBounds() {
-		return player.getBoundsInParent();
+		return getPlayer().getBoundsInParent();
 	}
 	
 	/**
 	 * 
 	 */
 	public ImageView getImageView() {
-		return player;	
+		return getPlayer();	
 	}
-	
+
 	/**
 	 * 
 	 */
-	@Override
-	public Group getGroup() {
-		return players;
-	}
-	
-	/**
-	 * 
-	 * @param attack
-	 * @return
-	 */
-	public boolean attack(boolean attack) {
-		if (attack==true) {
-			if (player.getImage() == playerUp) {
-				damageView.setLayoutX(player.getLayoutX() - 20);
-				damageView.setLayoutY(player.getLayoutY() - 75);
+	public void tryAttack() {
+		
+		damageView.setLayoutX(-1000);
+		damageView.setLayoutY(-1000);
+		
+		if (Core.isAttack()==true) {
+			if (getPlayer().getImage() == playerUp) {
+				damageView.setLayoutX(getPlayer().getLayoutX() - 20);
+				damageView.setLayoutY(getPlayer().getLayoutY() - 75);
 			}
 	
-			if (player.getImage() == playerDown) {
-				damageView.setLayoutX(player.getLayoutX() - 15);
-				damageView.setLayoutY(player.getLayoutY() + 50);
+			if (getPlayer().getImage() == playerDown) {
+				damageView.setLayoutX(getPlayer().getLayoutX() - 15);
+				damageView.setLayoutY(getPlayer().getLayoutY() + 50);
 			}
 			
-			if (player.getImage() == playerLeft) {
-				damageView.setLayoutX(player.getLayoutX() - 75);
-				damageView.setLayoutY(player.getLayoutY() - 15);
+			if (getPlayer().getImage() == playerLeft) {
+				damageView.setLayoutX(getPlayer().getLayoutX() - 75);
+				damageView.setLayoutY(getPlayer().getLayoutY() - 15);
 			}
 	
-			if (player.getImage() == playerRight) {
-				damageView.setLayoutX(player.getLayoutX() + 50);
-				damageView.setLayoutY(player.getLayoutY() - 10);
+			if (getPlayer().getImage() == playerRight) {
+				damageView.setLayoutX(getPlayer().getLayoutX() + 50);
+				damageView.setLayoutY(getPlayer().getLayoutY() - 10);
 			}
 	
 			if (damageView.getBoundsInParent().intersects(Core.getEnemy1().getBounds())) {
@@ -148,6 +141,23 @@ public class Player extends Actors {
 				
 			}
 		}
-	return false;
+	Core.setAttack(false);
+	
+	
 	}
+
+	/**
+	 * @return the player
+	 */
+	public ImageView getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(ImageView player) {
+		this.player = player;
+	}
+
 }
