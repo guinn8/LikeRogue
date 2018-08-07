@@ -17,14 +17,14 @@ public class Inventory {
 
 	private int chestchose = 0;
 	
-	private ImageView sworda = new ImageView();
-	private Image sword = new Image("file:res/sprites/inventory/sword.jpg");
+	private ImageView sword = new ImageView();
+	final private Image swordImage = new Image("file:res/sprites/inventory/sword.jpg");
 
 	private ImageView healthbag = new ImageView();
-	private Image health = new Image("file:res/sprites/inventory/health.png");
+	final private Image healthBagImage = new Image("file:res/sprites/inventory/health.png");
 
 	private ImageView inventory = new ImageView();
-	private Image inventorybar = new Image("file:res/sprites/inventory/inventorybar.png");
+	final private Image inventoryBarImage = new Image("file:res/sprites/inventory/inventorybar.png");
 
 	/**
 	 * Those method in which add Image to the Core
@@ -32,7 +32,7 @@ public class Inventory {
 	 */
 	public Inventory() {
 
-		inventory.setImage(inventorybar);
+		inventory.setImage(inventoryBarImage);
 		inventory.setLayoutX(40);
 		inventory.setLayoutY(500);
 		inventory.setPreserveRatio(true);
@@ -40,14 +40,14 @@ public class Inventory {
 		inventory.setFitWidth(500);
 		Core.addLayout(inventory);
 
-		sworda.setLayoutX(95);
-		sworda.setLayoutY(600);
-		sworda.setPreserveRatio(true);
-		sworda.setFitHeight(70);
-		sworda.setFitWidth(150);
-		sworda.setVisible(false);
-		sworda.setImage(sword);
-		Core.addLayout(sworda);
+		sword.setLayoutX(95);
+		sword.setLayoutY(600);
+		sword.setPreserveRatio(true);
+		sword.setFitHeight(70);
+		sword.setFitWidth(150);
+		sword.setVisible(false);
+		sword.setImage(swordImage);
+		Core.addLayout(sword);
 
 		healthbag.setLayoutX(150);
 		healthbag.setLayoutY(600);
@@ -55,7 +55,7 @@ public class Inventory {
 		healthbag.setFitWidth(150);
 		healthbag.setFitHeight(70);
 		healthbag.setVisible(false);
-		healthbag.setImage(health);
+		healthbag.setImage(healthBagImage);
 		Core.addLayout(healthbag);
 	}
 
@@ -68,28 +68,22 @@ public class Inventory {
 		chestchose = (int) (Math.ceil(Math.random() * 2));
 		
 		if (chestchose== 1) {
-			Core.getInventory().sworda.setVisible(true);
+			sword.setVisible(true);
 			Core.setPlayer1Damage(3);
 		}
 		
 		if (chestchose == 2) {
-			Core.getInventory().healthbag.setVisible(true);
+			healthbag.setVisible(true);
 		}
 	}
+	
 	public void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
-	
 	}
 	
 	public boolean getHealthVis() {
 		return healthbag.isVisible();
-		
 	}
 	
-	public void setSwordVis(boolean vis) {
-		if(vis==true)sworda.setVisible(true);
-		else if (vis==false)sworda.setVisible(false);
-		
-	}
 }
 

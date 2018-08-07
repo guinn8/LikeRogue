@@ -54,60 +54,11 @@ public class Player extends Actors {
 	
 	/**
 	 * 
-	 * 
 	 */
-	public void setPlayerRight() {
-		player.setImage(playerRight);
-	}
+	public boolean attack() {
 		
-	/** 
-	 * 
-	 * 
-	 */
-	public void setPlayerLeft() {
-		player.setImage(playerLeft);
-	}
-	
-	/**
-	 * 
-	 * 
-	 */
-	public void setPlayerDown() {
-		player.setImage(playerDown);
-	}
-
-	/**
-	 * 
-	 * 
-	 */
-	public void setPlayerUp() {
-		player.setImage(playerUp);
-	}
-	
-	
-	/**
-	 * 
-	 */
-	public Bounds getBounds() {
-		return player.getBoundsInParent();
-	}
-	
-	/**
-	 * 
-	 */
-	protected ImageView getImageView() {
-		return player;	
-	}
-
-	/**
-	 * 
-	 */
-	public void tryAttack() {
 		
-		damageView.setLayoutX(-1000);
-		damageView.setLayoutY(-1000);
 		
-		if (Core.isAttack()==true) {
 			if (player.getImage() == playerUp) {
 				damageView.setLayoutX(player.getLayoutX() - 20);
 				damageView.setLayoutY(player.getLayoutY() - 75);
@@ -127,7 +78,30 @@ public class Player extends Actors {
 				damageView.setLayoutX(player.getLayoutX() + 50);
 				damageView.setLayoutY(player.getLayoutY() - 10);
 			}
-		}
-	Core.setAttack(false);
+	return false;
+	}
+	
+	public void resetDamage() {
+		damageView.setLayoutX(-1000);
+		damageView.setLayoutY(-1000);
+	}
+	
+	public void setPlayerRight() {
+		player.setImage(playerRight);
+	}
+	public void setPlayerLeft() {
+		player.setImage(playerLeft);
+	}
+	public void setPlayerDown() {
+		player.setImage(playerDown);
+	}
+	public void setPlayerUp() {
+		player.setImage(playerUp);
+	}
+	public Bounds getBounds() {
+		return player.getBoundsInParent();
+	}
+	protected ImageView getImageView() {
+		return player;	
 	}
 }

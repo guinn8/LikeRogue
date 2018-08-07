@@ -14,16 +14,31 @@ public class Enemy extends Actors {
 	
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
 		super(setHealth, setDamage);
-		getEnemy().setLayoutX(setX);
-		getEnemy().setLayoutY(setY);
-		getEnemy().setImage(enemySprite);
+		enemy.setLayoutX(setX);
+		enemy.setLayoutY(setY);
+		enemy.setImage(enemySprite);
 		Core.addSolid(enemy);
 
 		enemy.setId("enemy");
 	}
 
-	public ImageView getEnemy() {
-		return enemy;
+
+	public void move() {
+			
+		if (right==true) {
+			this.setDelta(-MOVERES, 0);
+			if (Core.check(this)==false)right=false;
+			super.move();
+				 
+		}
+		
+		else if (right==false) {
+			
+			this.setDelta(MOVERES, 0);
+			if (Core.check(this)==false)right=true;
+			super.move();
+			
+		}
 	}
 
 	@Override
@@ -34,18 +49,5 @@ public class Enemy extends Actors {
 	@Override
 	protected ImageView getImageView() {
 		return enemy;
-	}
-
-	public void move() {
-			
-		if (right==true) {
-			 move(this,-MOVERES,0);
-			 if (move(this,-1,0)==true) right=false;	 
-		}
-		
-		else if (right==false) {
-			move(this,1,0);
-			if (move(this,MOVERES,0)==true) right=true;	
-		}
 	}
 }

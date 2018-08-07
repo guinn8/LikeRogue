@@ -21,16 +21,14 @@ import javafx.scene.input.KeyCode;
  * @author Gavin Guinn
  */
 
-//changed player,enemy, healthbag calls to getters
+
 public  class Core extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 	private static int hitCount=0;
-	
-	private static Pane layout = new Pane();// Public Awareness
-	
+	private static Pane layout = new Pane();
 	private static Group solid= new Group();
 
 	private static Map map1 = new Map();
@@ -50,45 +48,40 @@ public  class Core extends Application {
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
-		
 		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
+		
 		layout.getChildren().add(mCanvas);
-		map1.createMap("void");
+		map1.createMap();
 		
 		layout.getChildren().add(solid);
 
 		stage.show();
 
-		/**
-		 * this handles player input
-		 */
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
+				player1.setDelta(Actors.MOVERES,0);
 				player1.setPlayerRight();
-				player1.setDeltaX(Actors.MOVERES); 
-				player1.setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.A) {
-				player1.setPlayerLeft();
-				player1.setDeltaX(-Actors.MOVERES); 
-				player1.setDeltaY(0);
+				player1.setDelta(-Actors.MOVERES,0);
+				player1.setPlayerLeft();				
 			}
 
 			if (e.getCode() == KeyCode.S) {
-				player1.setDeltaY(Actors.MOVERES);
-				player1.setDeltaX(0);
+				player1.setDelta(0, Actors.MOVERES);
 				player1.setPlayerDown();
 			}
 
 			if (e.getCode() == KeyCode.W) {
-				player1.setDeltaY(-Actors.MOVERES);
-				player1.setDeltaX(0);
+				player1.setDelta(0, -Actors.MOVERES);
 				player1.setPlayerUp();
 			}
 			
+			//this block needs work
+			//
 			if(enemy1.getHealth() <= 0 || player1.getHealth() <= 0){
 				layout.getChildren().remove(mCanvas);
 				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
@@ -101,35 +94,36 @@ public  class Core extends Application {
 						layout.getChildren().remove(mCanvas2);
 						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
 						layout.getChildren().add(mCanvas3);
-						System.out.println("pHealth " + player1.getHealth());
 					}
 				}	
 			}
+			//
+			//end block
 			
 			if (e.getCode() == KeyCode.SPACE) {
-				setAttack(true);
+				attack=true;
 			}
 		});
 
-		/**
-		 * this handles the main game loop
-		 */
-		AnimationTimer animator = new AnimationTimer() {
-			int counter;
+		AnimationTimer gameLoop = new AnimationTimer() {
+			int timer;
 			@Override
 			public void handle(long arg0) {
-				counter++;
+				timer++;
 				player1.move();
-				player1.tryAttack();
-				if (counter%10==0) {
+				
+				player1.resetDamage();
+				if(attack==true) {
+					player1.attack();
+					attack=false;
+				}
+				
+				if (timer%5==0) {
 					enemy1.move();
 				}
-				player1.setDeltaX(0);
-				player1.setDeltaY(0);
-				
-				if (counter==1000)counter=0;
+				if (timer==1000)timer=0;
 			}
-		}; animator.start();
+		}; gameLoop.start();
 	}
 	
 	/**
@@ -163,7 +157,7 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					Core.getInventory().chestRoll();
+					inventory.chestRoll();
 					return false;
 				}
 				
@@ -172,7 +166,6 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("damage")) {
-					
 					enemy1.setHealth(enemy1.getHealth()-player1.getDamage());
 					actor.checkAlive();
 					return false;
@@ -182,7 +175,11 @@ public  class Core extends Application {
 		return true;
 	}
 
-	
+	/**
+	 * 
+	 * @param actor1
+	 * @param actor2
+	 */
 	public static void hit(Actors actor1, Actors actor2) {
 		hitCount++;
 		if (hitCount==100) {
@@ -194,66 +191,42 @@ public  class Core extends Application {
 		actor2.checkAlive();
 	}
 
-	//this block needs to be removed
-	//code needs to be reformatted before that can happen
-	public static int getPlayer1Health() {
-		return player1.getHealth();
-	}
-	public static void setPlayer1Health(int health) {
-		player1.setHealth(health);
-	}
-	
-	public static void setPlayer1Damage(int damage) {
-		player1.setDamage(damage);
-	}
-	public static int getEnemy1Health() {
-		return enemy1.getHealth();
-	}
-	public static void setEnemy1Health(int health) {
-		enemy1.setHealth(health);
-	}
-	//
-	//end block
-
 	/**
-	 * @return the inventory
-	 */
-	public static Inventory getInventory() {
-		return inventory;
-	}
-
-
-	/**
-	 * @return the attack
-	 */
-	public static boolean isAttack() {
-		return attack;
-	}
-
-	/**
-	 * @param attack the attack to set
-	 */
-	public static void setAttack(boolean setAttack) {
-		attack = setAttack;
-	}
-
-	/**
-	 * @return the layout
+	 * 
 	 */
 	public static void addLayout(Node n) {
 		layout.getChildren().add(n);
 	}
 	
 	/**
-	 * @return the layout
+	 * 
 	 */
 	public static void addSolid(Node n) {
 		solid.getChildren().add(n);
 	}
-	
+	/**
+	 * 
+	 * @param n
+	 */
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}
+	
+	//this block needs to be removed
+	//code needs to be reformatted before that can happen
+	public static int getPlayer1Health() {
+		return player1.getHealth();
+	}
+	public static void setPlayer1Damage(int damage) {
+		player1.setDamage(damage);
+	}
+	public static int getEnemy1Health() {
+		return enemy1.getHealth();
+	}
+
+	//
+	//end block
+
 	
 
 }

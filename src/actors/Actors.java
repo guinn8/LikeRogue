@@ -10,7 +10,9 @@ public abstract class Actors {
 	private double deltaX = 0;
 	private double deltaY = 0;
 	
-
+	public abstract Bounds getBounds();
+	protected abstract ImageView getImageView();
+	
 	private int health;
 	private int damage;
 	
@@ -19,36 +21,7 @@ public abstract class Actors {
 		health=setHealth;
 	}
 
-	public void setDeltaX(double setDeltaX) {
-		deltaX=setDeltaX;
-	}
-	
-	
-	public void setDeltaY(double setDeltaY) {
-		deltaY=setDeltaY;
-	}
-	
-	public int getHealth() {
-		return health;
-	}
-	
-	public void setHealth(int setHealth) {
-		health=setHealth;
-	}
-	
-	public int getDamage() {
-		return damage;
-	}
-	
-	public void setDamage(int setDamage) {
-		damage=setDamage;
-	}
-	
-	public abstract Bounds getBounds();
-	protected abstract ImageView getImageView();
-	
 	/**
-	 * 
 	 * 
 	 */
 	public  void checkAlive() {
@@ -60,8 +33,7 @@ public abstract class Actors {
 	}
 	
 	/**
-	 * @return 
-	 * 
+	 *  
 	 */
 	public void move() {
 		
@@ -72,28 +44,32 @@ public abstract class Actors {
 				
 			}
 		}
+		setDelta(0,0);
+	}
+
+	public void setDelta(double setDeltaX,double setDeltaY) {
+		deltaX=setDeltaX;
+		deltaY=setDeltaY;
+	}
+
+	public int getHealth() {
+		return health;
 	}
 	
-	public boolean move(Actors actor,int xDir,int yDir) {
-		deltaX=xDir;
-		deltaY=yDir;
-		boolean canMove=true;
-		for (int i = 0; i < 10; i++) {
-			if (Core.check(actor)) {
-				getImageView().setLayoutY(getImageView().getLayoutY() + yDir);
-				getImageView().setLayoutX(getImageView().getLayoutX() + xDir);
-				canMove=false;			
-			}
-		}
-		return canMove;
+	public void setHealth(int setHealth) {
+		health=setHealth;
 	}
-
-
+	
+	public int getDamage() {
+		return damage;
+	}
+	public void setDamage(int setDamage) {
+		damage=setDamage;
+	}
+	
 	public double getDeltaX() {
 		return deltaX;
 	}
-
-
 	public double getDeltaY() {
 		return deltaY;
 	}
