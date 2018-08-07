@@ -8,6 +8,7 @@ import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
@@ -26,7 +27,8 @@ public  class Core extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	private static int hitCount=0;
+	
 	public static Pane layout = new Pane();// Public Awareness
 	
 	public static Group solid= new Group();
@@ -130,21 +132,94 @@ public  class Core extends Application {
 		}; animator.start();
 	}
 	
+	/**
+	 * check handles the collision detection
+	 * 
+	 * @param xDelt distance to check ahead in the x direction
+	 * @param yDelt distance to precheck in the y direction
+	 * @return false if solid object in the way
+	 **/
+	public static boolean check(Actors actor) {
+	
+		for (Node object : Core.solid.getChildren()) {
+			if (object.getBoundsInParent().intersects(actor.getBounds().getMinX() + actor.getDeltaX(), actor.getBounds().getMinY() + actor.getDeltaY(), 
+				actor.getBounds().getWidth(), actor.getBounds().getHeight()) && object.getId() != null) {
+							
+				if (object.getId().equals("wall")) return false;
+				
+				if (actor instanceof Player) {
+					if (object.getId().equals("enemy")){
+						hit(actor,enemy1);
+						return false;
+					}
+				}
+				
+				if(actor instanceof Enemy) {
+					if (object.getId().equals("player")){
+						hit(actor, player1);
+						return false;
+					}
+				}
+				
+				if (object.getId().equals("chest")) {
+					Core.solid.getChildren().remove(object);
+					Core.getInventory().chestRoll();
+					return false;
+				}
+				
+				if (object.getId().equals("finish")) {
+					return false;
+				}
+				
+				if (object.getId().equals("damage")) {
+					
+					Core.setEnemy1Health(Core.getEnemy1Health()-Core.getPlayer1Damage());
+					actor.checkAlive();
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	
-	/**
-	 * @return the player1
-	 */
-	public static Player getPlayer1() {
-		return player1;
+	public static void hit(Actors actor1, Actors actor2) {
+		hitCount++;
+		if (hitCount==100) {
+			actor1.setHealth(actor1.getHealth()-actor2.getDamage());
+			actor2.setHealth(actor2.getHealth()-actor1.getDamage());
+			hitCount=0;
+		}
+		actor1.checkAlive();
+		actor2.checkAlive();
 	}
 
-	/**
-	 * @return the enemy1
-	 */
-	public static Enemy getEnemy1() {
-		return enemy1;
+	
+	public static int getPlayer1Health() {
+		return player1.getHealth();
 	}
+	
+	public static void setPlayer1Health(int health) {
+		player1.setHealth(health);
+	}
+	
+	public static int getPlayer1Damage() {
+		return player1.getDamage();
+	}
+	
+	public static void setPlayer1Damage(int damage) {
+		player1.setDamage(damage);
+	}
+	
+	public static int getEnemy1Health() {
+		return enemy1.getHealth();
+	}
+	
+	public static void setEnemy1Health(int health) {
+		enemy1.setHealth(health);
+	}
+	
+
 
 	/**
 	 * @return the inventory

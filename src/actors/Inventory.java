@@ -69,7 +69,7 @@ public class Inventory {
 		
 		if (chestchose== 1) {
 			Core.getInventory().getSworda().setVisible(true);
-			Core.getPlayer1().setDamage(3);
+			Core.setPlayer1Damage(3);
 		}
 		
 		if (chestchose == 2) {
