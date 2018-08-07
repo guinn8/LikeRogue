@@ -29,14 +29,14 @@ public  class Core extends Application {
 	}
 	private static int hitCount=0;
 	
-	public static Pane layout = new Pane();// Public Awareness
+	private static Pane layout = new Pane();// Public Awareness
 	
-	public static Group solid= new Group();
+	private static Group solid= new Group();
 
-	public static Map map1 = new Map();
-	public static Map map2 = new Map();
-	public static Map map3 = new Map();
-	public static Map map4 = new Map();
+	private static Map map1 = new Map();
+//	private static Map map2 = new Map();
+//	private static Map map3 = new Map();
+//	private static Map map4 = new Map();
 	
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(75,75,10,5);
@@ -66,27 +66,27 @@ public  class Core extends Application {
 		 */
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
-				player1.getImageView().setImage(player1.getPlayerRight());
-				player1.setDeltaX(Actors.getMoveRes()); 
+				player1.setPlayerRight();
+				player1.setDeltaX(Actors.MOVERES); 
 				player1.setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.A) {
-				player1.getImageView().setImage(player1.getPlayerLeft());
-				player1.setDeltaX(-Actors.getMoveRes()); 
+				player1.setPlayerLeft();
+				player1.setDeltaX(-Actors.MOVERES); 
 				player1.setDeltaY(0);
 			}
 
 			if (e.getCode() == KeyCode.S) {
-				player1.setDeltaY(Actors.getMoveRes());
+				player1.setDeltaY(Actors.MOVERES);
 				player1.setDeltaX(0);
-				player1.getImageView().setImage(player1.getPlayerDown());
+				player1.setPlayerDown();
 			}
 
 			if (e.getCode() == KeyCode.W) {
-				player1.setDeltaY(-Actors.getMoveRes());
+				player1.setDeltaY(-Actors.MOVERES);
 				player1.setDeltaX(0);
-				player1.getImageView().setImage(player1.getPlayerUp());
+				player1.setPlayerUp();
 			}
 			
 			if(enemy1.getHealth() <= 0 || player1.getHealth() <= 0){
@@ -95,9 +95,9 @@ public  class Core extends Application {
 				layout.getChildren().add(mCanvas2);
 		
 				if (e.getCode() == KeyCode.H) {
-					if (inventory.getHealthbag().isVisible() == true) {
+					if (inventory.getHealthVis() == true) {
 						player1.setHealth(10);
-						inventory.getHealthbag().setVisible(false);
+						inventory.setHealthVis(false);
 						layout.getChildren().remove(mCanvas2);
 						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
 						layout.getChildren().add(mCanvas3);
@@ -141,7 +141,7 @@ public  class Core extends Application {
 	 **/
 	public static boolean check(Actors actor) {
 	
-		for (Node object : Core.solid.getChildren()) {
+		for (Node object : solid.getChildren()) {
 			if (object.getBoundsInParent().intersects(actor.getBounds().getMinX() + actor.getDeltaX(), actor.getBounds().getMinY() + actor.getDeltaY(), 
 				actor.getBounds().getWidth(), actor.getBounds().getHeight()) && object.getId() != null) {
 							
@@ -162,7 +162,7 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("chest")) {
-					Core.solid.getChildren().remove(object);
+					solid.getChildren().remove(object);
 					Core.getInventory().chestRoll();
 					return false;
 				}
@@ -173,7 +173,7 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("damage")) {
 					
-					Core.setEnemy1Health(Core.getEnemy1Health()-Core.getPlayer1Damage());
+					enemy1.setHealth(enemy1.getHealth()-player1.getDamage());
 					actor.checkAlive();
 					return false;
 				}
@@ -194,32 +194,26 @@ public  class Core extends Application {
 		actor2.checkAlive();
 	}
 
-	
+	//this block needs to be removed
+	//code needs to be reformatted before that can happen
 	public static int getPlayer1Health() {
 		return player1.getHealth();
 	}
-	
 	public static void setPlayer1Health(int health) {
 		player1.setHealth(health);
-	}
-	
-	public static int getPlayer1Damage() {
-		return player1.getDamage();
 	}
 	
 	public static void setPlayer1Damage(int damage) {
 		player1.setDamage(damage);
 	}
-	
 	public static int getEnemy1Health() {
 		return enemy1.getHealth();
 	}
-	
 	public static void setEnemy1Health(int health) {
 		enemy1.setHealth(health);
 	}
-	
-
+	//
+	//end block
 
 	/**
 	 * @return the inventory
@@ -242,4 +236,24 @@ public  class Core extends Application {
 	public static void setAttack(boolean setAttack) {
 		attack = setAttack;
 	}
+
+	/**
+	 * @return the layout
+	 */
+	public static void addLayout(Node n) {
+		layout.getChildren().add(n);
+	}
+	
+	/**
+	 * @return the layout
+	 */
+	public static void addSolid(Node n) {
+		solid.getChildren().add(n);
+	}
+	
+	public static void removeSolid(Node n) {
+		solid.getChildren().remove(n);
+	}
+	
+
 }

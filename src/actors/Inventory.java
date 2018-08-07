@@ -38,25 +38,25 @@ public class Inventory {
 		inventory.setPreserveRatio(true);
 		inventory.setFitHeight(300);
 		inventory.setFitWidth(500);
-		Core.layout.getChildren().add(inventory);
+		Core.addLayout(inventory);
 
-		getSworda().setLayoutX(95);
-		getSworda().setLayoutY(600);
-		getSworda().setPreserveRatio(true);
-		getSworda().setFitHeight(70);
-		getSworda().setFitWidth(150);
-		getSworda().setVisible(false);
-		getSworda().setImage(sword);
-		Core.layout.getChildren().add(getSworda());
+		sworda.setLayoutX(95);
+		sworda.setLayoutY(600);
+		sworda.setPreserveRatio(true);
+		sworda.setFitHeight(70);
+		sworda.setFitWidth(150);
+		sworda.setVisible(false);
+		sworda.setImage(sword);
+		Core.addLayout(sworda);
 
-		getHealthbag().setLayoutX(150);
-		getHealthbag().setLayoutY(600);
-		getHealthbag().setPreserveRatio(true);
-		getHealthbag().setFitWidth(150);
-		getHealthbag().setFitHeight(70);
-		getHealthbag().setVisible(false);
-		getHealthbag().setImage(health);
-		Core.layout.getChildren().add(getHealthbag());
+		healthbag.setLayoutX(150);
+		healthbag.setLayoutY(600);
+		healthbag.setPreserveRatio(true);
+		healthbag.setFitWidth(150);
+		healthbag.setFitHeight(70);
+		healthbag.setVisible(false);
+		healthbag.setImage(health);
+		Core.addLayout(healthbag);
 	}
 
 	/**
@@ -68,28 +68,28 @@ public class Inventory {
 		chestchose = (int) (Math.ceil(Math.random() * 2));
 		
 		if (chestchose== 1) {
-			Core.getInventory().getSworda().setVisible(true);
+			Core.getInventory().sworda.setVisible(true);
 			Core.setPlayer1Damage(3);
 		}
 		
 		if (chestchose == 2) {
-			Core.getInventory().getHealthbag().setVisible(true);
+			Core.getInventory().healthbag.setVisible(true);
 		}
 	}
-
-	public ImageView getHealthbag() {
-		return healthbag;
+	public void setHealthVis(boolean vis) {
+		healthbag.setVisible(vis);
+	
 	}
-
-	public void setHealthbag(ImageView healthbag) {
-		this.healthbag = healthbag;
+	
+	public boolean getHealthVis() {
+		return healthbag.isVisible();
+		
 	}
-
-	public ImageView getSworda() {
-		return sworda;
-	}
-
-	public void setSworda(ImageView sworda) {
-		this.sworda = sworda;
+	
+	public void setSwordVis(boolean vis) {
+		if(vis==true)sworda.setVisible(true);
+		else if (vis==false)sworda.setVisible(false);
+		
 	}
 }
+

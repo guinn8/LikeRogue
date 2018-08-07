@@ -17,7 +17,7 @@ public class Enemy extends Actors {
 		getEnemy().setLayoutX(setX);
 		getEnemy().setLayoutY(setY);
 		getEnemy().setImage(enemySprite);
-		Core.solid.getChildren().add(enemy);
+		Core.addSolid(enemy);
 
 		enemy.setId("enemy");
 	}
@@ -32,20 +32,20 @@ public class Enemy extends Actors {
 	}
 
 	@Override
-	public ImageView getImageView() {
+	protected ImageView getImageView() {
 		return enemy;
 	}
 
 	public void move() {
 			
 		if (right==true) {
-			 move(this,-1,0);
+			 move(this,-MOVERES,0);
 			 if (move(this,-1,0)==true) right=false;	 
 		}
 		
 		else if (right==false) {
 			move(this,1,0);
-			if (move(this,1,0)==true) right=true;	
+			if (move(this,MOVERES,0)==true) right=true;	
 		}
 	}
 }

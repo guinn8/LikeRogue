@@ -40,8 +40,8 @@ public class Player extends Actors {
 		player.setLayoutY(setY);
 		player.setImage(playerDown);
 		
-		Core.solid.getChildren().add(player);
-		Core.solid.getChildren().add(damageView);
+		Core.addSolid(player);
+		Core.addSolid(damageView);
 		
 		
 		heathText.setText("Player's Health                 "+ " "+"Enemy's Health   ");
@@ -49,48 +49,41 @@ public class Player extends Actors {
 		heathText.setLayoutX(50);
 		heathText.setLayoutY(40);
 		
-		Core.layout.getChildren().add(heathText);
+		Core.addLayout(heathText);
 	}
 	
 	/**
 	 * 
-	 * @return
+	 * 
 	 */
-	public Image getPlayerRight() {
-		return playerRight;
+	public void setPlayerRight() {
+		player.setImage(playerRight);
 	}
 		
 	/** 
 	 * 
-	 * @return
+	 * 
 	 */
-	public Image getPlayerLeft() {
-		return playerLeft;
+	public void setPlayerLeft() {
+		player.setImage(playerLeft);
 	}
 	
 	/**
 	 * 
-	 * @return
+	 * 
 	 */
-	public Image getPlayerDown() {
-		return playerDown;
+	public void setPlayerDown() {
+		player.setImage(playerDown);
 	}
 
 	/**
 	 * 
-	 * @return
+	 * 
 	 */
-	public Image getPlayerUp() {
-		return playerUp;
+	public void setPlayerUp() {
+		player.setImage(playerUp);
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public ImageView getDamageView() {
-		return damageView;
-	}
 	
 	/**
 	 * 
@@ -102,7 +95,7 @@ public class Player extends Actors {
 	/**
 	 * 
 	 */
-	public ImageView getImageView() {
+	protected ImageView getImageView() {
 		return player;	
 	}
 

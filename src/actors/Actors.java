@@ -6,7 +6,7 @@ import main.Core;
 
 public abstract class Actors {
 
-	private static int moveRes = 1;
+	public static final int MOVERES = 1;
 	private double deltaX = 0;
 	private double deltaY = 0;
 	
@@ -14,19 +14,10 @@ public abstract class Actors {
 	private int health;
 	private int damage;
 	
-	
-	
-	
 	Actors( int setHealth, int setDamage){
 		damage=setDamage;
 		health=setHealth;
 	}
-
-	
-	public static int getMoveRes() {
-		return moveRes;
-	}
-	
 
 	public void setDeltaX(double setDeltaX) {
 		deltaX=setDeltaX;
@@ -54,27 +45,19 @@ public abstract class Actors {
 	}
 	
 	public abstract Bounds getBounds();
-	public abstract ImageView getImageView();
-
+	protected abstract ImageView getImageView();
 	
 	/**
 	 * 
-	 */
-
-	
-	/**
-	 * overload of check alive
-	 * @param a
+	 * 
 	 */
 	public  void checkAlive() {
 		if (this.getHealth() <= 0) {
-				Core.solid.getChildren().remove(this.getImageView());
+				Core.removeSolid(this.getImageView());
 				this.getImageView().setLayoutX(-10000);
 				this.getImageView().setLayoutY(-10000);
 		}	
 	}
-
-
 	
 	/**
 	 * @return 
