@@ -159,7 +159,7 @@ public abstract class Actors {
 				//newLevel.start(null);
 				Core.layout.getChildren().remove(fin);
 				Core.removeMap();
-				//Platform.exit();
+				Platform.exit();
 				//Application.launch(Core.class);
 				return true;
 			}
