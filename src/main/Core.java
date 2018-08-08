@@ -2,11 +2,13 @@ package main;
 
 import javafx.scene.layout.*;
 
+
 import java.io.FileNotFoundException;
 
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,8 +43,8 @@ public  class Core extends Application {
 	private static Enemy enemy1 = new Enemy(400,400,10,2);
 	
 	private static final int WIDTH=600;
-	private static final int HEIGHT=650;
-	private MyCanvas mCanvas = new MyCanvas(WIDTH, HEIGHT);
+	private static final int HEIGHT=680;
+	
 	private static boolean attack = false;
 
 
@@ -51,8 +53,7 @@ public  class Core extends Application {
 		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
-		
-		layout.getChildren().add(mCanvas);
+
 		map1.createMap();
 		
 		layout.getChildren().add(solid);
@@ -80,23 +81,14 @@ public  class Core extends Application {
 				player1.setPlayerUp();
 			}
 			
-			//this block needs work
-			//
-			if(enemy1.getHealth() <= 0 || player1.getHealth() <= 0){
-				layout.getChildren().remove(mCanvas);
-				MyCanvas mCanvas2 = new MyCanvas(WIDTH, HEIGHT);
-				layout.getChildren().add(mCanvas2);
-		
+			
 				if (e.getCode() == KeyCode.H) {
 					if (inventory.getHealthVis() == true) {
 						player1.setHealth(10);
-						inventory.setHealthVis(false);
-						layout.getChildren().remove(mCanvas2);
-						MyCanvas mCanvas3 = new MyCanvas(WIDTH, HEIGHT);
-						layout.getChildren().add(mCanvas3);
+				
 					}
 				}	
-			}
+			
 			//
 			//end block
 			
@@ -110,6 +102,7 @@ public  class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 				timer++;
+				player1.drawHealthBar() ;
 				player1.move();
 				
 				player1.resetDamage();
@@ -120,6 +113,7 @@ public  class Core extends Application {
 				
 				if (timer%5==0) {
 					enemy1.move();
+				
 				}
 				if (timer==1000)timer=0;
 			}
@@ -157,12 +151,20 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					inventory.chestRoll();
+					int chestchose = (int) (Math.ceil(Math.random() * 2));
+					if (chestchose== 1) {
+						inventory.setSwordVis(true);
+						actor.setDamage(3);
+					}
+					else if (chestchose == 2) inventory.setHealthVis(true);
+					
 					return false;
 				}
 				
 				if (object.getId().equals("finish")) {
+					Platform.exit();
 					return false;
+					
 				}
 				
 				if (object.getId().equals("damage")) {
@@ -211,22 +213,4 @@ public  class Core extends Application {
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}
-	
-	//this block needs to be removed
-	//code needs to be reformatted before that can happen
-	public static int getPlayer1Health() {
-		return player1.getHealth();
-	}
-	public static void setPlayer1Damage(int damage) {
-		player1.setDamage(damage);
-	}
-	public static int getEnemy1Health() {
-		return enemy1.getHealth();
-	}
-
-	//
-	//end block
-
-	
-
 }

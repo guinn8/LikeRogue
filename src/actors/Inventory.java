@@ -13,9 +13,6 @@ import main.*;
  */
 //Eric's Changes: Added getter and setter for healthbag, sworda.
 public class Inventory {
-
-
-	private int chestchose = 0;
 	
 	private ImageView sword = new ImageView();
 	final private Image swordImage = new Image("file:res/sprites/inventory/sword.jpg");
@@ -64,21 +61,15 @@ public class Inventory {
 	 * 
 	 * @return 0,1,2
 	 */
-	public void chestRoll() {
-		chestchose = (int) (Math.ceil(Math.random() * 2));
+	public void chestRoll(Actors a) {
 		
-		if (chestchose== 1) {
-			sword.setVisible(true);
-			Core.setPlayer1Damage(3);
-		}
-		
-		if (chestchose == 2) {
-			healthbag.setVisible(true);
-		}
 	}
 	
 	public void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
+	}
+	public void setSwordVis(boolean vis) {
+		sword.setVisible(vis);
 	}
 	
 	public boolean getHealthVis() {

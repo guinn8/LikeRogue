@@ -13,6 +13,7 @@ public abstract class Actors {
 	public abstract Bounds getBounds();
 	protected abstract ImageView getImageView();
 	
+	
 	private int health;
 	private int damage;
 	
@@ -41,7 +42,6 @@ public abstract class Actors {
 			if (Core.check(this)) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
 				getImageView().setLayoutX(getImageView().getLayoutX() + deltaX);
-				
 			}
 		}
 		setDelta(0,0);
