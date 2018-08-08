@@ -20,6 +20,7 @@ public class ActorsTest{
         assertEquals("testPlayerConst: health value incorrect",300,p.getHealth());
 		
 	}
+	@Test
 	public void testEnemyConst() {
 		Enemy e = new Enemy(400,400,10,400);
 		assertEquals("testEnemyConst: damage value incorrect",400,e.getDamage());

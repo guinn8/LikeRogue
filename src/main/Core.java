@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -150,19 +151,20 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					
 					int chestchose = (int) (Math.ceil(Math.random() * 2));
 					if (chestchose== 1) {
 						inventory.setSwordVis(true);
 						actor.setDamage(3);
 					}
+					else if (chestchose == 2) inventory.setHealthVis(true);
 					
-					if (chestchose == 2) inventory.setHealthVis(true);
 					return false;
 				}
 				
 				if (object.getId().equals("finish")) {
+					Platform.exit();
 					return false;
+					
 				}
 				
 				if (object.getId().equals("damage")) {
