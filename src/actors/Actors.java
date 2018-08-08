@@ -1,5 +1,7 @@
 package actors;
 
+
+
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import main.Core;
@@ -12,6 +14,7 @@ public abstract class Actors {
 	
 	public abstract Bounds getBounds();
 	protected abstract ImageView getImageView();
+	
 	
 	private int health;
 	private int damage;
