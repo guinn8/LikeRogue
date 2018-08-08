@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 
-public class ActorsTest{
+public class EnemyTest{
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	
