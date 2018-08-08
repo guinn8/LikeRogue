@@ -26,22 +26,18 @@ public class EnemyTest{
 	@Test
 	public void testnegativenumber(){
 
-<<<<<<< HEAD
-
-	/*public void testInventoryConst() {
-		Inventory i = new Inventory();
-		assertsEquals("testInventoryConst: Expected initial");
-	}*/
-		
-
-}
-=======
     	Enemy e = new Enemy(250, 250, 10, 2);
     	e.setHealth(-10);
         assertEquals("testEnemyConst: health value incorrect",10,e.getHealth());
         e.setDamage(-10);
         assertEquals("testEnemyConst: Damgae value incorrect",2,e.getDamage());	
+
+
+		
+
 	}
+
+	
 	@Test
 	public void testoverrangenumber(){
 
@@ -54,7 +50,7 @@ public class EnemyTest{
 
 	private boolean hasRequiredProtectedMethods() {
 		boolean ImageViewIsProtected = false;
->>>>>>> 14a67ddc1b6a8ccd6977b00c1c7b902372630452
+
 	
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Johnny\\Desktop\\LikeRogue-master\\src\\actors\\Enemy.java"));
