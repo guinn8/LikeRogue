@@ -7,8 +7,8 @@ import main.Core;
 public abstract class Actors {
 
 	public static final int MOVERES = 1;
-	private double deltaX = 0;
-	private double deltaY = 0;
+	private int deltaX = 0;
+	private int deltaY = 0;
 	
 	public abstract Bounds getBounds();
 	protected abstract ImageView getImageView();
@@ -47,7 +47,7 @@ public abstract class Actors {
 		setDelta(0,0);
 	}
 
-	public void setDelta(double setDeltaX,double setDeltaY) {
+	public void setDelta(int setDeltaX,int setDeltaY) {
 		deltaX=setDeltaX;
 		deltaY=setDeltaY;
 	}
@@ -67,10 +67,10 @@ public abstract class Actors {
 		damage=setDamage;
 	}
 	
-	public double getDeltaX() {
+	public int getDeltaX() {
 		return deltaX;
 	}
-	public double getDeltaY() {
+	public int getDeltaY() {
 		return deltaY;
 	}
 }
