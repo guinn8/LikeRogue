@@ -26,9 +26,6 @@ public class ActorsTest{
 		assertEquals("testEnemyConst: damage value incorrect",400,e.getDamage());
 	}
 
-	/*public void testInventoryConst() {
-		Inventory i = new Inventory();
-		assertsEquals("testInventoryConst: Expected initial");
-	}*/
+
 
 }
