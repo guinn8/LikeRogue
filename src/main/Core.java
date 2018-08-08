@@ -150,7 +150,14 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					inventory.chestRoll();
+					
+					int chestchose = (int) (Math.ceil(Math.random() * 2));
+					if (chestchose== 1) {
+						inventory.setSwordVis(true);
+						actor.setDamage(3);
+					}
+					
+					if (chestchose == 2) inventory.setHealthVis(true);
 					return false;
 				}
 				
