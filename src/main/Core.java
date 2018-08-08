@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 
@@ -34,9 +35,11 @@ public  class Core extends Application {
 	private static Group solid= new Group();
 
 	private static Map map1 = new Map();
-//	private static Map map2 = new Map();
-//	private static Map map3 = new Map();
-//	private static Map map4 = new Map();
+	
+	private Image floorImage =new Image("file:res/sprites/map/floor.jpg");
+	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
+	private BackgroundImage floor = new BackgroundImage(floorImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,backSize);
+	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(75,75,10,5);
@@ -50,6 +53,7 @@ public  class Core extends Application {
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
+		layout.setBackground(background);
 		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
@@ -66,33 +70,29 @@ public  class Core extends Application {
 				player1.setPlayerRight();
 			}
 
-			if (e.getCode() == KeyCode.A) {
+			else if (e.getCode() == KeyCode.A) {
 				player1.setDelta(-Actors.MOVERES,0);
 				player1.setPlayerLeft();				
 			}
 
-			if (e.getCode() == KeyCode.S) {
+			else if (e.getCode() == KeyCode.S) {
 				player1.setDelta(0, Actors.MOVERES);
 				player1.setPlayerDown();
 			}
 
-			if (e.getCode() == KeyCode.W) {
+			else if (e.getCode() == KeyCode.W) {
 				player1.setDelta(0, -Actors.MOVERES);
 				player1.setPlayerUp();
 			}
 			
+			else if (e.getCode() == KeyCode.H) {
+				if (inventory.getHealthVis() == true) {
+					player1.setHealth(10);
 			
-				if (e.getCode() == KeyCode.H) {
-					if (inventory.getHealthVis() == true) {
-						player1.setHealth(10);
-				
-					}
-				}	
+				}
+			}	
 			
-			//
-			//end block
-			
-			if (e.getCode() == KeyCode.SPACE) {
+			else if (e.getCode() == KeyCode.SPACE) {
 				attack=true;
 			}
 		});
@@ -135,7 +135,7 @@ public  class Core extends Application {
 							
 				if (object.getId().equals("wall")) return false;
 				
-				if (actor instanceof Player) {
+				if  (actor instanceof Player) {
 					if (object.getId().equals("enemy")){
 						hit(actor,enemy1);
 						return false;
@@ -151,12 +151,15 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					int chestchose = (int) (Math.ceil(Math.random() * 2));
-					if (chestchose== 1) {
+					int roll = (int) (Math.ceil(Math.random() * 2));
+					
+					if (roll== 1) {
 						inventory.setSwordVis(true);
 						actor.setDamage(3);
 					}
-					else if (chestchose == 2) inventory.setHealthVis(true);
+					else if (roll == 2) {
+						inventory.setHealthVis(true);
+					}
 					
 					return false;
 				}
@@ -193,23 +196,12 @@ public  class Core extends Application {
 		actor2.checkAlive();
 	}
 
-	/**
-	 * 
-	 */
 	public static void addLayout(Node n) {
 		layout.getChildren().add(n);
 	}
-	
-	/**
-	 * 
-	 */
 	public static void addSolid(Node n) {
 		solid.getChildren().add(n);
 	}
-	/**
-	 * 
-	 * @param n
-	 */
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}

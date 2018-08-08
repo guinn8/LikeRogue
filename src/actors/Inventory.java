@@ -55,15 +55,6 @@ public class Inventory {
 		healthbag.setImage(healthBagImage);
 		Core.addLayout(healthbag);
 	}
-
-	/**
-	 * this method let chest make chose
-	 * 
-	 * @return 0,1,2
-	 */
-	public void chestRoll(Actors a) {
-		
-	}
 	
 	public void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
@@ -71,7 +62,6 @@ public class Inventory {
 	public void setSwordVis(boolean vis) {
 		sword.setVisible(vis);
 	}
-	
 	public boolean getHealthVis() {
 		return healthbag.isVisible();
 	}

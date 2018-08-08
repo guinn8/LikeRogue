@@ -5,22 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import main.*;
 
 //Erics changes: added getters and setters for every instance variables.
 public class Player extends Actors {
 	
 	private Rectangle healthBar= new Rectangle();
-	
-	private ImageView damageView = new ImageView();
+	private Rectangle hbOutline= new Rectangle();
+	private ImageView damage = new ImageView();
 	private ImageView player = new ImageView(); 
 	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
 	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
 	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
 	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
-	private Image damage = new Image("file:res/sprites/player/damage.png"); 
-	Text heathText = new Text();
+	private Image damageImage = new Image("file:res/sprites/player/damage.png"); 
 	
 	/**
 	 * 
@@ -30,61 +28,65 @@ public class Player extends Actors {
 	 * @param setDamage
 	 */
 	public Player(int setX, int setY, int setHealth, int setDamage) {
-		
-		
 		super(setHealth, setDamage);
+		
+		hbOutline.setX(0);
+		hbOutline.setY(660);
+		hbOutline.setWidth(600);
+		hbOutline.setHeight(20);
+		Core.addLayout(hbOutline);
 		
 		healthBar.setX(0);
 		healthBar.setY(660);
 		healthBar.setWidth(600);
 		healthBar.setHeight(20);
 		healthBar.setFill(Color.RED);
-	
 		Core.addLayout(healthBar);
 		
-		player.setId("player");
-		damageView.setId("damage");
-		damageView.setImage(damage);
-
+		damage.setId("damage");
+		damage.setImage(damageImage);
+		Core.addSolid(damage);
+		
 		player.setLayoutX(setX);
 		player.setLayoutY(setY);
 		player.setImage(playerDown);
-		
+		player.setId("player");
 		Core.addSolid(player);
-		Core.addSolid(damageView);
-		
-		Core.addLayout(heathText);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public boolean attack() {
 			if (player.getImage() == playerUp) {
-				damageView.setLayoutX(player.getLayoutX() - 20);
-				damageView.setLayoutY(player.getLayoutY() - 75);
+				damage.setLayoutX(player.getLayoutX() - 20);
+				damage.setLayoutY(player.getLayoutY() - 75);
 			}
 	
-			if (player.getImage() == playerDown) {
-				damageView.setLayoutX(player.getLayoutX() - 15);
-				damageView.setLayoutY(player.getLayoutY() + 50);
+			else if (player.getImage() == playerDown) {
+				damage.setLayoutX(player.getLayoutX() - 15);
+				damage.setLayoutY(player.getLayoutY() + 50);
 			}
 			
-			if (player.getImage() == playerLeft) {
-				damageView.setLayoutX(player.getLayoutX() - 75);
-				damageView.setLayoutY(player.getLayoutY() - 15);
+			else if (player.getImage() == playerLeft) {
+				damage.setLayoutX(player.getLayoutX() - 75);
+				damage.setLayoutY(player.getLayoutY() - 15);
 			}
 	
-			if (player.getImage() == playerRight) {
-				damageView.setLayoutX(player.getLayoutX() + 50);
-				damageView.setLayoutY(player.getLayoutY() - 10);
+			else if (player.getImage() == playerRight) {
+				damage.setLayoutX(player.getLayoutX() + 50);
+				damage.setLayoutY(player.getLayoutY() - 10);
 			}
 	return false;
 	}
+	
+	public void drawHealthBar() {
+		healthBar.setWidth(this.getHealth()*60);
+	}
 
 	public void resetDamage() {
-		damageView.setLayoutX(-1000);
-		damageView.setLayoutY(-1000);
+		damage.setLayoutX(-1000);
+		damage.setLayoutY(-1000);
 	}
 	
 	public void setPlayerRight() {
@@ -102,12 +104,8 @@ public class Player extends Actors {
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
 	}
+	//possible privacy leak
 	protected ImageView getImageView() {
 		return player;	
-	}
-	
-	public void drawHealthBar() {
-		healthBar.setWidth(this.getHealth()*60);
-		
 	}
 }

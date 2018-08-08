@@ -9,11 +9,6 @@ public abstract class Actors {
 	public static final int MOVERES = 1;
 	private int deltaX = 0;
 	private int deltaY = 0;
-	
-	public abstract Bounds getBounds();
-	protected abstract ImageView getImageView();
-	
-	
 	private int health;
 	private int damage;
 	
@@ -22,6 +17,9 @@ public abstract class Actors {
 		health=setHealth;
 	}
 
+	public abstract Bounds getBounds();
+	protected abstract ImageView getImageView();
+	
 	/**
 	 * 
 	 */
@@ -37,7 +35,6 @@ public abstract class Actors {
 	 *  
 	 */
 	public void move() {
-		
 		for (int i = 0; i < 10; i++) {
 			if (Core.check(this)) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
@@ -51,22 +48,18 @@ public abstract class Actors {
 		deltaX=setDeltaX;
 		deltaY=setDeltaY;
 	}
-
 	public int getHealth() {
 		return health;
 	}
-	
 	public void setHealth(int setHealth) {
 		health=setHealth;
 	}
-	
 	public int getDamage() {
 		return damage;
 	}
 	public void setDamage(int setDamage) {
 		damage=setDamage;
 	}
-	
 	public int getDeltaX() {
 		return deltaX;
 	}
