@@ -20,6 +20,14 @@ public class ActorsTest{
         assertEquals("testPlayerConst: health value incorrect",300,p.getHealth());
 		
 	}
+	public void testEnemyConst() {
+		Enemy e = new Enemy(400,400,10,400);
+		assertEquals("testEnemyConst: damage value incorrect",400,e.getDamage());
+	}
 
+	/*public void testInventoryConst() {
+		Inventory i = new Inventory();
+		assertsEquals("testInventoryConst: Expected initial");
+	}*/
 
 }
