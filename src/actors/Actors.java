@@ -52,12 +52,14 @@ public abstract class Actors {
 		return health;
 	}
 	public void setHealth(int setHealth) {
+		if(setHealth>=0&&setHealth<=10)
 		health=setHealth;
 	}
 	public int getDamage() {
 		return damage;
 	}
 	public void setDamage(int setDamage) {
+		if(setDamage>=0&&setDamage<=10)
 		damage=setDamage;
 	}
 	public int getDeltaX() {
