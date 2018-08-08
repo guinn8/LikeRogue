@@ -36,7 +36,7 @@ public  class Core extends Application {
 
 	private static Map map1 = new Map();
 	
-	private Image floorImage =new Image("file:res/sprites/map/floor.jpg");
+	private Image floorImage =new Image("file:res/sprites/map/floor.png");
 	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
 	private BackgroundImage floor = new BackgroundImage(floorImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,backSize);
 	private Background background= new Background(floor);

@@ -2,6 +2,8 @@ package actors;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import main.*;
 
 //import javafx.scene.layout.*;
@@ -22,16 +24,24 @@ public class Inventory {
 
 	private ImageView inventory = new ImageView();
 	final private Image inventoryBarImage = new Image("file:res/sprites/inventory/inventorybar.png");
-
+	
+	private Rectangle white= new Rectangle();
 	/**
 	 * Those method in which add Image to the Core
 	 * 
 	 */
 	public Inventory() {
 
+		white.setX(0);
+		white.setY(600);
+		white.setWidth(600);
+		white.setHeight(80);
+		white.setFill(Color.WHITE);
+		Core.addLayout(white);
+
 		inventory.setImage(inventoryBarImage);
 		inventory.setLayoutX(40);
-		inventory.setLayoutY(500);
+		inventory.setLayoutY(506);
 		inventory.setPreserveRatio(true);
 		inventory.setFitHeight(300);
 		inventory.setFitWidth(500);
