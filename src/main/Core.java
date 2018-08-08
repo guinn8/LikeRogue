@@ -204,25 +204,4 @@ public  class Core extends Application {
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}
-	
-	//this block needs to be removed
-	//code needs to be reformatted before that can happen
-	public static int getPlayer1Health() {
-		return player1.getHealth();
-	}
-	public static void setPlayer1Damage(int damage) {
-		player1.setDamage(damage);
-	}
-	public static int getEnemy1Health() {
-		return enemy1.getHealth();
-	}
-	
-   
-	 
-
-	//
-	//end block
-
-	
-
 }

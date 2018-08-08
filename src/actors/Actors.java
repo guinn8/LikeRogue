@@ -1,7 +1,5 @@
 package actors;
 
-
-
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import main.Core;
@@ -44,7 +42,6 @@ public abstract class Actors {
 			if (Core.check(this)) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
 				getImageView().setLayoutX(getImageView().getLayoutX() + deltaX);
-				
 			}
 		}
 		setDelta(0,0);
