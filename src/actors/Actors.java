@@ -1,5 +1,7 @@
 package actors;
 
+import java.io.FileNotFoundException;
+
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import main.Core;
@@ -25,16 +27,15 @@ public abstract class Actors {
 	 */
 	public  void checkAlive() {
 		if (this.getHealth() <= 0) {
-				Core.removeSolid(this.getImageView());
-				this.getImageView().setLayoutX(-10000);
-				this.getImageView().setLayoutY(-10000);
+				remove();
 		}	
 	}
 	
 	/**
+	 * @throws FileNotFoundException 
 	 *  
 	 */
-	public void move() {
+	public void move(){
 		for (int i = 0; i < 10; i++) {
 			if (Core.check(this)) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
@@ -68,4 +69,17 @@ public abstract class Actors {
 	public int getDeltaY() {
 		return deltaY;
 	}
+	
+	public void teleport(double x, double y) {
+		this.getImageView().setX(x);
+		this.getImageView().setY(y);
+	}
+	
+	public void remove() {
+		Core.removeSolid(this.getImageView());
+		this.getImageView().setImage(null);
+		this.getImageView().setFitHeight(0);
+		this.getImageView().setFitWidth(0);
+	}
+	
 }

@@ -2,7 +2,7 @@ package main;
 
 import javafx.scene.layout.*;
 
-
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import actors.*;
@@ -30,11 +30,19 @@ public  class Core extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	private static int mapNum=0;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	private static Group solid= new Group();
 
-	private static Map map1 = new Map();
+	private File map0=new File("res/layouts/map0.txt");
+	private File map1=new File("res/layouts/map1.txt");
+	private File map2=new File("res/layouts/map2.txt");
+	private File map3=new File("res/layouts/map3.txt");
+	
+	private static Map[] progress = new Map[4];
+
 	
 	private Image floorImage =new Image("file:res/sprites/map/floor.png");
 	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
@@ -42,7 +50,7 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(75,75,10,5);
+	private static Player player1 = new Player(10,5);
 	private static Enemy enemy1 = new Enemy(400,400,10,2);
 	
 	private static final int WIDTH=600;
@@ -53,13 +61,19 @@ public  class Core extends Application {
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
+		progress[0]= new Map(map0);
+		progress[1]= new Map(map1);
+		progress[2]= new Map(map2);
+		progress[3]= new Map(map3);
+		
 		layout.setBackground(background);
 		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
-
-		map1.createMap();
 		
+		progress[0].createMap();
+		player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
+	
 		layout.getChildren().add(solid);
 
 		stage.show();
@@ -88,7 +102,6 @@ public  class Core extends Application {
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
 					player1.setHealth(10);
-			
 				}
 			}	
 			
@@ -126,6 +139,7 @@ public  class Core extends Application {
 	 * @param xDelt distance to check ahead in the x direction
 	 * @param yDelt distance to precheck in the y direction
 	 * @return false if solid object in the way
+	 * @throws FileNotFoundException 
 	 **/
 	public static boolean check(Actors actor) {
 	
@@ -165,7 +179,8 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("finish")) {
-					Platform.exit();
+					nextMap();
+					
 					return false;
 					
 				}
@@ -195,7 +210,23 @@ public  class Core extends Application {
 		actor1.checkAlive();
 		actor2.checkAlive();
 	}
-
+	
+	
+	public static void nextMap() {
+		
+		mapNum++;
+		if(mapNum<progress.length) {
+			try {
+				progress[mapNum].createMap();
+				player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
+			} catch (FileNotFoundException e) {
+	
+				e.printStackTrace();
+			}
+			progress[mapNum-1].removeMap();
+		}
+	}
+	
 	public static void addLayout(Node n) {
 		layout.getChildren().add(n);
 	}
@@ -205,4 +236,5 @@ public  class Core extends Application {
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}
+	
 }

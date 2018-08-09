@@ -27,7 +27,7 @@ public class Player extends Actors {
 	 * @param setHealth
 	 * @param setDamage
 	 */
-	public Player(int setX, int setY, int setHealth, int setDamage) {
+	public Player(int setHealth, int setDamage) {
 		super(setHealth, setDamage);
 		
 		hbOutline.setX(0);
@@ -47,8 +47,7 @@ public class Player extends Actors {
 		damage.setImage(damageImage);
 		Core.addSolid(damage);
 		
-		player.setLayoutX(setX);
-		player.setLayoutY(setY);
+
 		player.setImage(playerDown);
 		player.setId("player");
 		Core.addSolid(player);
