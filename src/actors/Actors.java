@@ -71,8 +71,8 @@ public abstract class Actors {
 	}
 	
 	public void teleport(double x, double y) {
-		this.getImageView().setX(x);
-		this.getImageView().setY(y);
+		this.getImageView().setLayoutX(x);
+		this.getImageView().setLayoutY(y);
 	}
 	
 	public void remove() {

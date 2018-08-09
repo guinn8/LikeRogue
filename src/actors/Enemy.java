@@ -1,6 +1,5 @@
 package actors;
 
-import java.io.FileNotFoundException;
 
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
@@ -22,10 +21,12 @@ public class Enemy extends Actors {
 		Core.addSolid(enemy);
 
 		enemy.setId("enemy");
+		
 	}
 
 
 	public void move() {
+		
 			
 		if (right==true) {
 			this.setDelta(-MOVERES, 0);
@@ -49,7 +50,14 @@ public class Enemy extends Actors {
 	}
 
 	@Override
-	protected ImageView getImageView() {
+	public ImageView getImageView() {
 		return enemy;
+	}
+	
+	public void setUserData(Integer num) {
+		enemy.setUserData(num);
+	}
+	public int getUserData() {
+		return (int) enemy.getUserData();
 	}
 }

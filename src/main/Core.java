@@ -51,7 +51,7 @@ public  class Core extends Application {
 	
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(10,5);
-	private static Enemy enemy1 = new Enemy(400,400,10,2);
+	private static Enemy enemy1 = new Enemy(199,-199,10,2);
 	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=680;
@@ -71,7 +71,7 @@ public  class Core extends Application {
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
 		
-		progress[0].createMap();
+		progress[mapNum].createMap();
 		player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 	
 		layout.getChildren().add(solid);
@@ -125,7 +125,7 @@ public  class Core extends Application {
 				}
 				
 				if (timer%5==0) {
-					enemy1.move();
+					progress[mapNum].moveEnemys();
 				
 				}
 				if (timer==1000)timer=0;
@@ -151,7 +151,13 @@ public  class Core extends Application {
 				
 				if  (actor instanceof Player) {
 					if (object.getId().equals("enemy")){
-						hit(actor,enemy1);
+						
+						//fix thiss!!!
+						for(Enemy e: progress[mapNum].enemyArray) {
+							if (object==e.getImageView()) {
+								hit(actor,e);
+							}
+						}
 						return false;
 					}
 				}
@@ -186,12 +192,16 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("damage")) {
-					enemy1.setHealth(enemy1.getHealth()-player1.getDamage());
+				
+					actor.setHealth(actor.getHealth()-player1.getDamage());
+						
 					actor.checkAlive();
 					return false;
+				
 				}
 			}
 		}
+			
 		return true;
 	}
 
@@ -217,8 +227,11 @@ public  class Core extends Application {
 		mapNum++;
 		if(mapNum<progress.length) {
 			try {
+				
 				progress[mapNum].createMap();
 				player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
+				
+				System.out.println(progress[mapNum].getPX());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();

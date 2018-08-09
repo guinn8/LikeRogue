@@ -1,9 +1,11 @@
 package main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import main.Map;
 
 import java.util.*;
+
+import actors.Enemy;
+
 import java.io.*;
 
 public class Map {
@@ -13,7 +15,8 @@ public class Map {
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
 	
-	
+	public Enemy[] enemyArray= new Enemy[2];
+	int enArrInt =0;
 	
 	private Image chestImage = new Image("file:res/sprites/map/chest.png");
 	private Image brickImage = new Image("file:res/sprites/map/wall3.png");
@@ -76,18 +79,32 @@ public class Map {
 			else if (layout.charAt(i) == 'P') {
 				playerX=(posX * tileSize);
 				playerY=(posY * tileSize);
-				
-				System.out.println(playerX+" "+playerY);
+			}
+			
+			else if (layout.charAt(i) == 'E') {
+				 enemyArray[enArrInt] = new Enemy((posX * tileSize), (posY * tileSize), 10, 2);
+				 enemyArray[enArrInt].setUserData(enArrInt);
+				 enArrInt++;
+
 			}
 
 		}
 	mapMaker.close();
 	}
 	
+	public void moveEnemys() {
+		for (Enemy e: enemyArray) {
+			e.move();
+		}
+	}
+	
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
+			}
+			for (Enemy e: enemyArray) {
+				e.remove();
 			}
 		}
 	}
