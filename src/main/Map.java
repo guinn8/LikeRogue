@@ -2,48 +2,38 @@ package main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 import java.util.*;
+
+import actors.Enemy;
+
 import java.io.*;
 
 public class Map {
-	
+	private int playerX;
+	private int playerY;
 	private static final int size = 12;
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
 	
-	private File map1=new File("res/layouts/map1.txt");
-	private File map2=new File("res/layouts/map2.txt");
-	private File map3=new File("res/layouts/map3.txt");
-	private File map4=new File("res/layouts/map4.txt");
-	
+	public Enemy[] enemyArray= new Enemy[2];
+	int enArrInt =0;
 	
 	private Image chestImage = new Image("file:res/sprites/map/chest.png");
 	private Image brickImage = new Image("file:res/sprites/map/wall3.png");
 	private Image finishImage = new Image("file:res/sprites/map/X.png");
 
+	private File mapFile;
+	public Map(File setMapFile) {
+		mapFile=setMapFile;	
+	}
 	
 	public void createMap() throws FileNotFoundException {
 		
 		int posX = 0;
 		int posY = 0;
 	
-	    File X=null;
-	    int random = (int)(Math.random()*4 + 1);
-	    if(random == 1) {
-	    	X = map1;
-	    }
-	    else if(random == 2) {
-	    	X = map2;
-	    }
-	    else if(random == 3) {
-	    	X = map3;
-	    }
-	    else if(random == 4) {
-	    	X = map4;
-	    }
-		
-		Scanner mapMaker = new Scanner(X);
+	  
+		Scanner mapMaker = new Scanner(mapFile);
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
 		
@@ -86,7 +76,42 @@ public class Map {
 				map[posX][posY].setId("finish");
 				Core.addSolid(map[posX][posY]);	
 			}
+			else if (layout.charAt(i) == 'P') {
+				playerX=(posX * tileSize);
+				playerY=(posY * tileSize);
+			}
+			
+			else if (layout.charAt(i) == 'E') {
+				 enemyArray[enArrInt] = new Enemy((posX * tileSize), (posY * tileSize), 10, 2);
+				 enemyArray[enArrInt].setUserData(enArrInt);
+				 enArrInt++;
+
+			}
+
 		}
 	mapMaker.close();
+	}
+	
+	public void moveEnemys() {
+		for (Enemy e: enemyArray) {
+			e.move();
+		}
+	}
+	
+	public void removeMap() {
+		for(ImageView[] lists:map) {
+			for(ImageView item:lists) {
+				Core.removeSolid(item);
+			}
+			for (Enemy e: enemyArray) {
+				e.remove();
+			}
+		}
+	}
+	public int getPX(){
+		return playerX;
+	}
+	public int getPY(){
+		return playerY;
 	}
 }

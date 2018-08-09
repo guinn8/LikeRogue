@@ -18,6 +18,15 @@ public class Inventory {
 	
 	private ImageView sword = new ImageView();
 	final private Image swordImage = new Image("file:res/sprites/inventory/sword.jpg");
+	
+	private ImageView sword2 = new ImageView();
+	final private Image sword2Image = new Image("file:res/sprites/inventory/sword2.jpg");
+	
+	private ImageView sword3 = new ImageView();
+	final private Image sword3Image = new Image("file:res/sprites/inventory/sword3.jpg");
+	
+	private ImageView sword4 = new ImageView();
+	final private Image sword4Image = new Image("file:res/sprites/inventory/sword4.jpg");
 
 	private ImageView healthbag = new ImageView();
 	final private Image healthBagImage = new Image("file:res/sprites/inventory/health.png");
@@ -47,20 +56,49 @@ public class Inventory {
 		inventory.setFitWidth(500);
 		Core.addLayout(inventory);
 
-		sword.setLayoutX(95);
+		sword.setLayoutX(85);
 		sword.setLayoutY(600);
-		sword.setPreserveRatio(true);
-		sword.setFitHeight(70);
-		sword.setFitWidth(150);
+		sword.setPreserveRatio(false);
+		sword.setFitHeight(50);
+		sword.setFitWidth(60);
 		sword.setVisible(false);
 		sword.setImage(swordImage);
 		Core.addLayout(sword);
+		
+		
+		sword2.setLayoutX(150);
+		sword2.setLayoutY(600);
+		sword2.setPreserveRatio(false);
+		sword2.setFitHeight(50);
+		sword2.setFitWidth(60);
+		sword2.setVisible(false);
+		sword2.setImage(sword2Image);
+		Core.addLayout(sword2);
+		
+		sword3.setLayoutX(220);
+		sword3.setLayoutY(600);
+		sword3.setPreserveRatio(false);
+		sword3.setFitHeight(50);
+		sword3.setFitWidth(60);
+		sword3.setVisible(false);
+		sword3.setImage(sword3Image);
+		Core.addLayout(sword3);
+		
+		sword4.setLayoutX(285);
+		sword4.setLayoutY(600);
+		sword4.setPreserveRatio(false);
+		sword4.setFitHeight(50);
+		sword4.setFitWidth(60);
+		sword4.setVisible(false);
+		sword4.setImage(sword4Image);
+		Core.addLayout(sword4);
+		
 
-		healthbag.setLayoutX(150);
+		healthbag.setLayoutX(420);
 		healthbag.setLayoutY(600);
 		healthbag.setPreserveRatio(true);
-		healthbag.setFitWidth(150);
-		healthbag.setFitHeight(70);
+		healthbag.setFitWidth(160);
+		healthbag.setFitHeight(60);
 		healthbag.setVisible(false);
 		healthbag.setImage(healthBagImage);
 		Core.addLayout(healthbag);
@@ -71,6 +109,15 @@ public class Inventory {
 	}
 	public void setSwordVis(boolean vis) {
 		sword.setVisible(vis);
+	}
+	public void setSword2Vis(boolean vis) {
+		sword2.setVisible(vis);
+	}
+	public void setSword3Vis(boolean vis) {
+		sword3.setVisible(vis);
+	}
+	public void setSword4Vis(boolean vis) {
+		sword4.setVisible(vis);
 	}
 	public boolean getHealthVis() {
 		return healthbag.isVisible();
