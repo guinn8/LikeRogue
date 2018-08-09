@@ -54,7 +54,6 @@ public  class Core extends Application {
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 		layout.setBackground(background);
-		stage.setTitle("LikeRogue");
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
 
