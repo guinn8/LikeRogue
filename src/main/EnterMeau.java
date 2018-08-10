@@ -40,7 +40,7 @@ public class EnterMeau extends Application{
 		layout.setBackground(background);
 		
 		Text t = new Text();
-		t.setText("like Rough");
+		t.setText("like Rogue");
 		t.setStroke(Color.BLUE);  
 		t.setFont(Font.font ("Verdana", 50));
 		t.setFill(Color.RED);
