@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Platform;
+
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -51,7 +51,7 @@ public  class Core extends Application {
 	
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(10,5);
-	private static Enemy enemy1 = new Enemy(199,-199,10,2);
+	
 	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=680;
@@ -150,13 +150,6 @@ public  class Core extends Application {
 				
 				if  (actor instanceof Player) {
 					if (object.getId().equals("enemy")){
-						
-						//fix thiss!!!
-						for(Enemy e: progress[mapNum].enemyArray) {
-							if (object==e.getImageView()) {
-								hit(actor,e);
-							}
-						}
 						return false;
 					}
 				}
@@ -184,7 +177,8 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("finish")) {
-					nextMap();
+					if  (actor instanceof Player)nextMap();
+					
 					
 					return false;
 					
@@ -200,6 +194,7 @@ public  class Core extends Application {
 				}
 			}
 		}
+		
 			
 		return true;
 	}
@@ -229,8 +224,6 @@ public  class Core extends Application {
 				
 				progress[mapNum].createMap();
 				player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
-				
-				System.out.println(progress[mapNum].getPX());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();

@@ -15,8 +15,8 @@ public class Map {
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
 	
-	public Enemy[] enemyArray= new Enemy[2];
-	int enArrInt =0;
+	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
+	
 	
 	private Image chestImage = new Image("file:res/sprites/map/chest.png");
 	private Image brickImage = new Image("file:res/sprites/map/wall3.png");
@@ -77,14 +77,14 @@ public class Map {
 				Core.addSolid(map[posX][posY]);	
 			}
 			else if (layout.charAt(i) == 'P') {
-				playerX=(posX * tileSize);
-				playerY=(posY * tileSize);
+				playerX=(posX * tileSize+1);
+				playerY=(posY * tileSize+1);
 			}
 			
 			else if (layout.charAt(i) == 'E') {
-				 enemyArray[enArrInt] = new Enemy((posX * tileSize), (posY * tileSize), 10, 2);
-				 enemyArray[enArrInt].setUserData(enArrInt);
-				 enArrInt++;
+				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
+			
+				enemyArray.add(e);
 
 			}
 
@@ -114,4 +114,7 @@ public class Map {
 	public int getPY(){
 		return playerY;
 	}
+	
+
+	
 }

@@ -47,7 +47,7 @@ public class EnemyTest{
         e.setDamage(22);
         assertEquals("testEnemyConst: Damgae value incorrect",2,e.getDamage());	
 	}
-
+	@Test
 	private boolean hasRequiredProtectedMethods() {
 		boolean ImageViewIsProtected = false;
 
@@ -76,6 +76,8 @@ public class EnemyTest{
 //		assertTrue("getImageView is protected mothod",hasRequiredProtectedMethods() );
 //  
 //	}
+	
+	@Test
 	private boolean noDefaultConstructor(){
 		boolean noDefault = true;
 		try {
