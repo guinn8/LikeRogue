@@ -94,8 +94,12 @@ public class Map {
 	
 	public void moveEnemys() {
 		for (Enemy e: enemyArray) {
-			e.move();
+			if (e.checkAlive()==true)e.move();
 		}
+	}
+	public void checkEnemys() {
+		for (Enemy e: enemyArray) Core.check(e);
+			
 	}
 	
 	public void removeMap() {

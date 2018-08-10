@@ -9,8 +9,8 @@ import main.Core;
 public abstract class Actors {
 
 	public static final int MOVERES = 1;
-	private int deltaX = 0;
-	private int deltaY = 0;
+	private double deltaX = 0;
+	private double deltaY = 0;
 	private int health;
 	private int damage;
 	
@@ -25,10 +25,12 @@ public abstract class Actors {
 	/**
 	 * 
 	 */
-	public  void checkAlive() {
+	public  boolean checkAlive() {
 		if (this.getHealth() <= 0) {
 				remove();
-		}	
+				return false;
+		}
+		return true;	
 	}
 	
 	/**
@@ -45,9 +47,9 @@ public abstract class Actors {
 		setDelta(0,0);
 	}
 
-	public void setDelta(int setDeltaX,int setDeltaY) {
-		deltaX=setDeltaX;
-		deltaY=setDeltaY;
+	public void setDelta(double vX,double vY) {
+		deltaX=vX;
+		deltaY=vY;
 	}
 	public int getHealth() {
 		return health;
@@ -63,10 +65,10 @@ public abstract class Actors {
 		if(setDamage>=0&&setDamage<=10)
 		damage=setDamage;
 	}
-	public int getDeltaX() {
+	public double getDeltaX() {
 		return deltaX;
 	}
-	public int getDeltaY() {
+	public double getDeltaY() {
 		return deltaY;
 	}
 	

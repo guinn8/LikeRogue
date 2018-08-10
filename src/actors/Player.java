@@ -58,22 +58,22 @@ public class Player extends Actors {
 	 */
 	public boolean attack() {
 			if (player.getImage() == playerUp) {
-				damage.setLayoutX(player.getLayoutX() - 20);
-				damage.setLayoutY(player.getLayoutY() - 75);
+				damage.setLayoutX(player.getLayoutX() - 15);
+				damage.setLayoutY(player.getLayoutY() - 55);
 			}
 	
 			else if (player.getImage() == playerDown) {
 				damage.setLayoutX(player.getLayoutX() - 15);
-				damage.setLayoutY(player.getLayoutY() + 50);
+				damage.setLayoutY(player.getLayoutY() + 30);
 			}
 			
 			else if (player.getImage() == playerLeft) {
-				damage.setLayoutX(player.getLayoutX() - 75);
+				damage.setLayoutX(player.getLayoutX() - 55);
 				damage.setLayoutY(player.getLayoutY() - 15);
 			}
 	
 			else if (player.getImage() == playerRight) {
-				damage.setLayoutX(player.getLayoutX() + 50);
+				damage.setLayoutX(player.getLayoutX() + 20);
 				damage.setLayoutY(player.getLayoutY() - 10);
 			}
 	return false;
