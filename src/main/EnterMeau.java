@@ -76,7 +76,7 @@ public class EnterMeau extends Application{
 		button2.setOnAction( e->{
 		
 			
-			
+			stage.close();
 			
 			
 			
