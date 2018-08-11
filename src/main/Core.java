@@ -186,6 +186,15 @@ public  class Core extends Application {
 					}
 					else if (roll == 2) {
 						inventory.setHealthVis(true);
+					}else if(roll==3) {
+						inventory.setSword2Vis(true);
+						actor.setDamage(3);
+					}else if(roll==4) {
+						inventory.setSword3Vis(true);
+						actor.setDamage(4);
+					}else if(roll==5) {
+						inventory.setSword4Vis(true);
+						actor.setDamage(5);
 					}
 					
 					return false;
