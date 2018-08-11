@@ -5,10 +5,10 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
-
+//thanks user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
 public class Enemy extends Actors {
 	
-	private Image enemySprite = new Image("file:res/sprites/enemy/frown.png");
+	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView();
 	
 	boolean right=true;
@@ -25,7 +25,7 @@ public class Enemy extends Actors {
 	}
 
 
-	public void move() {
+	public int move() {
 		if (this.checkAlive()==true) {
 			double pX=Core.getPlayer1().getX();
 			double pY=Core.getPlayer1().getY();
@@ -43,6 +43,7 @@ public class Enemy extends Actors {
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
 		}
+		return 0;
 
 	}
 

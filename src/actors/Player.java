@@ -1,23 +1,30 @@
 package actors;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
+//thanks user https://opengameart.org/users/erbarlow for player sprites
 
 //Erics changes: added getters and setters for every instance variables.
 public class Player extends Actors {
 	
+	private Image soldierImage = new Image("file:res/sprites/player/soldier.png");
+	//private ImageView player= new ImageView(soldierImage);
+
+	private Rectangle2D soldierPort= new Rectangle2D(0, 0, W, H);
+	
 	private Rectangle healthBar= new Rectangle();
 	private Rectangle hbOutline= new Rectangle();
 	private ImageView damage = new ImageView();
-	private ImageView player = new ImageView(); 
-	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
-	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
-	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
-	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
+	private ImageView player = new ImageView(soldierImage); 
+//	private Image playerRight = new Image("file:res/sprites/player/linkRight.png");
+//	private Image playerLeft = new Image("file:res/sprites/player/linkLeft.png");
+//	private Image playerDown = new Image("file:res/sprites/player/linkDown.png");
+//	private Image playerUp = new Image("file:res/sprites/player/linkUp.png");
 	private Image damageImage = new Image("file:res/sprites/player/damage.png"); 
 	
 	/**
@@ -29,6 +36,14 @@ public class Player extends Actors {
 	 */
 	public Player(int setHealth, int setDamage) {
 		super(setHealth, setDamage);
+		
+		
+		
+		/*
+		soldier.setLayoutX(200);
+		soldier.setLayoutY(150);*/
+	
+		//Core.addSolid(soldier);
 		
 		hbOutline.setX(0);
 		hbOutline.setY(660);
@@ -44,11 +59,15 @@ public class Player extends Actors {
 		Core.addLayout(healthBar);
 		
 		damage.setId("damage");
+		damage.setFitHeight(H);
+		damage.setFitWidth(W);
 		damage.setImage(damageImage);
 		Core.addSolid(damage);
 		
 
-		player.setImage(playerDown);
+		//player.setImage(playerDown);
+		player.setViewport(soldierPort);
+		
 		player.setId("player");
 		Core.addSolid(player);
 	}
@@ -56,25 +75,27 @@ public class Player extends Actors {
 	/**
 	 * 
 	 */
-	public boolean attack() {
-			if (player.getImage() == playerUp) {
-				damage.setLayoutX(player.getLayoutX() - 15);
-				damage.setLayoutY(player.getLayoutY() - 55);
+	public boolean attack(int dir) {
+		
+			//up
+			if (dir==3) {
+				damage.setLayoutX(player.getLayoutX());
+				damage.setLayoutY(player.getLayoutY() - H-2);
 			}
-	
-			else if (player.getImage() == playerDown) {
-				damage.setLayoutX(player.getLayoutX() - 15);
-				damage.setLayoutY(player.getLayoutY() + 30);
+			//down
+			else if (dir==0) {
+				damage.setLayoutX(player.getLayoutX());
+				damage.setLayoutY(player.getLayoutY()+H+2);
 			}
-			
-			else if (player.getImage() == playerLeft) {
-				damage.setLayoutX(player.getLayoutX() - 55);
-				damage.setLayoutY(player.getLayoutY() - 15);
+			//left
+			else if (dir==1) {
+				damage.setLayoutX(player.getLayoutX() - W-2);
+				damage.setLayoutY(player.getLayoutY());
 			}
-	
-			else if (player.getImage() == playerRight) {
-				damage.setLayoutX(player.getLayoutX() + 20);
-				damage.setLayoutY(player.getLayoutY() - 10);
+			//right
+			else if (dir==2) {
+				damage.setLayoutX(player.getLayoutX()+W+2);
+				damage.setLayoutY(player.getLayoutY());
 			}
 	return false;
 	}
@@ -89,16 +110,16 @@ public class Player extends Actors {
 	}
 	
 	public void setPlayerRight() {
-		player.setImage(playerRight);
+		//player.setImage(playerRight);
 	}
 	public void setPlayerLeft() {
-		player.setImage(playerLeft);
+		//player.setImage(playerLeft);
 	}
 	public void setPlayerDown() {
-		player.setImage(playerDown);
+		//player.setImage(playerDown);
 	}
 	public void setPlayerUp() {
-		player.setImage(playerUp);
+		//player.setImage(playerUp);
 	}
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
@@ -107,4 +128,27 @@ public class Player extends Actors {
 	protected ImageView getImageView() {
 		return player;	
 	}
-}
+//	int counter=0;
+//	public void animate(int r) {
+//		
+//			Rectangle2D anim= new Rectangle2D(OFF+W*counter, r*H, W, H);
+//			player.setViewport(anim);
+//			System.out.println(counter);
+//			counter++;
+//			if (counter==3)counter=0;
+//		
+//		
+//	}
+//	
+//	public void move() {
+//		for (int i = 0; i < 10; i++) {
+//			if (Core.check(this)) {
+//				
+//				
+//				
+//			}
+//		}
+//		setDelta(0,0);
+//	}
+	}
+

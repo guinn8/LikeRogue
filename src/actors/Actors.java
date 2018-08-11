@@ -3,11 +3,12 @@ package actors;
 import java.io.FileNotFoundException;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import main.Core;
 
 public abstract class Actors {
-
+	
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -15,10 +16,15 @@ public abstract class Actors {
 	private double deltaY = 0;
 	private int health;
 	private int damage;
+	protected int W;
+	protected int H;
+
 	
-	Actors( int setHealth, int setDamage){
+	Actors( int setHealth, int setDamage, int setW, int setH){
 		damage=setDamage;
 		health=setHealth;
+		W=setW;
+		H=setH;
 	}
 
 	public abstract Bounds getBounds();
@@ -39,14 +45,39 @@ public abstract class Actors {
 	 * @throws FileNotFoundException 
 	 *  
 	 */
-	public void move(){
+	int dir = 0;
+	public int  move(){
+		
 		for (int i = 0; i < 10; i++) {
+			//left
+			if(getDeltaX()<0) {
+				dir=1;
+				animate(dir);
+			}
+			//right
+			if(getDeltaX()>0) {
+				dir=2;
+				animate(dir);
+			}
+			//up
+			if(getDeltaY()>0) {
+				dir=0;
+				animate(dir);
+			}
+			//down
+			if(getDeltaY()<0) {
+				dir=3;
+				animate(dir);
+			}
 			if (Core.check(this)) {
-				getImageView().setLayoutY(getImageView().getLayoutY() + deltaY);
-				getImageView().setLayoutX(getImageView().getLayoutX() + deltaX);
+				
+				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
+				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
 			}
 		}
 		setDelta(0,0);
+		System.out.println(dir);
+		return dir;
 	}
 
 	public void setDelta(double vX,double vY) {
@@ -121,6 +152,15 @@ public abstract class Actors {
 	public double getY() {
 		return this.getImageView().getLayoutY();
 		
+	}
+	int animCounter=0;
+	public void animate(int r) {
+		
+		Rectangle2D anim= new Rectangle2D(W*animCounter, r*H, W, H);
+		this.getImageView().setViewport(anim);
+		
+		animCounter++;
+		if (animCounter==3)animCounter=0;
 	}
 	
 	

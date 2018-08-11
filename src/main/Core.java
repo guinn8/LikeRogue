@@ -122,7 +122,7 @@ public  class Core extends Application {
 				timer++;
 
 				
-				player1.move();
+				int dir=player1.move();
 
 				progress[mapNum].checkEnemys();
 				
@@ -131,11 +131,12 @@ public  class Core extends Application {
 				
 				getPlayer1().resetDamage();
 				if(attack==true) {
-					getPlayer1().attack();
+					getPlayer1().attack(dir);
 					attack=false;
 				}
 				
 				if (timer%5==0) {
+					
 					progress[mapNum].moveEnemys();
 					player1.drawHealthBar() ;
 				
