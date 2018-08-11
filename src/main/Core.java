@@ -114,7 +114,7 @@ public  class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 				timer++;
-				player1.drawHealthBar() ;
+				
 				player1.move();
 				
 				player1.resetDamage();
@@ -125,6 +125,7 @@ public  class Core extends Application {
 				
 				if (timer%5==0) {
 					progress[mapNum].moveEnemys();
+					player1.drawHealthBar() ;
 				
 				}
 				if (timer==1000)timer=0;
