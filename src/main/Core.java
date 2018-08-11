@@ -31,6 +31,8 @@ public  class Core extends Application {
 		launch(args);
 	}
 	
+	
+	private static StartMenu start= new StartMenu();
 	private static int mapNum=0;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
@@ -42,7 +44,6 @@ public  class Core extends Application {
 	private File map3=new File("res/layouts/map3.txt");
 	
 	private static Map[] progress = new Map[4];
-
 	
 	private Image floorImage =new Image("file:res/sprites/map/floor.png");
 	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
@@ -50,14 +51,13 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(10,5);
-	
+	private static Player player1 = new Player(10,10);
 	
 	private static final int WIDTH=600;
 	private static final int HEIGHT=680;
 	
 	private static boolean attack = false;
-
+	private static Scene mainScene = new Scene(getLayout(), WIDTH, HEIGHT);
 
 	@Override
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
@@ -65,42 +65,45 @@ public  class Core extends Application {
 		progress[1]= new Map(map1);
 		progress[2]= new Map(map2);
 		progress[3]= new Map(map3);
+		 
+		getLayout().setBackground(background);
 		
-		layout.setBackground(background);
-		Scene scene = new Scene(layout, WIDTH, HEIGHT);
-		stage.setScene(scene);
+		
+		Pane startLayout=start.start();
+		getMainScene().setRoot(startLayout);
+		stage.setScene(getMainScene());
 		
 		progress[mapNum].createMap();
-		player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
+		getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 	
-		layout.getChildren().add(solid);
+		getLayout().getChildren().add(solid);
 
 		stage.show();
 
-		scene.setOnKeyPressed(e -> {
+		getMainScene().setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
-				player1.setDelta(Actors.MOVERES,0);
-				player1.setPlayerRight();
+				getPlayer1().setDelta(Actors.MOVERES,0);
+				getPlayer1().setPlayerRight();
 			}
 
 			else if (e.getCode() == KeyCode.A) {
-				player1.setDelta(-Actors.MOVERES,0);
-				player1.setPlayerLeft();				
+				getPlayer1().setDelta(-Actors.MOVERES,0);
+				getPlayer1().setPlayerLeft();				
 			}
 
 			else if (e.getCode() == KeyCode.S) {
-				player1.setDelta(0, Actors.MOVERES);
-				player1.setPlayerDown();
+				getPlayer1().setDelta(0, Actors.MOVERES);
+				getPlayer1().setPlayerDown();
 			}
 
 			else if (e.getCode() == KeyCode.W) {
-				player1.setDelta(0, -Actors.MOVERES);
-				player1.setPlayerUp();
+				getPlayer1().setDelta(0, -Actors.MOVERES);
+				getPlayer1().setPlayerUp();
 			}
 			
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
-					player1.setHealth(10);
+					getPlayer1().setHealth(10);
 				}
 			}	
 			
@@ -114,12 +117,18 @@ public  class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 				timer++;
+<<<<<<< HEAD
 				
 				player1.move();
+=======
+				progress[mapNum].checkEnemys();
+				getPlayer1().drawHealthBar() ;
+				getPlayer1().move();
+>>>>>>> f34ddeb4793799a9f0c5b716b565bd289730a175
 				
-				player1.resetDamage();
+				getPlayer1().resetDamage();
 				if(attack==true) {
-					player1.attack();
+					getPlayer1().attack();
 					attack=false;
 				}
 				
@@ -157,7 +166,7 @@ public  class Core extends Application {
 				
 				if(actor instanceof Enemy) {
 					if (object.getId().equals("player")){
-						hit(actor, player1);
+						hit( player1,actor);
 						return false;
 					}
 				}
@@ -179,15 +188,13 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("finish")) {
 					if  (actor instanceof Player)nextMap();
-					
-					
 					return false;
 					
 				}
 				
 				if (object.getId().equals("damage")) {
 				
-					actor.setHealth(actor.getHealth()-player1.getDamage());
+					actor.setHealth(actor.getHealth()-getPlayer1().getDamage());
 						
 					actor.checkAlive();
 					return false;
@@ -207,9 +214,9 @@ public  class Core extends Application {
 	 */
 	public static void hit(Actors actor1, Actors actor2) {
 		hitCount++;
-		if (hitCount==100) {
+		if (hitCount==30) {
 			actor1.setHealth(actor1.getHealth()-actor2.getDamage());
-			actor2.setHealth(actor2.getHealth()-actor1.getDamage());
+			
 			hitCount=0;
 		}
 		actor1.checkAlive();
@@ -224,7 +231,7 @@ public  class Core extends Application {
 			try {
 				
 				progress[mapNum].createMap();
-				player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
+				getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();
@@ -234,13 +241,56 @@ public  class Core extends Application {
 	}
 	
 	public static void addLayout(Node n) {
-		layout.getChildren().add(n);
+		getLayout().getChildren().add(n);
 	}
 	public static void addSolid(Node n) {
 		solid.getChildren().add(n);
 	}
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
+	}
+//try to remove this block
+	/**
+	 * @return the mainScene
+	 */
+	public static Scene getMainScene() {
+		return mainScene;
+	}
+
+	/**
+	 * @param mainScene the mainScene to set
+	 */
+	public static void setMainScene(Scene mainScene) {
+		Core.mainScene = mainScene;
+	}
+
+	/**
+	 * @return the layout
+	 */
+	public static Pane getLayout() {
+		return layout;
+	}
+
+	/**
+	 * @param layout the layout to set
+	 */
+	public static void setLayout(Pane layout) {
+		Core.layout = layout;
+	}
+	//end block
+
+	/**
+	 * @return the player1
+	 */
+	public static Player getPlayer1() {
+		return player1;
+	}
+
+	/**
+	 * @param player1 the player1 to set
+	 */
+	public static void setPlayer1(Player player1) {
+		Core.player1 = player1;
 	}
 	
 }

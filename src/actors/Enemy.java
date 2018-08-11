@@ -26,22 +26,37 @@ public class Enemy extends Actors {
 
 
 	public void move() {
+		if (this.checkAlive()==true) {
+			double pX=Core.getPlayer1().getImageView().getLayoutX();
+			double pY=Core.getPlayer1().getImageView().getLayoutY();
 		
-			
-		if (right==true) {
-			this.setDelta(-MOVERES, 0);
-			if (Core.check(this)==false)right=false;
-			super.move();
-				 
-		}
+			double eX=enemy.getLayoutX();
+			double eY=enemy.getLayoutY();
 		
-		else if (right==false) {
+			double vX= pX-eX;
+			double vY= pY-eY;
+			double len= Math.sqrt(vX*vX+vY*vY);
+			vX=(vX/len);
+			vY=(vY/len);
 			
-			this.setDelta(MOVERES, 0);
-			if (Core.check(this)==false)right=true;
-			super.move();
-			
+			//System.out.println("dX: "+vX+" dY: "+vY);
+			this.setDelta(vX, vY);
+			if(Core.check(this)==true)super.move();
 		}
+//		if (right==true) {
+//			this.setDelta(-MOVERES, 0);
+//			if (Core.check(this)==false)right=false;
+//			super.move();
+//				 
+//		}
+//		
+//		else if (right==false) {
+//			
+//			this.setDelta(MOVERES, 0);
+//			if (Core.check(this)==false)right=true;
+//			super.move();
+//			
+//		}
 	}
 
 	@Override
