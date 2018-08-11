@@ -9,6 +9,8 @@ import main.Core;
 public abstract class Actors {
 
 	public static final int MOVERES = 1;
+	private double lastX;
+	private double lastY;
 	private double deltaX = 0;
 	private double deltaY = 0;
 	private int health;
@@ -83,5 +85,43 @@ public abstract class Actors {
 		this.getImageView().setFitHeight(0);
 		this.getImageView().setFitWidth(0);
 	}
+
+	/**
+	 * @return the lastX
+	 */
+	public double getLastX() {
+		return lastX;
+	}
+
+	/**
+	 * @param lastX the lastX to set
+	 */
+	public void setLastX(double lastX) {
+		this.lastX = lastX;
+	}
+
+	/**
+	 * @return the lastY
+	 */
+	public double getLastY() {
+		return lastY;
+	}
+
+	/**
+	 * @param lastY the lastY to set
+	 */
+	public void setLastY(double lastY) {
+		this.lastY = lastY;
+	}
+	
+	public double getX() {
+		return this.getImageView().getLayoutX();
+		
+	}
+	public double getY() {
+		return this.getImageView().getLayoutY();
+		
+	}
+	
 	
 }

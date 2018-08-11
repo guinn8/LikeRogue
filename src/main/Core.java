@@ -74,8 +74,11 @@ public  class Core extends Application {
 		stage.setScene(getMainScene());
 		
 		progress[mapNum].createMap();
+		
 		getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
-	
+		player1.setLastX(progress[mapNum].getPX());
+		player1.setLastY(progress[mapNum].getPY());
+		
 		getLayout().getChildren().add(solid);
 
 		stage.show();
@@ -117,14 +120,14 @@ public  class Core extends Application {
 			@Override
 			public void handle(long arg0) {
 				timer++;
-<<<<<<< HEAD
+
 				
 				player1.move();
-=======
+
 				progress[mapNum].checkEnemys();
-				getPlayer1().drawHealthBar() ;
-				getPlayer1().move();
->>>>>>> f34ddeb4793799a9f0c5b716b565bd289730a175
+				
+				
+
 				
 				getPlayer1().resetDamage();
 				if(attack==true) {
@@ -138,9 +141,11 @@ public  class Core extends Application {
 				
 				}
 				if (timer==1000)timer=0;
+				player1.setLastX(player1.getX());
+				player1.setLastY(player1.getY());
 			}
-		}; gameLoop.start();
-	}
+		}; gameLoop.start();}
+		
 	
 	/**
 	 * check handles the collision detection
@@ -198,8 +203,15 @@ public  class Core extends Application {
 						
 					actor.checkAlive();
 					return false;
-				
 				}
+					
+				if(actor instanceof Enemy) {
+					if (object.getId().equals("e")){
+						hit( player1,actor);
+						return false;
+					}
+				}
+				
 			}
 		}
 		
