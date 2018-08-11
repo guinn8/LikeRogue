@@ -14,7 +14,8 @@ public class Player extends Actors {
 	
 	private Image soldierImage = new Image("file:res/sprites/player/soldier.png");
 	//private ImageView player= new ImageView(soldierImage);
-
+	
+	
 	private Rectangle2D soldierPort= new Rectangle2D(0, 0, W, H);
 	
 	private Rectangle healthBar= new Rectangle();
@@ -34,8 +35,8 @@ public class Player extends Actors {
 	 * @param setHealth
 	 * @param setDamage
 	 */
-	public Player(int setHealth, int setDamage) {
-		super(setHealth, setDamage);
+	public Player(int setHealth, int setDamage){
+		super(setHealth, setDamage,32,32);
 		
 		
 		

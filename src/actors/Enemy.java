@@ -2,6 +2,7 @@ package actors;
 
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
@@ -10,8 +11,9 @@ public class Enemy extends Actors {
 	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView();
+	private Rectangle2D soldierPort= new Rectangle2D(0, 0, W, H);
 	
-	boolean right=true;
+
 	
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
 		super(setHealth, setDamage);
