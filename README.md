@@ -6,7 +6,7 @@ CPSC 233 T01-4 (2018 Summer) Final Project
 2. Extract the ZIP file
 3. In Eclipse, go to File -> Open Projects from File System
 4. Add the directory which should be the extracted file from step 2. Press "Finish" when done.
-5. Open up Core.java and run the program.
+5. Open up Core.java and run it.
 
 # How to Play the Game:
 - The goal is to make it to the end through multiple maps.
