@@ -72,11 +72,12 @@ public  class Core extends Application {
 
 
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
+		System.out.println(mapNum);
 		progress[0]= new Map(map0);
 		progress[1]= new Map(map1);
 		progress[2]= new Map(map2);
 		progress[3]= new Map(map3);
-		 
+		    
 		getLayout().setBackground(background);
 		
 		
