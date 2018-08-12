@@ -4,16 +4,19 @@ import javafx.scene.layout.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import actors.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -28,23 +31,26 @@ import javafx.scene.input.KeyCode;
 public  class Core extends Application {
 
 	public static void main(String[] args) {
+		
 		launch(args);
 	}
 	
 	
 	private static StartMenu start= new StartMenu();
 	private static Feedbackscreen end= new Feedbackscreen();
-	private static int mapNum=0;
+	public static int mapNum=0;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	
-	
+	private static boolean running=true;
 	private static Group solid= new Group();
 
 	private File map0=new File("res/layouts/map0.txt");
 	private File map1=new File("res/layouts/map1.txt");
 	private File map2=new File("res/layouts/map2.txt");
 	private File map3=new File("res/layouts/map3.txt");
+	
+	private static File save= new File("res/save.txt");
 	
 	private static Map[] progress = new Map[4];
 	
@@ -56,13 +62,15 @@ public  class Core extends Application {
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(10,10);
 	
-	private static final int WIDTH=600;
-	private static final int HEIGHT=680;
+	public static final int WIDTH=600;
+	public static final int HEIGHT=680;
 	
 	private static boolean attack = false;
 	private static Scene mainScene = new Scene(getLayout(), WIDTH, HEIGHT);
+	static Pane endlayout;
+	Stage stage= new Stage();
 
-	@Override
+
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 		progress[0]= new Map(map0);
 		progress[1]= new Map(map1);
@@ -73,7 +81,7 @@ public  class Core extends Application {
 		
 		
 		Pane startLayout=start.start();
-		Pane endlayout=end.end();
+		endlayout=end.end();
 	    getMainScene().setRoot(startLayout);
     	
 		stage.setScene(getMainScene());
@@ -88,6 +96,17 @@ public  class Core extends Application {
 		getLayout().getChildren().add(solid);
 
 		stage.show();
+		
+		stage.setOnCloseRequest((WindowEvent e1)->{
+			try {
+				PrintWriter writer = new PrintWriter(getSave());
+				writer.println(mapNum);
+				writer.close();
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 
 		getMainScene().setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
@@ -122,38 +141,47 @@ public  class Core extends Application {
 		});
 
 		AnimationTimer gameLoop = new AnimationTimer() {
+			
 			int timer;
 			@Override
 			public void handle(long arg0) {
-				timer++;
-
-				
-				int dir=player1.move();
-
-				progress[mapNum].checkEnemys();
-				
-				
-
-				
-				getPlayer1().resetDamage();
-				if(attack==true) {
-					getPlayer1().attack(dir);
-					attack=false;
-				}
-				
-				if (timer%5==0) {
+				if (running==true) {
+					timer++;
+	
 					
-					progress[mapNum].moveEnemys();
-					player1.drawHealthBar() ;
-				
+					
+	
+					progress[mapNum].checkEnemys();
+					
+					
+	
+					
+					getPlayer1().resetDamage();
+					
+					
+					if (timer%5==0) {
+						
+						
+						progress[mapNum].moveEnemys();
+						player1.drawHealthBar() ;
+					
+					}
+					
+					player1.setLastX(player1.getX());
+					player1.setLastY(player1.getY());
+					if(player1.getHealth()<=0) {
+						getMainScene().setRoot(endlayout);
+						stage.setScene(getMainScene());
 				}
-				if (timer==1000)timer=0;
-				player1.setLastX(player1.getX());
-				player1.setLastY(player1.getY());
-				if(player1.getHealth()<=0) {
-					getMainScene().setRoot(endlayout);
-					stage.setScene(getMainScene());
-			
+					
+					int dir=player1.move();
+					if (timer%15==0) {
+						if(attack==true) {
+							getPlayer1().attack(dir);
+							attack=false;
+						}
+					}
+					if (timer==1000)timer=0;
 					}
 			}
 		}; gameLoop.start();}
@@ -168,6 +196,7 @@ public  class Core extends Application {
 	 * @throws FileNotFoundException 
 	 **/
 	public static boolean check(Actors actor) {
+		
 	
 		for (Node object : solid.getChildren()) {
 			if (object.getBoundsInParent().intersects(actor.getBounds().getMinX() + actor.getDeltaX(), actor.getBounds().getMinY() + actor.getDeltaY(), 
@@ -271,6 +300,10 @@ public  class Core extends Application {
 			}
 			progress[mapNum-1].removeMap();
 		}
+		else {
+			running=false;
+			mainScene.setRoot(endlayout);
+		}
 	}
 	
 	public static void addLayout(Node n) {
@@ -325,6 +358,22 @@ public  class Core extends Application {
 	 */
 	public static void setPlayer1(Player player1) {
 		Core.player1 = player1;
+	}
+
+
+	/**
+	 * @return the save
+	 */
+	public static File getSave() {
+		return save;
+	}
+
+
+	/**
+	 * @param save the save to set
+	 */
+	public void setSave(File save) {
+		this.save = save;
 	}
 	
 }

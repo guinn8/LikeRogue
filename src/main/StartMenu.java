@@ -1,6 +1,11 @@
 package main;
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -9,7 +14,9 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -25,7 +32,10 @@ public class StartMenu {
 	private static Pane layout = new Pane();
 	public Pane start(){
 		
-	
+		VBox vbox= new VBox();
+		vbox.setLayoutX(175);
+		vbox.setLayoutY(50);
+		vbox.setSpacing(20);
 	
 		layout.setBackground(background);
 		
@@ -34,20 +44,20 @@ public class StartMenu {
 		t.setStroke(Color.BLUE);  
 		t.setFont(Font.font ("Verdana", 50));
 		t.setFill(Color.RED);
-		t.setLayoutX(80);
-	    t.setLayoutY(100);
-	    layout.getChildren().add(t);
+		//t.setLayoutX(80);
+	   // t.setLayoutY(100);
+		vbox.getChildren().add(t);
 	  		 
 		  
 		
-		Button button = new Button();
-		button.setText("Start The Game");
-		button.setLayoutX(80);
-		button.setLayoutY(180);
-		button.setMinWidth(150);
-		button.setMinHeight(70);
-		button.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
-		button.setOnAction(e->{
+		Button start = new Button();
+		start.setText("Start The Game");
+		//start.setLayoutX(80);
+		//start.setLayoutY(180);
+		start.setMinWidth(150);
+		start.setMinHeight(70);
+		start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
+		start.setOnAction(e->{
 		//fix this privacy leak
 			Core.getMainScene().setRoot(Core.getLayout());
 			
@@ -56,13 +66,13 @@ public class StartMenu {
 			
 			
 		});
-		layout.getChildren().add(button);
+		vbox.getChildren().add(start);
 		
 		Button button2 = new Button();
 		button2.setText("Leave The Game");
-		button2.setLayoutX(80);
+		//button2.setLayoutX(80);
 		button2.setLayoutY(280);
-		button2.setMinWidth(150);
+		//button2.setMinWidth(150);
 		button2.setMinHeight(70);
 		button2.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		button2.setOnAction( e->{
@@ -75,7 +85,35 @@ public class StartMenu {
 			
 			
 		});
-		layout.getChildren().add(button2);
+		vbox.getChildren().add(button2);
+		
+		Button load = new Button();
+		load.setText("Load last game");
+		//load.setLayoutX(80);
+		//load.setLayoutY(280);
+		load.setMinWidth(150);
+		load.setMinHeight(70);
+		
+		load.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
+		load.setOnAction( e->{
+			
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(Core.getSave()));
+				Core.mapNum=Integer.parseInt(br.readLine());
+				Core.getMainScene().setRoot(Core.getLayout());
+				
+				br.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		vbox.getChildren().add(load);
+		layout.getChildren().add(vbox);
+		
 		return layout;
 		
 		
