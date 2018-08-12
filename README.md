@@ -9,14 +9,19 @@ CPSC 233 T01-4 (2018 Summer) Final Project
 5. Open up Core.java and run the program.
 
 # How to Play the Game:
-The goal is to make it to the end through multiple maps.
-You must go to the "X" labelled on the map to advance maps.
-There will be enemies along the way that will hunt you down.
-Chests will give you either one of many types of swords, a health pack or both.
+- The goal is to make it to the end through multiple maps.
+- You must go to the "X" labelled on the map to advance maps.
+- There will be enemies along the way that will hunt you down.
+- Chests will give you either one of many types of swords, a health pack or both.
 
-Use WASD to move in the respective directions.
-Press 'H' to use a health pack if you have one.
-Press the Space Bar to attack.
+Use WASD to move:
+- W: Up
+- A: Left
+- S: Down
+- D: Right
+
+- Press 'H' to use a health pack if you have one.
+- Press the Space Bar to attack.
 
 # JUnit Testing Instructions:
 1. Open the 'JUnit' package in package manager at the left.
