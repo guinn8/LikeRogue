@@ -8,13 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
 //thanks user https://opengameart.org/users/erbarlow for player sprites
-/**
- * This class primarily deals with player movement,state and actions.
- * @author Eric Zhang
- * @author Gavin Guinn
- * @Author Johnny Meng
- *
- */
+
+//Erics changes: added getters and setters for every instance variables.
 public class Player extends Actors {
 	
 	private Image soldierImage = new Image("file:res/sprites/player/soldier.png");
@@ -34,9 +29,11 @@ public class Player extends Actors {
 	private Image damageImage = new Image("file:res/sprites/player/damage.png"); 
 	
 	/**
-	 * Constructor for player
-	 * @param setHealth Initial Health
-	 * @param setDamage Initial Damage
+	 * 
+	 * @param setX
+	 * @param setY
+	 * @param setHealth
+	 * @param setDamage
 	 */
 	public Player(int setHealth, int setDamage){
 		super(setHealth, setDamage,32,32,0,3);
@@ -77,9 +74,7 @@ public class Player extends Actors {
 	}
 
 	/**
-	 * This method will let the player attack and shows the sprite of the attack.
-	 * @param dir the integer that determines the direction of the attack.
-	 * @return false ends the method
+	 * 
 	 */
 	public boolean attack(int dir) {
 		
@@ -106,32 +101,31 @@ public class Player extends Actors {
 	return false;
 	}
 	
-	/**
-	 * This method draws the health bar at the bottom
-	 */
 	public void drawHealthBar() {
 		healthBar.setWidth(this.getHealth()*60);
 	}
 
-	/**
-	 * This method will teleport the damage sprite away from the canvas when its called.
-	 */
 	public void resetDamage() {
 		damage.setLayoutX(-1000);
 		damage.setLayoutY(-1000);
 	}
 	
-	/**
-	 * Getter for bounds of the player
-	 * @return bounds the boundaries of the player sprite
-	 */
+	public void setPlayerRight() {
+		//player.setImage(playerRight);
+	}
+	public void setPlayerLeft() {
+		//player.setImage(playerLeft);
+	}
+	public void setPlayerDown() {
+		//player.setImage(playerDown);
+	}
+	public void setPlayerUp() {
+		//player.setImage(playerUp);
+	}
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
 	}
-	/**
-	 * Getter for ImageView of the player
-	 * @return an Imgaeview of the player sprite
-	 */
+	//possible privacy leak
 	protected ImageView getImageView() {
 		return player;	
 	}

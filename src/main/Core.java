@@ -1,4 +1,4 @@
- package main;
+package main;
 
 import javafx.scene.layout.*;
 
@@ -38,10 +38,15 @@ public  class Core extends Application {
 	
 	
 	private static StartMenu start= new StartMenu();
+<<<<<<< HEAD
 
 	private  Feedbackscreen end;
 	public static int mapNum;
 
+=======
+	private  Feedbackscreen end;
+	public static int mapNum;
+>>>>>>> parent of e5a34fc... revert
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	
@@ -55,7 +60,7 @@ public  class Core extends Application {
 	
 	private static File save= new File("res/save.txt");
 	
-	private static Map[] progress = new Map[4];
+	public static Map[] progress = new Map[4];
 	
 	private Image floorImage =new Image("file:res/sprites/map/floor.png");
 	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
@@ -63,10 +68,14 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
+<<<<<<< HEAD
 
 	private static Player player1 = new Player(10000,1);
 
 
+=======
+	private static Player player1 = new Player(10000,1);
+>>>>>>> parent of e5a34fc... revert
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
@@ -78,11 +87,12 @@ public  class Core extends Application {
 
 
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
+		
 		progress[0]= new Map(map0);
 		progress[1]= new Map(map1);
 		progress[2]= new Map(map2);
 		progress[3]= new Map(map3);
-		 
+		    
 		getLayout().setBackground(background);
 		
 		
@@ -92,18 +102,14 @@ public  class Core extends Application {
     	
 		stage.setScene(getMainScene());
 		
+		System.out.println(mapNum);
 		
-		progress[mapNum].createMap();
 		
-		getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
-		player1.setLastX(progress[mapNum].getPX());
-		player1.setLastY(progress[mapNum].getPY());
-		
-		getLayout().getChildren().add(solid);
 
 		stage.show();
 		
 		stage.setOnCloseRequest((WindowEvent e1)->{
+			System.out.println("ren");
 			try {
 				PrintWriter writer = new PrintWriter(getSave());
 				writer.println(mapNum);
@@ -230,7 +236,10 @@ public  class Core extends Application {
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
 					int roll = (int) (Math.ceil(Math.random() * 2));
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of e5a34fc... revert
 					
 		
 						
@@ -316,25 +325,31 @@ public  class Core extends Application {
 	
 	public static void nextMap() {
 		
-		mapNum++;
-		if(mapNum<progress.length) {
+		System.out.println(mapNum);
+		if(mapNum<progress.length-1) {
 			try {
 				
-				progress[mapNum].createMap();
+				progress[mapNum+1].createMap();
 				getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();
 			}
+<<<<<<< HEAD
 
 			progress[mapNum].removeMap();  
 			mapNum++;
 
+=======
+			progress[mapNum].removeMap();  
+			mapNum++;
+>>>>>>> parent of e5a34fc... revert
 		}
 		else {
 			running=false;
 			mainScene.setRoot(endlayout);
 		}
+		
 	}
 	
 	public static void addLayout(Node n) {
@@ -405,6 +420,17 @@ public  class Core extends Application {
 	 */
 	public void setSave(File save) {
 		this.save = save;
+	}
+	
+	public static void createMap(int num) throws FileNotFoundException {
+		mapNum=num;
+		progress[num].createMap();
+		
+		getPlayer1().teleport(progress[num].getPX(), progress[num].getPY());
+		player1.setLastX(progress[num].getPX());
+		player1.setLastY(progress[num].getPY());
+		
+		getLayout().getChildren().add(solid);
 	}
 	
 }
