@@ -10,19 +10,23 @@ import main.*;
 public class Enemy extends Actors {
 	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
-	private ImageView enemy = new ImageView();
-	private Rectangle2D soldierPort= new Rectangle2D(0, 0, W, H);
+	private ImageView enemy = new ImageView(enemySprite);
+	
+	private Rectangle2D enemyport= new Rectangle2D(0, 0, W, H);
 	
 
 	
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
-		super(setHealth, setDamage);
+		super(setHealth, setDamage,15,16,0, 4);
+		enemy.setScaleX(2.5);
+		enemy.setScaleY(2.5);
 		enemy.setLayoutX(setX);
 		enemy.setLayoutY(setY);
-		enemy.setImage(enemySprite);
+		
 		Core.addSolid(enemy);
 
 		enemy.setId("enemy");
+		enemy.setViewport(enemyport);
 		
 	}
 

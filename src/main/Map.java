@@ -83,8 +83,8 @@ public class Map {
 			
 			else if (layout.charAt(i) == 'E') {
 				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
-				e.setLastX(posX * tileSize +1);
-				e.setLastY((posY * tileSize) +1);
+				//e.setLastX(posX * tileSize +1);
+				//e.setLastY((posY * tileSize) +1);
 				enemyArray.add(e);
 
 			}
@@ -96,6 +96,7 @@ public class Map {
 	public void moveEnemys() {
 		for (Enemy e: enemyArray) {
 			if (e.checkAlive()==true)e.move();
+			
 		}
 	}
 	public void checkEnemys() {

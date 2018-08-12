@@ -107,6 +107,7 @@ public  class Core extends Application {
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
 					getPlayer1().setHealth(10);
+					inventory.setHealthVis(false);
 				}
 			}	
 			
@@ -179,7 +180,7 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					int roll = (int) (Math.ceil(Math.random() * 2));
+					int roll = (int) (Math.ceil(Math.random() * 5)+1);
 					
 					if (roll== 1) {
 						inventory.setSwordVis(true);
@@ -208,9 +209,11 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("damage")) {
-				
+					System.out.println("hit");
+					
+					
 					actor.setHealth(actor.getHealth()-getPlayer1().getDamage());
-						
+					System.out.println((actor.getHealth()));
 					actor.checkAlive();
 					return false;
 				}

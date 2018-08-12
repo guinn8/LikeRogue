@@ -36,7 +36,7 @@ public class Player extends Actors {
 	 * @param setDamage
 	 */
 	public Player(int setHealth, int setDamage){
-		super(setHealth, setDamage,32,32);
+		super(setHealth, setDamage,32,32,0,3);
 		
 		
 		

@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import main.Core;
 
 public abstract class Actors {
-	
+	private static int frames;
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -18,13 +18,15 @@ public abstract class Actors {
 	private int damage;
 	protected int W;
 	protected int H;
+	protected int OFF;
 
 	
-	Actors( int setHealth, int setDamage, int setW, int setH){
+	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
 		damage=setDamage;
 		health=setHealth;
 		W=setW;
 		H=setH;
+		frames=setFrames;
 	}
 
 	public abstract Bounds getBounds();
@@ -35,8 +37,8 @@ public abstract class Actors {
 	 */
 	public  boolean checkAlive() {
 		if (this.getHealth() <= 0) {
-				remove();
-				return false;
+			this.remove();
+			return false;
 		}
 		return true;	
 	}
@@ -76,7 +78,7 @@ public abstract class Actors {
 			}
 		}
 		setDelta(0,0);
-		System.out.println(dir);
+		
 		return dir;
 	}
 
@@ -88,15 +90,15 @@ public abstract class Actors {
 		return health;
 	}
 	public void setHealth(int setHealth) {
-		if(setHealth>=0&&setHealth<=10)
+		
 		health=setHealth;
 	}
 	public int getDamage() {
 		return damage;
 	}
 	public void setDamage(int setDamage) {
-		if(setDamage>=0&&setDamage<=10)
-		damage=setDamage;
+		if(setDamage>=0&&setDamage<=10)damage=setDamage;
+		
 	}
 	public double getDeltaX() {
 		return deltaX;
@@ -113,8 +115,9 @@ public abstract class Actors {
 	public void remove() {
 		Core.removeSolid(this.getImageView());
 		this.getImageView().setImage(null);
-		this.getImageView().setFitHeight(0);
-		this.getImageView().setFitWidth(0);
+		this.getImageView().setLayoutX(-100);
+		this.getImageView().setLayoutY(-100);
+		
 	}
 
 	/**
@@ -156,11 +159,13 @@ public abstract class Actors {
 	int animCounter=0;
 	public void animate(int r) {
 		
-		Rectangle2D anim= new Rectangle2D(W*animCounter, r*H, W, H);
+		Rectangle2D anim= new Rectangle2D(W*animCounter+OFF, r*H, W, H);
+		
+	
 		this.getImageView().setViewport(anim);
 		
 		animCounter++;
-		if (animCounter==3)animCounter=0;
+		if (animCounter==frames-1)animCounter=0;
 	}
 	
 	
