@@ -10,8 +10,8 @@ CPSC 233 T01-4 (2018 Summer) Final Project
 
 # How to Play the Game:
 - The goal is to make it to the end through multiple maps.
-- You must go to the "X" labelled on the map to advance maps.
-- There will be enemies along the way that will hunt you down.
+- You must go to the "X" labelled on the map to advance to the next map.
+- There will be enemies along the way that will try to kill you. You can either fight them or try to run away from them.
 - Chests will give you either one of many types of swords, a health pack or both.
 
 Use WASD to move:
