@@ -39,6 +39,7 @@ public  class Core extends Application {
 	
 	private static StartMenu start= new StartMenu();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	private  Feedbackscreen end;
 	public static int mapNum;
@@ -47,6 +48,14 @@ public  class Core extends Application {
 	private  Feedbackscreen end;
 	public static int mapNum;
 >>>>>>> parent of e5a34fc... revert
+=======
+	private  Feedbackscreen end;
+	public static int mapNum;
+=======
+	private static Feedbackscreen end= new Feedbackscreen();
+	public static int mapNum=0;
+>>>>>>> parent of e8d29d4... Revert "Merge branch 'master' of https://github.com/guinn8/LikeRogue"
+>>>>>>> parent of 8ebbc7c... hh
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	
@@ -69,6 +78,7 @@ public  class Core extends Application {
 	
 	private static Inventory inventory = new Inventory();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	private static Player player1 = new Player(10000,1);
 
@@ -76,6 +86,16 @@ public  class Core extends Application {
 =======
 	private static Player player1 = new Player(10000,1);
 >>>>>>> parent of e5a34fc... revert
+=======
+	private static Player player1 = new Player(10000,1);
+=======
+<<<<<<< HEAD
+	private static Player player1 = new Player(10000,10);
+=======
+	private static Player player1 = new Player(10,1);
+>>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+>>>>>>> parent of e8d29d4... Revert "Merge branch 'master' of https://github.com/guinn8/LikeRogue"
+>>>>>>> parent of 8ebbc7c... hh
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
@@ -123,22 +143,22 @@ public  class Core extends Application {
 		getMainScene().setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
 				getPlayer1().setDelta(Actors.MOVERES,0);
-				
+				getPlayer1().setPlayerRight();
 			}
 
 			else if (e.getCode() == KeyCode.A) {
 				getPlayer1().setDelta(-Actors.MOVERES,0);
-							
+				getPlayer1().setPlayerLeft();				
 			}
 
 			else if (e.getCode() == KeyCode.S) {
 				getPlayer1().setDelta(0, Actors.MOVERES);
-				
+				getPlayer1().setPlayerDown();
 			}
 
 			else if (e.getCode() == KeyCode.W) {
 				getPlayer1().setDelta(0, -Actors.MOVERES);
-		
+				getPlayer1().setPlayerUp();
 			}
 			
 			else if (e.getCode() == KeyCode.H) {
@@ -237,9 +257,36 @@ public  class Core extends Application {
 					solid.getChildren().remove(object);
 					int roll = (int) (Math.ceil(Math.random() * 2));
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> parent of e5a34fc... revert
+=======
+=======
+					
+					if (roll== 1) {
+						if(getPlayer1().getDamage()==1){
+						inventory.setSwordVis(true);
+						getPlayer1().setDamage(3);}
+						else if(getPlayer1().getDamage()==3) {
+							inventory.setSwordVis(false);
+							inventory.setSword2Vis(true);
+							getPlayer1().setDamage(4);
+						}else if(getPlayer1().getDamage()==4) {
+							inventory.setSword2Vis(false);
+							inventory.setSword3Vis(true);
+							getPlayer1().setDamage(5);
+						}else if(getPlayer1().getDamage()==5) {
+							inventory.setSword3Vis(false);
+							inventory.setSword4Vis(true);
+							getPlayer1().setDamage(10);
+						}
+					}
+					else if (roll == 2) {
+						inventory.setHealthVis(true);
+					}
+>>>>>>> parent of e8d29d4... Revert "Merge branch 'master' of https://github.com/guinn8/LikeRogue"
+>>>>>>> parent of 8ebbc7c... hh
 					
 		
 						
@@ -336,6 +383,7 @@ public  class Core extends Application {
 				e.printStackTrace();
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 			progress[mapNum].removeMap();  
 			mapNum++;
@@ -344,6 +392,13 @@ public  class Core extends Application {
 			progress[mapNum].removeMap();  
 			mapNum++;
 >>>>>>> parent of e5a34fc... revert
+=======
+			progress[mapNum].removeMap();  
+			mapNum++;
+=======
+			progress[mapNum-1].removeMap();
+>>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+>>>>>>> parent of 8ebbc7c... hh
 		}
 		else {
 			running=false;

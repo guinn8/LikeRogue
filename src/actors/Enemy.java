@@ -63,8 +63,11 @@ public class Enemy extends Actors {
 		return enemy;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> parent of 8ebbc7c... hh
 	
 	public void setUserData(Integer num) {
 		enemy.setUserData(num);
@@ -74,5 +77,10 @@ public class Enemy extends Actors {
 	}
 	
 	
+<<<<<<< HEAD
 >>>>>>> parent of e5a34fc... revert
+=======
+=======
+>>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+>>>>>>> parent of 8ebbc7c... hh
 }

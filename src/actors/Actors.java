@@ -23,10 +23,13 @@ public abstract class Actors {
 	private int imageID;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 8ebbc7c... hh
 	
-
-
+	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
+=======
 	/**
 	 * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
 	 * @param setHealth
@@ -37,17 +40,21 @@ public abstract class Actors {
 	 * @param setFrames
 	 */
 	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
+<<<<<<< HEAD
 
 =======
 	
 	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
 >>>>>>> parent of e5a34fc... revert
+=======
+>>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+>>>>>>> parent of 8ebbc7c... hh
 		damage=setDamage;
 		health=setHealth;
 		setW(setW);
 		setH(setH);
 		frames=setFrames;
-	
+		VOFF=setVOFF;
 	}
 
 	public abstract Bounds getBounds();
@@ -65,13 +72,18 @@ public abstract class Actors {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 =======
 >>>>>>> parent of e5a34fc... revert
+=======
+	int dir = 0;
+>>>>>>> parent of 8ebbc7c... hh
 	/**
 	 * @throws FileNotFoundException 
 	 *  
 	 */
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	int dir = 0;
@@ -83,6 +95,14 @@ public abstract class Actors {
 	public int  move(){
 		if (deltaX==0&&deltaY==0)return dir;
 >>>>>>> parent of e5a34fc... revert
+=======
+	int dir = 0;
+	public int  move(){
+		if (deltaX==0&&deltaY==0)return dir;
+=======
+	public int move(){
+>>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+>>>>>>> parent of 8ebbc7c... hh
 		
 		for (int i = 0; i < 10; i++) {
 			
