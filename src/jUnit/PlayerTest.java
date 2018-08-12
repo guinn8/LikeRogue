@@ -58,14 +58,32 @@ public class PlayerTest{
 	}*/
 	
 	@Test
-	public void testAttack() {
+	public void testAttackUp() {
 		Player p = new Player(0,0);
-		p.attack();
-		assertEquals("testAttack: Expected boolean: false", false, p.attack());
+		p.attack(3);
+		assertEquals("testAttack: Expected boolean: false", false, p.attack(3));
 	}
 	
-
+	@Test
+	public void testAttackDown() {
+		Player p = new Player(0,0);
+		p.attack(0);
+		assertEquals("testAttack: Expected boolean: false", false, p.attack(0));
+	}
 	
+	@Test
+	public void testAttackLeft() {
+		Player p = new Player(0,0);
+		p.attack(1);
+		assertEquals("testAttack: Expected boolean: false", false, p.attack(1));
+	}
+
+	@Test
+	public void testAttackRight() {
+		Player p = new Player(0,0);
+		p.attack(2);
+		assertEquals("testAttack: Expected boolean: false", false, p.attack(2));
+	}
 	@Test
 	public void testResetDamX() {
 		Player p = new Player(0,0);
