@@ -7,7 +7,13 @@ import java.util.*;
 import actors.Enemy;
 
 import java.io.*;
-
+/**
+ * This class deals with the map
+ * 
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @author Johnny Meng
+ */
 public class Map {
 	private int playerX;
 	private int playerY;
@@ -26,13 +32,16 @@ public class Map {
 	public Map(File setMapFile) {
 		mapFile=setMapFile;	
 	}
-	
+	/**
+	 * This creates the map using scanner and txt files.
+	 * @throws FileNotFoundException
+	 */
 	public void createMap() throws FileNotFoundException {
 		
 		int posX = 0;
 		int posY = 0;
 	
-		Integer enemyNum = 0;
+	  
 		Scanner mapMaker = new Scanner(mapFile);
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
@@ -83,15 +92,9 @@ public class Map {
 			
 			else if (layout.charAt(i) == 'E') {
 				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
-				System.out.println(enemyNum);
-				//map[posX][posY].setUserData(enemyNum);
-			
-				//System.out.println(e.getUserData());
 				//e.setLastX(posX * tileSize +1);
 				//e.setLastY((posY * tileSize) +1);
 				enemyArray.add(e);
-				
-				enemyNum++;
 
 			}
 
@@ -99,17 +102,27 @@ public class Map {
 	mapMaker.close();
 	}
 	
+	/**
+	 * This will make sure that all the enemies that are still alive in the array will move
+	 */
 	public void moveEnemys() {
 		for (Enemy e: enemyArray) {
 			if (e.checkAlive()==true)e.move();
 			
 		}
 	}
+	
+	/**
+	 * This will make sure that the enemies wont collide with anything on the map.
+	 */
 	public void checkEnemys() {
 		for (Enemy e: enemyArray) Core.check(e);
 			
 	}
 	
+	/**
+	 * This will remove the current map.
+	 */
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
@@ -121,20 +134,18 @@ public class Map {
 		}
 	}
 	
-	public boolean eCheck(ImageView i, Enemy en) {
-		for (Enemy e: enemyArray) {
-			if(e==en)break;
-			if(i==e.getImageView()) {
-				return true;
-			}
-		}
-		return false;
-		
-		
-	}
+	/**
+	 * Getter for PX
+	 * @return playerX
+	 */
 	public int getPX(){
 		return playerX;
 	}
+	
+	/**
+	 * Setter for PX
+	 * @return playerY
+	 */
 	public int getPY(){
 		return playerY;
 	}
