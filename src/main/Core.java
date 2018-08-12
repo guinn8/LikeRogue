@@ -33,9 +33,12 @@ public  class Core extends Application {
 	
 	
 	private static StartMenu start= new StartMenu();
+	private static Feedbackscreen end= new Feedbackscreen();
 	private static int mapNum=0;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
+	
+	
 	private static Group solid= new Group();
 
 	private File map0=new File("res/layouts/map0.txt");
@@ -70,8 +73,11 @@ public  class Core extends Application {
 		
 		
 		Pane startLayout=start.start();
-		getMainScene().setRoot(startLayout);
+		Pane endlayout=end.end();
+	    getMainScene().setRoot(startLayout);
+    	
 		stage.setScene(getMainScene());
+		
 		
 		progress[mapNum].createMap();
 		
@@ -107,7 +113,6 @@ public  class Core extends Application {
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
 					getPlayer1().setHealth(10);
-					inventory.setHealthVis(false);
 				}
 			}	
 			
@@ -145,6 +150,11 @@ public  class Core extends Application {
 				if (timer==1000)timer=0;
 				player1.setLastX(player1.getX());
 				player1.setLastY(player1.getY());
+				if(player1.getHealth()<=0) {
+					getMainScene().setRoot(endlayout);
+					stage.setScene(getMainScene());
+			
+					}
 			}
 		}; gameLoop.start();}
 		
@@ -209,11 +219,9 @@ public  class Core extends Application {
 				}
 				
 				if (object.getId().equals("damage")) {
-					System.out.println("hit");
-					
-					
+				
 					actor.setHealth(actor.getHealth()-getPlayer1().getDamage());
-					System.out.println((actor.getHealth()));
+						
 					actor.checkAlive();
 					return false;
 				}
@@ -300,6 +308,7 @@ public  class Core extends Application {
 	 * @param layout the layout to set
 	 */
 	public static void setLayout(Pane layout) {
+		
 		Core.layout = layout;
 	}
 	//end block
