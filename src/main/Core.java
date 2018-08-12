@@ -38,7 +38,7 @@ public  class Core extends Application {
 	
 	
 	private static StartMenu start= new StartMenu();
-	private static Feedbackscreen end= new Feedbackscreen();
+	private  Feedbackscreen end;
 	public static int mapNum;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
@@ -61,7 +61,7 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(10000,10);
+	private static Player player1 = new Player(10000,1);
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
@@ -83,7 +83,7 @@ public  class Core extends Application {
 		
 		
 		Pane startLayout=start.start();
-		endlayout=end.end();
+		
 	    getMainScene().setRoot(startLayout);
     	
 		stage.setScene(getMainScene());
@@ -130,6 +130,7 @@ public  class Core extends Application {
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
 					getPlayer1().setHealth(10);
+					inventory.setHealthVis(false);
 				}
 			}	
 			
@@ -167,7 +168,10 @@ public  class Core extends Application {
 					
 					player1.setLastX(player1.getX());
 					player1.setLastY(player1.getY());
+					
 					if(player1.getHealth()<=0) {
+						end= new Feedbackscreen();
+						endlayout=end.end();
 						getMainScene().setRoot(endlayout);
 						stage.setScene(getMainScene());
 				}
@@ -217,27 +221,40 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					int roll = (int) (Math.ceil(Math.random() * 5)+1);
+					int roll = (int) (Math.ceil(Math.random() * 2));
 					
-					if (roll== 1) {
-						inventory.setSwordVis(true);
-						actor.setDamage(3);
-					}
-					else if (roll == 2) {
-						inventory.setHealthVis(true);
-					}else if(roll==3) {
-						inventory.setSword2Vis(true);
-						actor.setDamage(3);
-					}else if(roll==4) {
-						inventory.setSword3Vis(true);
-						actor.setDamage(4);
-					}else if(roll==5) {
-						inventory.setSword4Vis(true);
-						actor.setDamage(5);
-					}
-					
-					return false;
+		
+						
+						if (roll== 1) {
+							
+							if(player1.getDamage()==1){
+								System.out.println("ran");
+							inventory.setSwordVis(true);
+							getPlayer1().setDamage(3);}
+							else if(getPlayer1().getDamage()==3) {
+								inventory.setSwordVis(false);
+								inventory.setSword2Vis(true);
+								getPlayer1().setDamage(4);
+							}else if(getPlayer1().getDamage()==4) {
+								inventory.setSword2Vis(false);
+								inventory.setSword3Vis(true);
+								getPlayer1().setDamage(5);
+							}else if(getPlayer1().getDamage()==5) {
+								inventory.setSword3Vis(false);
+								inventory.setSword4Vis(true);
+								getPlayer1().setDamage(10);
+							}
+						}
+						else if (roll == 2) {
+							inventory.setHealthVis(true);
+						}
+						return false;
 				}
+			
+						
+						
+					
+			
 				
 				if (object.getId().equals("finish")) {
 					if  (actor instanceof Player)nextMap();

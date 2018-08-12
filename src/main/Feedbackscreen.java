@@ -45,7 +45,7 @@ public class Feedbackscreen  {
     layout.getChildren().add(t);
     
     Text s = new Text();
-    s.setText("Your Score is   "+ Integer.toString(Score));
+    s.setText("Your Score is   "+ Integer.toString(Core.getPlayer1().getDamage()));
 	
     s.setStroke(Color.BLACK);  
 	s.setFill(Color.RED);
