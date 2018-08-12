@@ -5,9 +5,11 @@ CPSC 233 T01-4 (2018 Summer) Final Project
 (Requires Eclipse)
 1. Download the ZIP file
 2. Extract the ZIP file
-3. In Eclipse, go to File -> Open Projects from File System
-4. Add the directory which should be the extracted file from step 2. Press "Finish" when done.
-5. Open up Core.java and run it.
+3. Open the extracted folder and there should be another folder with the same name in there. Take that one out of the folder.
+4. In Eclipse, go to File -> Open Projects from File System
+5. Add the directory which should be the folder that you took out from step 3. Press "Finish" when done.
+6. Open the 'main' package in the package manager on the left.
+7. Open up Core.java and proceed to run it..
 
 # How to Play the Game:
 - The goal is to make it to the end through multiple maps.
