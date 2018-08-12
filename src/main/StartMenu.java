@@ -21,14 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-/**
- * This intializes the start menu. The start menu has 3 buttons: Start the game, leave the game and load last game.
- * 
- * @author Eric Zhang
- * @author Gavin Guinn
- * @author Johnny Meng
- *
- */
+
 public class StartMenu {
 	private Image background2 =new Image("file:res/sprites/background/background.jpg");
 	private BackgroundSize backSize = new BackgroundSize(1000, 1000, true, true, true, true);
@@ -37,11 +30,6 @@ public class StartMenu {
 	
 
 	private static Pane layout = new Pane();
-	
-	/**
-	 * This creates the start menu.
-	 * @return pane which is the start menu.
-	 */
 	public Pane start(){
 		
 		VBox vbox= new VBox();
