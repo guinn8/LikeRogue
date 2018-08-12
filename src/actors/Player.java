@@ -134,7 +134,7 @@ public class Player extends Actors {
 //		
 //			Rectangle2D anim= new Rectangle2D(OFF+W*counter, r*H, W, H);
 //			player.setViewport(anim);
-//			System.out.println(counter);
+
 //			counter++;
 //			if (counter==3)counter=0;
 //		

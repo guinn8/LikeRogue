@@ -38,7 +38,7 @@ public  class Core extends Application {
 	
 	
 	private static StartMenu start= new StartMenu();
-	private  Feedbackscreen end;
+	private static  Feedbackscreen end;
 	public static int mapNum;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
@@ -61,7 +61,6 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(10,10);
 	private static Player player1 = new Player(10000,1);
 	
 	public static final int WIDTH=600;
@@ -89,17 +88,17 @@ public  class Core extends Application {
     	
 		stage.setScene(getMainScene());
 		
-		System.out.println(mapNum);
+		
 		
 		
 
 		stage.show();
 		
 		stage.setOnCloseRequest((WindowEvent e1)->{
-			System.out.println("ren");
+			
 			try {
 				PrintWriter writer = new PrintWriter(getSave());
-				writer.println(mapNum);
+			
 				writer.close();
 			} catch (FileNotFoundException e2) {
 				// TODO Auto-generated catch block
@@ -229,7 +228,7 @@ public  class Core extends Application {
 						if (roll== 1) {
 							
 							if(player1.getDamage()==1){
-								System.out.println("ran");
+								
 							inventory.setSwordVis(true);
 							getPlayer1().setDamage(3);}
 							else if(getPlayer1().getDamage()==3) {
@@ -275,7 +274,7 @@ public  class Core extends Application {
 					if (object.getId().equals("enemy")){
 						
 						if(progress[mapNum].eCheck((ImageView)object, (Enemy) actor)==true) {
-							System.out.println("ran");
+						
 							return false;
 						
 					}
@@ -307,21 +306,24 @@ public  class Core extends Application {
 	
 	
 	public static void nextMap() {
+		mapNum++;
 		
-		System.out.println(mapNum);
-		if(mapNum<progress.length-1) {
+		if(mapNum<progress.length) {
+			System.out.println(mapNum);
 			try {
 				
-				progress[mapNum+1].createMap();
+				progress[mapNum].createMap();
 				getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();
 			}
-			progress[mapNum].removeMap();  
-			mapNum++;
+			progress[mapNum-1].removeMap();  
+			
 		}
 		else {
+			end= new Feedbackscreen();
+			endlayout=end.end();
 			running=false;
 			mainScene.setRoot(endlayout);
 		}

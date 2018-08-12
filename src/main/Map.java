@@ -83,10 +83,10 @@ public class Map {
 			
 			else if (layout.charAt(i) == 'E') {
 				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
-				System.out.println(enemyNum);
+			
 				//map[posX][posY].setUserData(enemyNum);
 			
-				//System.out.println(e.getUserData());
+	
 				//e.setLastX(posX * tileSize +1);
 				//e.setLastY((posY * tileSize) +1);
 				enemyArray.add(e);
