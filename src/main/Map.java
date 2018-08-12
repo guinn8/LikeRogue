@@ -32,7 +32,7 @@ public class Map {
 		int posX = 0;
 		int posY = 0;
 	
-	  
+		Integer enemyNum = 0;
 		Scanner mapMaker = new Scanner(mapFile);
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
@@ -83,9 +83,15 @@ public class Map {
 			
 			else if (layout.charAt(i) == 'E') {
 				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
+				System.out.println(enemyNum);
+				//map[posX][posY].setUserData(enemyNum);
+			
+				//System.out.println(e.getUserData());
 				//e.setLastX(posX * tileSize +1);
 				//e.setLastY((posY * tileSize) +1);
 				enemyArray.add(e);
+				
+				enemyNum++;
 
 			}
 
@@ -113,6 +119,18 @@ public class Map {
 				e.remove();
 			}
 		}
+	}
+	
+	public boolean eCheck(ImageView i, Enemy en) {
+		for (Enemy e: enemyArray) {
+			if(e==en)break;
+			if(i==e.getImageView()) {
+				return true;
+			}
+		}
+		return false;
+		
+		
 	}
 	public int getPX(){
 		return playerX;

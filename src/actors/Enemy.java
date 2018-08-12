@@ -12,12 +12,12 @@ public class Enemy extends Actors {
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
 	
-	private Rectangle2D enemyport= new Rectangle2D(0, 0, W, H);
+	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
 
 	
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
-		super(setHealth, setDamage,15,16,0, 4);
+		super(setHealth, setDamage,16,18,0, 4);
 		enemy.setScaleX(2.5);
 		enemy.setScaleY(2.5);
 		enemy.setLayoutX(setX);
@@ -33,8 +33,8 @@ public class Enemy extends Actors {
 
 	public int move() {
 		if (this.checkAlive()==true) {
-			double pX=Core.getPlayer1().getX();
-			double pY=Core.getPlayer1().getY();
+			double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
+			double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 		
 			double eX=this.getX();
 			double eY=this.getY();
@@ -69,4 +69,6 @@ public class Enemy extends Actors {
 	public int getUserData() {
 		return (int) enemy.getUserData();
 	}
+	
+	
 }

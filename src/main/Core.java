@@ -15,6 +15,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.input.KeyCode;
@@ -60,7 +61,7 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(10,10);
+	private static Player player1 = new Player(10000,10);
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
@@ -253,9 +254,13 @@ public  class Core extends Application {
 				}
 					
 				if(actor instanceof Enemy) {
-					if (object.getId().equals("e")){
-						hit( player1,actor);
-						return false;
+					if (object.getId().equals("enemy")){
+						
+						if(progress[mapNum].eCheck((ImageView)object, (Enemy) actor)==true) {
+							System.out.println("ran");
+							return false;
+						
+					}
 					}
 				}
 				
@@ -295,7 +300,7 @@ public  class Core extends Application {
 	
 				e.printStackTrace();
 			}
-			progress[mapNum].removeMap();
+			progress[mapNum].removeMap();  
 			mapNum++;
 		}
 		else {

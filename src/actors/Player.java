@@ -16,7 +16,7 @@ public class Player extends Actors {
 	//private ImageView player= new ImageView(soldierImage);
 	
 	
-	private Rectangle2D soldierPort= new Rectangle2D(0, 0, W, H);
+	private Rectangle2D soldierPort;
 	
 	private Rectangle healthBar= new Rectangle();
 	private Rectangle hbOutline= new Rectangle();
@@ -37,7 +37,7 @@ public class Player extends Actors {
 	 */
 	public Player(int setHealth, int setDamage){
 		super(setHealth, setDamage,32,32,0,3);
-		
+		soldierPort= new Rectangle2D(0, 0, getW(), getH());
 		
 		
 		/*
@@ -60,8 +60,8 @@ public class Player extends Actors {
 		Core.addLayout(healthBar);
 		
 		damage.setId("damage");
-		damage.setFitHeight(H);
-		damage.setFitWidth(W);
+		damage.setFitHeight(getH());
+		damage.setFitWidth(getW());
 		damage.setImage(damageImage);
 		Core.addSolid(damage);
 		
@@ -81,21 +81,21 @@ public class Player extends Actors {
 			//up
 			if (dir==3) {
 				damage.setLayoutX(player.getLayoutX());
-				damage.setLayoutY(player.getLayoutY() - H-2);
+				damage.setLayoutY(player.getLayoutY() - getH()-2);
 			}
 			//down
 			else if (dir==0) {
 				damage.setLayoutX(player.getLayoutX());
-				damage.setLayoutY(player.getLayoutY()+H+2);
+				damage.setLayoutY(player.getLayoutY()+getH()+2);
 			}
 			//left
 			else if (dir==1) {
-				damage.setLayoutX(player.getLayoutX() - W-2);
+				damage.setLayoutX(player.getLayoutX() - getW()-2);
 				damage.setLayoutY(player.getLayoutY());
 			}
 			//right
 			else if (dir==2) {
-				damage.setLayoutX(player.getLayoutX()+W+2);
+				damage.setLayoutX(player.getLayoutX()+getW()+2);
 				damage.setLayoutY(player.getLayoutY());
 			}
 	return false;
