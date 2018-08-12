@@ -2,6 +2,7 @@
 CPSC 233 T01-4 (2018 Summer) Final Project
 
 # How to Run the Game:
+(Requires Eclipse)
 1. Download the ZIP file
 2. Extract the ZIP file
 3. In Eclipse, go to File -> Open Projects from File System
