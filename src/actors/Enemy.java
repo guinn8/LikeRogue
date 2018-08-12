@@ -87,16 +87,5 @@ public class Enemy extends Actors {
 	public ImageView getImageView() {
 		return enemy;
 	}
-<<<<<<< HEAD
-	
-	public void setUserData(Integer num) {
-		enemy.setUserData(num);
-	}
-	public int getUserData() {
-		return (int) enemy.getUserData();
-	}
-	
-	
-=======
->>>>>>> 3ee7dda9097c282de7c9eb7c03f033d532fd32e1
+
 }
