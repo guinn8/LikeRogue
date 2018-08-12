@@ -60,6 +60,12 @@ public class StartMenu {
 		start.setOnAction(e->{
 		//fix this privacy leak
 			Core.getMainScene().setRoot(Core.getLayout());
+			try {
+				Core.createMap(0);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			
 			
@@ -99,8 +105,10 @@ public class StartMenu {
 			
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(Core.getSave()));
-				Core.mapNum=Integer.parseInt(br.readLine());
+				Core.createMap(Integer.parseInt(br.readLine()));
 				Core.getMainScene().setRoot(Core.getLayout());
+				
+				
 				
 				br.close();
 			} catch (FileNotFoundException e1) {

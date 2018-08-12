@@ -38,7 +38,7 @@ public  class Core extends Application {
 	
 	private static StartMenu start= new StartMenu();
 	private static Feedbackscreen end= new Feedbackscreen();
-	public static int mapNum=0;
+	public static int mapNum;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	
@@ -52,7 +52,7 @@ public  class Core extends Application {
 	
 	private static File save= new File("res/save.txt");
 	
-	private static Map[] progress = new Map[4];
+	public static Map[] progress = new Map[4];
 	
 	private Image floorImage =new Image("file:res/sprites/map/floor.png");
 	private BackgroundSize backSize = new BackgroundSize(10000, 100000, true, true, true, true);
@@ -72,7 +72,7 @@ public  class Core extends Application {
 
 
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
-		System.out.println(mapNum);
+		
 		progress[0]= new Map(map0);
 		progress[1]= new Map(map1);
 		progress[2]= new Map(map2);
@@ -87,18 +87,14 @@ public  class Core extends Application {
     	
 		stage.setScene(getMainScene());
 		
+		System.out.println(mapNum);
 		
-		progress[mapNum].createMap();
 		
-		getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
-		player1.setLastX(progress[mapNum].getPX());
-		player1.setLastY(progress[mapNum].getPY());
-		
-		getLayout().getChildren().add(solid);
 
 		stage.show();
 		
 		stage.setOnCloseRequest((WindowEvent e1)->{
+			System.out.println("ren");
 			try {
 				PrintWriter writer = new PrintWriter(getSave());
 				writer.println(mapNum);
@@ -289,22 +285,24 @@ public  class Core extends Application {
 	
 	public static void nextMap() {
 		
-		mapNum++;
-		if(mapNum<progress.length) {
+		System.out.println(mapNum);
+		if(mapNum<progress.length-1) {
 			try {
 				
-				progress[mapNum].createMap();
+				progress[mapNum+1].createMap();
 				getPlayer1().teleport(progress[mapNum].getPX(), progress[mapNum].getPY());
 			} catch (FileNotFoundException e) {
 	
 				e.printStackTrace();
 			}
-			progress[mapNum-1].removeMap();
+			progress[mapNum].removeMap();
+			mapNum++;
 		}
 		else {
 			running=false;
 			mainScene.setRoot(endlayout);
 		}
+		
 	}
 	
 	public static void addLayout(Node n) {
@@ -375,6 +373,17 @@ public  class Core extends Application {
 	 */
 	public void setSave(File save) {
 		this.save = save;
+	}
+	
+	public static void createMap(int num) throws FileNotFoundException {
+		mapNum=num;
+		progress[num].createMap();
+		
+		getPlayer1().teleport(progress[num].getPX(), progress[num].getPY());
+		player1.setLastX(progress[num].getPX());
+		player1.setLastY(progress[num].getPY());
+		
+		getLayout().getChildren().add(solid);
 	}
 	
 }
