@@ -15,23 +15,22 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.input.KeyCode;
 
 /**
- * This is the 'heart' of the game. It creates the window and has all the core features.
- * It calls all the constructors from the other classes and essentially runs the game.
+ * Haven't found a way to check the boundaries of the window. ~Eric.Z Features
+ * that are in here: - Movement with WASD
  *
  * @author Eric Zhang
  * @author Gavin Guinn
- * @author Johnny Meng
  */
+
+
 public  class Core extends Application {
 
-	/**
-	 * Main method. Launches the game 
-	 */
 	public static void main(String[] args) {
 		
 		launch(args);
@@ -39,7 +38,7 @@ public  class Core extends Application {
 	
 	
 	private static StartMenu start= new StartMenu();
-	private static Feedbackscreen end= new Feedbackscreen();
+	private  Feedbackscreen end;
 	public static int mapNum;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
@@ -63,6 +62,7 @@ public  class Core extends Application {
 	
 	private static Inventory inventory = new Inventory();
 	private static Player player1 = new Player(10,10);
+	private static Player player1 = new Player(10000,1);
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
@@ -72,13 +72,7 @@ public  class Core extends Application {
 	static Pane endlayout;
 	Stage stage= new Stage();
 
-/**
- * This starts the window and initializes the game. This has all the core game mechanics and takes in
- * player movement, attack and sets the game loop.
- * @param stage the area that the map is created on.
- * @throws InterruptedException
- * @throws FileNotFouundException
- */
+
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 		
 		progress[0]= new Map(map0);
@@ -90,7 +84,7 @@ public  class Core extends Application {
 		
 		
 		Pane startLayout=start.start();
-		endlayout=end.end();
+		
 	    getMainScene().setRoot(startLayout);
     	
 		stage.setScene(getMainScene());
@@ -116,27 +110,28 @@ public  class Core extends Application {
 		getMainScene().setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
 				getPlayer1().setDelta(Actors.MOVERES,0);
-				//getPlayer1().setPlayerRight();
+				getPlayer1().setPlayerRight();
 			}
 
 			else if (e.getCode() == KeyCode.A) {
 				getPlayer1().setDelta(-Actors.MOVERES,0);
-				//getPlayer1().setPlayerLeft();				
+				getPlayer1().setPlayerLeft();				
 			}
 
 			else if (e.getCode() == KeyCode.S) {
 				getPlayer1().setDelta(0, Actors.MOVERES);
-				//getPlayer1().setPlayerDown();
+				getPlayer1().setPlayerDown();
 			}
 
 			else if (e.getCode() == KeyCode.W) {
 				getPlayer1().setDelta(0, -Actors.MOVERES);
-				//getPlayer1().setPlayerUp();
+				getPlayer1().setPlayerUp();
 			}
 			
 			else if (e.getCode() == KeyCode.H) {
 				if (inventory.getHealthVis() == true) {
 					getPlayer1().setHealth(10);
+					inventory.setHealthVis(false);
 				}
 			}	
 			
@@ -174,7 +169,10 @@ public  class Core extends Application {
 					
 					player1.setLastX(player1.getX());
 					player1.setLastY(player1.getY());
+					
 					if(player1.getHealth()<=0) {
+						end= new Feedbackscreen();
+						endlayout=end.end();
 						getMainScene().setRoot(endlayout);
 						stage.setScene(getMainScene());
 				}
@@ -224,27 +222,40 @@ public  class Core extends Application {
 				
 				if (object.getId().equals("chest")) {
 					solid.getChildren().remove(object);
-					int roll = (int) (Math.ceil(Math.random() * 5)+1);
+					int roll = (int) (Math.ceil(Math.random() * 2));
 					
-					if (roll== 1) {
-						inventory.setSwordVis(true);
-						actor.setDamage(3);
-					}
-					else if (roll == 2) {
-						inventory.setHealthVis(true);
-					}else if(roll==3) {
-						inventory.setSword2Vis(true);
-						actor.setDamage(3);
-					}else if(roll==4) {
-						inventory.setSword3Vis(true);
-						actor.setDamage(4);
-					}else if(roll==5) {
-						inventory.setSword4Vis(true);
-						actor.setDamage(5);
-					}
-					
-					return false;
+		
+						
+						if (roll== 1) {
+							
+							if(player1.getDamage()==1){
+								System.out.println("ran");
+							inventory.setSwordVis(true);
+							getPlayer1().setDamage(3);}
+							else if(getPlayer1().getDamage()==3) {
+								inventory.setSwordVis(false);
+								inventory.setSword2Vis(true);
+								getPlayer1().setDamage(4);
+							}else if(getPlayer1().getDamage()==4) {
+								inventory.setSword2Vis(false);
+								inventory.setSword3Vis(true);
+								getPlayer1().setDamage(5);
+							}else if(getPlayer1().getDamage()==5) {
+								inventory.setSword3Vis(false);
+								inventory.setSword4Vis(true);
+								getPlayer1().setDamage(10);
+							}
+						}
+						else if (roll == 2) {
+							inventory.setHealthVis(true);
+						}
+						return false;
 				}
+			
+						
+						
+					
+			
 				
 				if (object.getId().equals("finish")) {
 					if  (actor instanceof Player)nextMap();
@@ -261,9 +272,13 @@ public  class Core extends Application {
 				}
 					
 				if(actor instanceof Enemy) {
-					if (object.getId().equals("e")){
-						hit( player1,actor);
-						return false;
+					if (object.getId().equals("enemy")){
+						
+						if(progress[mapNum].eCheck((ImageView)object, (Enemy) actor)==true) {
+							System.out.println("ran");
+							return false;
+						
+					}
 					}
 				}
 				
@@ -275,9 +290,9 @@ public  class Core extends Application {
 	}
 
 	/**
-	 * Takes away health of actor1 if they collide with actor2 and then checks if they are alive.
-	 * @param actor1 can be the player or enemy.
-	 * @param actor2 can be the enemy or damage.
+	 * 
+	 * @param actor1
+	 * @param actor2
 	 */
 	public static void hit(Actors actor1, Actors actor2) {
 		hitCount++;
@@ -290,9 +305,7 @@ public  class Core extends Application {
 		actor2.checkAlive();
 	}
 	
-	/**
-	 * This advances the player to the next map when called.
-	 */
+	
 	public static void nextMap() {
 		
 		System.out.println(mapNum);
@@ -305,7 +318,7 @@ public  class Core extends Application {
 	
 				e.printStackTrace();
 			}
-			progress[mapNum].removeMap();
+			progress[mapNum].removeMap();  
 			mapNum++;
 		}
 		else {
@@ -315,18 +328,9 @@ public  class Core extends Application {
 		
 	}
 	
-	/**
-	 * This adds the node to the map
-	 * @param n is the node that will be added.
-	 */
 	public static void addLayout(Node n) {
 		getLayout().getChildren().add(n);
 	}
-	
-	/**
-	 * 
-	 * @param n
-	 */
 	public static void addSolid(Node n) {
 		solid.getChildren().add(n);
 	}
@@ -341,9 +345,14 @@ public  class Core extends Application {
 		return mainScene;
 	}
 
+	/**
+	 * @param mainScene the mainScene to set
+	 */
+	public static void setMainScene(Scene mainScene) {
+		Core.mainScene = mainScene;
+	}
 
 	/**
-	 * Getter for layout
 	 * @return the layout
 	 */
 	public static Pane getLayout() {
@@ -351,7 +360,6 @@ public  class Core extends Application {
 	}
 
 	/**
-	 * Setter for layout
 	 * @param layout the layout to set
 	 */
 	public static void setLayout(Pane layout) {
@@ -361,7 +369,6 @@ public  class Core extends Application {
 	//end block
 
 	/**
-	 * Getter for player1
 	 * @return the player1
 	 */
 	public static Player getPlayer1() {
@@ -369,7 +376,6 @@ public  class Core extends Application {
 	}
 
 	/**
-	 * Setter for player1
 	 * @param player1 the player1 to set
 	 */
 	public static void setPlayer1(Player player1) {
@@ -378,7 +384,6 @@ public  class Core extends Application {
 
 
 	/**
-	 * Getter for Save
 	 * @return the save
 	 */
 	public static File getSave() {
@@ -387,18 +392,12 @@ public  class Core extends Application {
 
 
 	/**
-	 * Setter for Save
 	 * @param save the save to set
 	 */
 	public void setSave(File save) {
 		this.save = save;
 	}
 	
-	/**
-	 * This creates the map
-	 * @param num
-	 * @throws FileNotFoundException
-	 */
 	public static void createMap(int num) throws FileNotFoundException {
 		mapNum=num;
 		progress[num].createMap();
