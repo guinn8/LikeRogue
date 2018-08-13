@@ -7,8 +7,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import main.Core;
 
-public abstract class Actors {
-	private int frames;
+interface GameplayInterFace{
+	public abstract boolean attack(int dir);
+	public abstract void drawHealthBar();
+	public abstract  void resetDamage(); 
+}
+public abstract class Actors implements GameplayInterFace {
+	private static int frames;
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -16,17 +21,16 @@ public abstract class Actors {
 	private double deltaY = 0;
 	private int health;
 	private int damage;
+
 	private int W;
 	private int H;
 
-
-
 	
-	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
+	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
 		damage=setDamage;
 		health=setHealth;
-		setW(setW);
-		setH(setH);
+		W=setW;
+		H=setH;
 		frames=setFrames;
 
 	}
@@ -51,31 +55,27 @@ public abstract class Actors {
 	 */
 	public int dir = 0;
 	public int  move(){
-		if (deltaX==0&&deltaY==0)return dir;
 		
 		for (int i = 0; i < 10; i++) {
-			
-		
 			//left
-			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
+			if(getDeltaX()<0) {
 				dir=1;
-				//animate(dir);
-				//if (this instanceof Enemy)System.out.println("left");
+				animate(dir);
 			}
 			//right
-			else if(getDeltaX()>0 && getDeltaY()<getDeltaX()) {
+			if(getDeltaX()>0) {
 				dir=2;
-				//animate(dir);
+				animate(dir);
 			}
 			//up
-			else if(getDeltaY()>0 && getDeltaX()<getDeltaY()) {
+			if(getDeltaY()>0) {
 				dir=0;
-				//animate(dir);
+				animate(dir);
 			}
 			//down
-			else if(getDeltaY()<0 && getDeltaX()>getDeltaY()) {
+			if(getDeltaY()<0) {
 				dir=3;
-				
+				animate(dir);
 			}
 			 
 				
@@ -83,9 +83,7 @@ public abstract class Actors {
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
 			
 		}
-		animate(dir);
 		setDelta(0,0);
-		
 		
 		return dir;
 	}
@@ -167,50 +165,16 @@ public abstract class Actors {
 	int animCounter=0;
 	public void animate(int r) {
 		
-		//if (this instanceof Enemy)System.out.println("counter"+animCounter*W);
-		
-		
+
 		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		
 	
 		this.getImageView().setViewport(anim);
-		animCounter++;
 		
-		if (animCounter==frames) {
-			animCounter=0;
-			
-		}
+		animCounter++;
+		if (animCounter==frames-1)animCounter=0;
 	}
 
-	/**
-	 * @return the w
-	 */
-	public int getW() {
-		return W;
-	}
-
-	/**
-	 * @param w the w to set
-	 */
-	public void setW(int w) {
-		W = w;
-	}
-
-	/**
-	 * @return the h
-	 */
-	public int getH() {
-		return H;
-	}
-
-	/**
-	 * @param h the h to set
-	 */
-	public void setH(int h) {
-		H = h;
-	}
-	
-
-	
-	
+	  
 }
+
