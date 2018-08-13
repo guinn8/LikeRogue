@@ -202,7 +202,7 @@ public  class Core extends Application {
 	 * @return false if solid object in the way
 	 * @throws FileNotFoundException 
 	 **/
-	public static boolean check(Actors actor) {
+	private static boolean check(Actors actor) {
 		
 	
 		for (Node object : solid.getChildren()) {
