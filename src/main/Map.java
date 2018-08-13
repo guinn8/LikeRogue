@@ -8,6 +8,13 @@ import actors.Enemy;
 
 import java.io.*;
 
+/**
+ * This class deals with the map
+ * 
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @author Johnny Meng
+ */
 public class Map {
 	private int playerX;
 	private int playerY;
@@ -27,6 +34,10 @@ public class Map {
 		mapFile=setMapFile;	
 	}
 	
+	/**
+	 * This creates the map from a text file
+	 * @return ArrayList<Enemy> is an arraylist that has the enemy objects.
+	 */
 	public  ArrayList<Enemy> createMap()  {
 		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
 		
@@ -107,6 +118,9 @@ public class Map {
 	return enemyArray;
 	}
 	
+	/**
+	 * This will remove the current map.
+	 */
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
@@ -117,9 +131,19 @@ public class Map {
 			}
 		}
 	}
+	
+	/**
+	 * Getter for PX
+	 * @return playerX
+	 */
 	public int getPX(){
 		return playerX;
 	}
+	
+	/**
+	 * Setter for PY
+	 * @return playerY
+	 */
 	public int getPY(){
 		return playerY;
 	}
