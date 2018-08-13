@@ -7,6 +7,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
 //thanks user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
+
+/**
+ * This class deals primarily with the enemy movement and state.
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @Author Johnny Meng
+ *
+ */
 public class Enemy extends Actors {
 	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
@@ -15,7 +23,13 @@ public class Enemy extends Actors {
 	private Rectangle2D enemyport;
 	
 
-	
+	/**
+	 * This is the constructor for enemy.
+	 * @param setX Initial x-coordinate
+	 * @param setY Initial y-coordinate
+	 * @param setHealth Initial  health
+	 * @param setDamage Initial Damage
+	 */
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
 		super(setHealth, setDamage,15,16,0, 4);
 		enemy.setScaleX(2.5);
@@ -53,30 +67,41 @@ public class Enemy extends Actors {
 		return 0;
 
 	}
-
+	
+	/**
+	 * Getter for Bounds
+	 * @return the current bounds of the enemy sprite
+	 */
 	@Override
 	public Bounds getBounds() {
 		return enemy.getBoundsInParent();
 	}
-
+	
+	/**
+	 * getter for ImageView
+	 * @return an ImageView of the enemy sprite. 
+	 */
 	@Override
 	public ImageView getImageView() {
 		return enemy;
 	}
 	
-	public void setUserData(Integer num) {
-		enemy.setUserData(num);
-	}
-	public int getUserData() {
-		return (int) enemy.getUserData();
-	}
+	/**
+	 * lets the enemy attack in a certain direction
+	 * @param dir is an integer that represents direction
+	 * @boolean always returns false.
+	 */
 	public boolean attack(int dir) {
 		return false;
 	}
-	public void drawHealthBar() {
-		
-	}
-	public void resetDamage() {
-		
-	}
+	
+	/**
+	 * Empty method in here so interface can run properly
+	 */
+	public void drawHealthBar() {}
+	
+	/**
+	 * Empty method in here so interface can run properly.
+	 */
+	public void resetDamage() {}
 }
