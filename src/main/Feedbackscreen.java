@@ -15,7 +15,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-
+/**
+ * This is the game over screen for the game. it will pop up when the player dies
+ * or when the player successfully completes the game.
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @author Johnny Meng
+ *
+ */
 public class Feedbackscreen  {
 	
 
