@@ -397,7 +397,7 @@ public  class Core extends Application {
 	}
 	public void moveEnemys(double pX, double pY) {
 		for (Enemy e: enemyArray) {
-			if (e.checkAlive()==true)e.move(pX,pY);
+			if (e.checkAlive()==true)e.setDelt(pX,pY);
 			
 		}
 	}

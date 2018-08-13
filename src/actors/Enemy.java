@@ -12,7 +12,7 @@ public class Enemy extends Actors {
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
 	
-	private Rectangle2D enemyport= new Rectangle2D(0, 0, W, H);
+	private Rectangle2D enemyport;
 	
 
 	
@@ -24,14 +24,14 @@ public class Enemy extends Actors {
 		enemy.setLayoutY(setY);
 		
 		Core.addSolid(enemy);
-
+		 enemyport= new Rectangle2D(0, 0, this.getW(), this.getH());
 		enemy.setId("enemy");
 		enemy.setViewport(enemyport);
 		
 	}
 
-
-	public int move(double pX, double pY) {
+	
+	public int setDelt(double pX, double pY) {
 		if (this.checkAlive()==true) {
 			//double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
 			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
@@ -48,7 +48,7 @@ public class Enemy extends Actors {
 			
 			//System.out.println("dX: "+vX+" dY: "+vY);
 			this.setDelta(vX, vY);
-			if(Core.check(this)==true)super.move();
+			//if(Core.check(this)==true)super.move();
 		}
 		return 0;
 
