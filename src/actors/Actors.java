@@ -18,9 +18,8 @@ public abstract class Actors {
 	private int damage;
 	private int W;
 	private int H;
-	private int HOFF;
-	private int VOFF;
-	private int imageID;
+
+
 
 	
 	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
@@ -29,7 +28,7 @@ public abstract class Actors {
 		setW(setW);
 		setH(setH);
 		frames=setFrames;
-		VOFF=setVOFF;
+
 	}
 
 	public abstract Bounds getBounds();
@@ -50,7 +49,7 @@ public abstract class Actors {
 	 * @throws FileNotFoundException 
 	 *  
 	 */
-	int dir = 0;
+	public int dir = 0;
 	public int  move(){
 		if (deltaX==0&&deltaY==0)return dir;
 		
@@ -78,11 +77,11 @@ public abstract class Actors {
 				dir=3;
 				
 			}
-			if (Core.check(this)) {
+			 
 				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-			}
+			
 		}
 		animate(dir);
 		setDelta(0,0);
@@ -171,7 +170,7 @@ public abstract class Actors {
 		//if (this instanceof Enemy)System.out.println("counter"+animCounter*W);
 		
 		
-		Rectangle2D anim= new Rectangle2D(getW()*animCounter+HOFF, r*getH(), getW(), getH());
+		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		
 	
 		this.getImageView().setViewport(anim);

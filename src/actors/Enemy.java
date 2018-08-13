@@ -31,10 +31,10 @@ public class Enemy extends Actors {
 	}
 
 
-	public int move() {
+	public int move(double pX, double pY) {
 		if (this.checkAlive()==true) {
-			double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
-			double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
+			//double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
+			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 		
 			double eX=this.getX();
 			double eY=this.getY();

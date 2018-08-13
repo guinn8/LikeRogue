@@ -15,16 +15,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
+
 public class Feedbackscreen  {
+	
 
 	private Image background3 =new Image("file:res/sprites/background/background2.png");
 	private BackgroundSize backSize = new BackgroundSize(1000, 1000, true, true, true, true);
 	private BackgroundImage floor = new BackgroundImage(background3, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,backSize);
 	private Background background= new Background(floor);	
 	private static Pane layout = new Pane();	
-	private int Score=0;
+	private int score;
+	private String message;
+	Feedbackscreen(int setScore, String setMessage){
+		score=setScore;
+		message=setMessage;
+	}
 	public Pane end() {
-	Score=Core.getPlayer1().getDamage();
+	
   
     layout.setBackground(background);
     
@@ -32,7 +39,7 @@ public class Feedbackscreen  {
     
     Text t = new Text();
  
-	t.setText("Thanks for Playing");	
+	t.setText(message);	
     
   
 
@@ -45,7 +52,7 @@ public class Feedbackscreen  {
     layout.getChildren().add(t);
     
     Text s = new Text();
-    s.setText("Your Score is   "+ Integer.toString(Core.getPlayer1().getDamage()));
+    s.setText("Your Score is   "+ Integer.toString(score));
 	
     s.setStroke(Color.BLACK);  
 	s.setFill(Color.RED);
