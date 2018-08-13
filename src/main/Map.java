@@ -15,7 +15,7 @@ public class Map {
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
 	
-	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
+	
 	
 	
 	private Image chestImage = new Image("file:res/sprites/map/chest.png");
@@ -27,13 +27,20 @@ public class Map {
 		mapFile=setMapFile;	
 	}
 	
-	public void createMap() throws FileNotFoundException {
+	public  ArrayList<Enemy> createMap()  {
+		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
 		
 		int posX = 0;
 		int posY = 0;
 	
 		Integer enemyNum = 0;
-		Scanner mapMaker = new Scanner(mapFile);
+		Scanner mapMaker = null;
+		try {
+			mapMaker = new Scanner(mapFile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String mapLayout = "";
 		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
 		
@@ -97,17 +104,7 @@ public class Map {
 
 		}
 	mapMaker.close();
-	}
-	
-	public void moveEnemys() {
-		for (Enemy e: enemyArray) {
-			if (e.checkAlive()==true)e.move();
-			
-		}
-	}
-	public void checkEnemys() {
-		for (Enemy e: enemyArray) Core.check(e);
-			
+	return enemyArray;
 	}
 	
 	public void removeMap() {
@@ -115,22 +112,10 @@ public class Map {
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
 			}
-			for (Enemy e: enemyArray) {
+			for (Enemy e: Core.enemyArray) {
 				e.remove();
 			}
 		}
-	}
-	
-	public boolean eCheck(ImageView i, Enemy en) {
-		for (Enemy e: enemyArray) {
-			if(e==en)break;
-			if(i==e.getImageView()) {
-				return true;
-			}
-		}
-		return false;
-		
-		
 	}
 	public int getPX(){
 		return playerX;

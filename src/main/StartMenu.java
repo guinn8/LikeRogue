@@ -59,13 +59,13 @@ public class StartMenu {
 		start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		start.setOnAction(e->{
 		//fix this privacy leak
-			Core.getMainScene().setRoot(Core.getLayout());
-			try {
-				Core.createMap(0);
-			} catch (FileNotFoundException e1) {
+			Core.setToMain();
+			
+				Core.setMap(0);
+		
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+				
+			
 			
 			
 			
@@ -105,10 +105,10 @@ public class StartMenu {
 			
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(Core.getSave()));
-				Core.createMap(Integer.parseInt(br.readLine()));
-				Core.getMainScene().setRoot(Core.getLayout());
+				//Core.createMap(Integer.parseInt(br.readLine()));
+				Core.setToMain();
 				
-				
+				Core.setMap(Integer.parseInt(br.readLine()));
 				
 				br.close();
 			} catch (FileNotFoundException e1) {
