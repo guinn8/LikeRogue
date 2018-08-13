@@ -1,7 +1,6 @@
 package actors;
 
 import java.io.FileNotFoundException;
-
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
@@ -27,9 +26,7 @@ interface GameplayInterFace{
  * @param setFrames
  */
 public abstract class Actors implements GameplayInterFace {
-	private  int frames;
-
-	
+	private  int frames;	
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -39,9 +36,6 @@ public abstract class Actors implements GameplayInterFace {
 	private int damage;
 	private int W;
 	private int H;
-
-
-
 	/**
 	 * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
 	 * @param setHealth
@@ -57,21 +51,18 @@ public abstract class Actors implements GameplayInterFace {
 		setW(setW);
 		setH(setH);
 		frames=setFrames;
-
 	}
 	
 	/**
 	 * abstract method for getting the boundaries of an object
 	 * @return the boundaries of an object
 	 */
-	public abstract Bounds getBounds();
-	
+	public abstract Bounds getBounds();	
 	/**
 	 * abstract method for getting the ImageView of an object.
 	 * @return the ImageView.
 	 */
-	protected abstract ImageView getImageView();
-	
+	protected abstract ImageView getImageView();	
 	/**
 	 * This method evaluates the state of the player and enemy. It'll check their health and see if they should be dead
 	 * @return a boolean that returns true if the player/enemy is still alive and false otherwise.
@@ -82,24 +73,19 @@ public abstract class Actors implements GameplayInterFace {
 			return false;
 		}
 		return true;	
-	}
-	
+	}	
 	/**
 	 * @throws FileNotFoundException 
 	 *  
 	 */
-	public int dir = 0;
-	
+	public int dir = 0;	
 	/**
 	 * This method handles the animated movement of the player and enemy.
 	 * @return a integer that will determine what direction the player will be going.
 	 */
 	public int  move(){
-		if (deltaX==0&&deltaY==0)return dir;
-		
-		for (int i = 0; i < 10; i++) {
-			
-		
+		if (deltaX==0&&deltaY==0)return dir;	
+		for (int i = 0; i < 10; i++) {		
 			//left
 			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
 				dir=1;
@@ -122,10 +108,10 @@ public abstract class Actors implements GameplayInterFace {
 				
 			}
 			 
-				if(Core.check(this)==true) {
-				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
-				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-				}
+			if(Core.check(this)==true) {
+			getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
+			getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
+			}
 		}
 		animate(dir);
 		setDelta(0,0);
@@ -174,8 +160,7 @@ public abstract class Actors implements GameplayInterFace {
 	 * @param setDamage
 	 */
 	public void setDamage(int setDamage) {
-		if(setDamage>=0&&setDamage<=10)damage=setDamage;
-		
+		if(setDamage>=0&&setDamage<=10)damage=setDamage;		
 	}
 	
 	/**
@@ -211,8 +196,7 @@ public abstract class Actors implements GameplayInterFace {
 		Core.removeSolid(this.getImageView());
 		this.getImageView().setImage(null);
 		this.getImageView().setLayoutX(-100);
-		this.getImageView().setLayoutY(-100);
-		
+		this.getImageView().setLayoutY(-100);		
 	}
 
 	/**
@@ -317,9 +301,5 @@ public abstract class Actors implements GameplayInterFace {
 	 */
 	public void setH(int h) {
 		H = h;
-	}
-	
-
-	
-	
+	}	
 }
