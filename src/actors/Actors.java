@@ -14,8 +14,6 @@ interface GameplayInterFace{
 }
 public abstract class Actors implements GameplayInterFace {
 	private static int frames;
-public abstract class Actors {
-	private int frames;
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
