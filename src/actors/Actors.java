@@ -12,9 +12,9 @@ interface GameplayInterFace{
 	public abstract  void resetDamage(); 
 }
 public abstract class Actors implements GameplayInterFace {
-	private static int frames;
+	private  int frames;
 
-
+	
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -84,10 +84,10 @@ public abstract class Actors implements GameplayInterFace {
 				
 			}
 			 
-				
+				if(Core.check(this)==true) {
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-			
+				}
 		}
 		animate(dir);
 		setDelta(0,0);

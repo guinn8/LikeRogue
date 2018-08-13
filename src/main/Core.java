@@ -210,7 +210,7 @@ public  class Core extends Application {
 	 * @return false if solid object in the way
 	 * @throws FileNotFoundException 
 	 **/
-	private static boolean check(Actors actor) {
+	public static boolean check(Actors actor) {
 		
 	
 		for (Node object : solid.getChildren()) {
@@ -397,7 +397,7 @@ public  class Core extends Application {
 	}
 	public void moveEnemys(double pX, double pY) {
 		for (Enemy e: enemyArray) {
-			if (e.checkAlive()==true)e.setDelt(pX,pY);
+			if (e.checkAlive()==true)e.move(pX,pY);
 			
 		}
 	}
