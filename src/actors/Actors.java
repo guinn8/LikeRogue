@@ -21,9 +21,9 @@ public abstract class Actors implements GameplayInterFace {
 	private double deltaY = 0;
 	private int health;
 	private int damage;
-	protected int W;
-	protected int H;
-	protected int OFF;
+
+	private int W;
+	private int H;
 
 	
 	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
@@ -32,6 +32,7 @@ public abstract class Actors implements GameplayInterFace {
 		W=setW;
 		H=setH;
 		frames=setFrames;
+
 	}
 
 	public abstract Bounds getBounds();
@@ -52,7 +53,7 @@ public abstract class Actors implements GameplayInterFace {
 	 * @throws FileNotFoundException 
 	 *  
 	 */
-	int dir = 0;
+	public int dir = 0;
 	public int  move(){
 		
 		for (int i = 0; i < 10; i++) {
@@ -76,11 +77,11 @@ public abstract class Actors implements GameplayInterFace {
 				dir=3;
 				animate(dir);
 			}
-			if (Core.check(this)) {
+			 
 				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-			}
+			
 		}
 		setDelta(0,0);
 		
@@ -164,7 +165,8 @@ public abstract class Actors implements GameplayInterFace {
 	int animCounter=0;
 	public void animate(int r) {
 		
-		Rectangle2D anim= new Rectangle2D(W*animCounter+OFF, r*H, W, H);
+
+		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		
 	
 		this.getImageView().setViewport(anim);
