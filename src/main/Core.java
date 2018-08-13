@@ -21,8 +21,8 @@ import javafx.stage.WindowEvent;
 import javafx.scene.input.KeyCode;
 
 /**
- * Haven't found a way to check the boundaries of the window. ~Eric.Z Features
- * that are in here: - Movement with WASD
+ * This is the 'heart' of the game. It creates the window and has all the core features.
+ * It calls all the constructors from the other classes and essentially runs the game.
  *
  * @author Eric Zhang
  * @author Gavin Guinn
@@ -30,7 +30,9 @@ import javafx.scene.input.KeyCode;
 
 
 public  class Core extends Application {
-
+	/**
+	 * Main method. Launches the game 
+	 */
 	public static void main(String[] args) {
 		
 		launch(args);
@@ -71,7 +73,13 @@ public  class Core extends Application {
 	static Pane endlayout;
 	Stage stage= new Stage();
 
-
+	/**
+         * This starts the window and initializes the game. This has all the core game mechanics and takes in
+         * player movement, attack and sets the game loop.
+         * @param stage the area that the map is created on.
+         * @throws InterruptedException
+         * @throws FileNotFoundException
+         */
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 		
 		stage.setResizable(false);
@@ -263,10 +271,11 @@ public  class Core extends Application {
 		return true;
 	}
 
+	
 	/**
-	 * 
-	 * @param actor1
-	 * @param actor2
+	 * Takes away health of actor1 if they collide with actor2 and then checks if they are alive.
+	 * @param actor1 can be the player or enemy.
+	 * @param actor2 can be the enemy or damage.
 	 */
 	private static void hit(Actors actor1, Actors actor2) {
 		hitCount++;
@@ -279,7 +288,9 @@ public  class Core extends Application {
 		actor2.checkAlive();
 	}
 	
-	
+	/**
+	 * This advances the player to the next map when called.
+	 */
 	private static void nextMap() {
 		mapNum++;
 		
@@ -299,29 +310,48 @@ public  class Core extends Application {
 		
 	}
 	
+	/**
+	 * This adds objects that you don't collide with (background, health bar)
+	 * @param n is the node that will be added.
+	 */
 	public static void addLayout(Node n) {
 		layout.getChildren().add(n);
 	}
+	
+	/**
+	 * Adds walls and enemies and other objects that you can collide with.
+	 * @param n
+	 */
 	public static void addSolid(Node n) {
 		solid.getChildren().add(n);
 	}
+	
+	/**
+	 * This removes objects that you can collide with (enemies).
+	 * @param n represents node being removed.
+	 */
 	public static void removeSolid(Node n) {
 		solid.getChildren().remove(n);
 	}
 
-	
+	/**
+	 *
+	 */
 	public static void setToMain() {
 		scene.setRoot(layout);
 	}
 
 
 	/**
+	 * Getter for save.
 	 * @return the save
 	 */
 	public static File getSave() {
 		return save;
 	}
-	
+	/**
+	 *This is the random number generator which determiens what a player gets out of a chest.
+	 */
 	private static void chestRoll() {
 		int roll = (int) (Math.ceil(Math.random() * 2));
 		
