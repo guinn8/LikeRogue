@@ -14,6 +14,8 @@ interface GameplayInterFace{
 }
 public abstract class Actors implements GameplayInterFace {
 	private static int frames;
+public abstract class Actors {
+	private int frames;
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
@@ -27,7 +29,6 @@ public abstract class Actors implements GameplayInterFace {
 
 
 	
-	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
 	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
 		damage=setDamage;
 		health=setHealth;
