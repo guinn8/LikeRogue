@@ -27,8 +27,6 @@ import javafx.scene.input.KeyCode;
  * @author Eric Zhang
  * @author Gavin Guinn
  */
-
-
 public  class Core extends Application {
 	/**
 	 * Main method. Launches the game 
@@ -335,7 +333,7 @@ public  class Core extends Application {
 	}
 
 	/**
-	 *
+	 * Sets the map. Used when the player transitions from the start screen to the gameplay.
 	 */
 	public static void setToMain() {
 		scene.setRoot(layout);
@@ -350,7 +348,7 @@ public  class Core extends Application {
 		return save;
 	}
 	/**
-	 *This is the random number generator which determiens what a player gets out of a chest.
+	 * This is the random number generator which determiens what a player gets out of a chest.
 	 */
 	private static void chestRoll() {
 		int roll = (int) (Math.ceil(Math.random() * 2));
@@ -381,7 +379,10 @@ public  class Core extends Application {
 			inventory.setHealthVis(true);
 		}
 	}
-
+	
+	/**
+	 *
+	 */
 	private static void createMap(int num) {
 		mapNum=num;
 		enemyArray=progress[num].createMap();
@@ -391,23 +392,39 @@ public  class Core extends Application {
 		layout.getChildren().add(solid);
 	}
 	
+	/**
+	 * Setter for the map.
+	 * @param n is the integer that represents which map to set as.
+	 */
 	public static void setMap(int n) {
-		createMap(n);
-		
-	}
+		createMap(n);	
+	} 
+	
+	/**
+	 * This moves the enemies that are currently alive to the player's location.
+	 * @param pX is the player's x coordinate
+	 * @param is the player's y coordinate
+	 */
 	public void moveEnemys(double pX, double pY) {
 		for (Enemy e: enemyArray) {
 			if (e.checkAlive()==true)e.move(pX,pY);
 			
 		}
 	}
+	
+	/**
+	 * Handles collision detection between enemies and walls.
+	 */
 	public void checkEnemys() {
 		for (Enemy e: enemyArray) Core.check(e);
 			
 	}
 	
 	
-	
+	/**
+	 * Handles collision detection between enemies
+	 * @return true if the enemy has another enemy in its way
+	 */
 	public static boolean eCheck(ImageView i, Enemy en) {
 		for (Enemy e: enemyArray) {
 			if(e==en)break;
