@@ -30,8 +30,6 @@ public abstract class Actors implements GameplayInterFace {
 	Actors( int setHealth, int setDamage, int setW, int setH, int setVOFF,int setFrames){
 		damage=setDamage;
 		health=setHealth;
-		W=setW;
-		H=setH;
 		setW(setW);
 		setH(setH);
 		frames=setFrames;
