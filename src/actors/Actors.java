@@ -6,7 +6,6 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import main.Core;
-
 interface GameplayInterFace{
 	public abstract boolean attack(int dir);
 	public abstract void drawHealthBar();
@@ -14,6 +13,8 @@ interface GameplayInterFace{
 }
 public abstract class Actors implements GameplayInterFace {
 	private static int frames;
+
+
 	public static final int MOVERES = 1;
 	private double lastX;
 	private double lastY;
