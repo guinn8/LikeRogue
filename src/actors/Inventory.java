@@ -5,8 +5,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
-
-//import javafx.scene.layout.*;
 /**
  * This class deals with the inventory system and creates the items.
  * @author zhaoning meng
