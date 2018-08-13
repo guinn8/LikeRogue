@@ -115,11 +115,9 @@ public abstract class Actors implements GameplayInterFace {
 		}
 		animate(dir);
 		setDelta(0,0);
-		
-		
+			
 		return dir;
-	}
-	
+	}	
 	/**
 	 * A setter for delta.
 	 * @param vX
@@ -177,8 +175,7 @@ public abstract class Actors implements GameplayInterFace {
 	 */
 	public double getDeltaY() {
 		return deltaY;
-	}
-	
+	}	
 	/**
 	 * This method will teleport a sprite to a set of coordinates.
 	 * @param x the X-Coordinate
@@ -254,20 +251,12 @@ public abstract class Actors implements GameplayInterFace {
 	 * This method creates the animations for player and enemy.
 	 * @param r the direction integer from move()
 	 */
-	public void animate(int r) {
-		
-		//if (this instanceof Enemy)System.out.println("counter"+animCounter*W);
-		
-		
-		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
-		
-	
+	public void animate(int r) {	
+		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());		
 		this.getImageView().setViewport(anim);
-		animCounter++;
-		
+		animCounter++;	
 		if (animCounter==frames) {
-			animCounter=0;
-			
+			animCounter=0;			
 		}
 	}
 
@@ -294,7 +283,6 @@ public abstract class Actors implements GameplayInterFace {
 	public int getH() {
 		return H;
 	}
-
 	/**
 	 * Setter for h
 	 * @param h the h to set
