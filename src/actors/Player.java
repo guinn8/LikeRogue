@@ -8,7 +8,6 @@ import main.*;
 //thanks user https://opengameart.org/users/erbarlow for player sprites
 
 
-
 /**
  * This class primarily deals with player movement,state and actions.
  * @author Eric Zhang
@@ -17,21 +16,13 @@ import main.*;
  *thanks user https://opengameart.org/users/erbarlow for player sprites
  */
 public class Player extends Actors {
-	
-
-	//private ImageView player= new ImageView(soldierImage);
-	
-	
 	private Rectangle2D soldierPort;
-	
-	
 	private ImageView hitMarker = new ImageView(new Image("file:res/sprites/player/damage.png"));
-	private ImageView player = new ImageView(new Image("file:res/sprites/player/soldier.png")); 
 
-	
-	
+	private ImageView player = new ImageView(new Image("file:res/sprites/player/soldier.png")); 
 	private boolean attacking=false;
 
+	
 	/**
 	 * Constructor for player
 	 * @param setHealth Initial Health
@@ -40,37 +31,29 @@ public class Player extends Actors {
 	public Player(int setHealth, int setDamage){
 		super(setHealth, setDamage,32,32,0,4);
 		soldierPort= new Rectangle2D(0, 0, getW(), getH());
-		
-		
-		/*
-		soldier.setLayoutX(200);
-		soldier.setLayoutY(150);*/
 	
-		//Core.addSolid(soldier);
-
-		
 		hitMarker.setId("damage");
 		hitMarker.setFitHeight(getH());
 		hitMarker.setFitWidth(getW());
 	
 		Core.addSolid(hitMarker);
-		
-
-		//player.setImage(playerDown);
 		player.setViewport(soldierPort);
+
 		
+		player.setViewport(soldierPort);		
 		player.setId("player");
 		Core.addSolid(player);
+		Core.addSolid(damage);
 	}
 
+	
 	/**
 	 * This method will let the player attack and shows the sprite of the attack.
 	 * @param dir the integer that determines the direction of the attack.
 	 * @return false ends the method
 	 * 
 	 */
-	public boolean attack() {
-		
+	public boolean attack() {	
 			//up
 			if (getDirection()==3) {
 				hitMarker.setLayoutX(player.getLayoutX());
@@ -91,7 +74,7 @@ public class Player extends Actors {
 				hitMarker.setLayoutX(player.getLayoutX()+getW()+2);
 				hitMarker.setLayoutY(player.getLayoutY());
 			}
-	return false;
+	        return false;
 	}
 	
 
@@ -103,9 +86,15 @@ public class Player extends Actors {
 		hitMarker.setLayoutY(-1000);
 	}
 	
+	
+	/**
+	 * This method will get Bounds
+	 * @return getBoundsInParent()
+	 */
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
 	}
+	
 	
 	/**
 	 * Getter for ImageView of the player
@@ -115,22 +104,21 @@ public class Player extends Actors {
 		return player;	
 	}
 
-	
 
-	/**
+	/**getmethod
 	 * @return the attacking
 	 */
 	public boolean isAttacking() {
 		return attacking;
 	}
 
-	/**
+	
+	/**setmethod
 	 * @param attacking the attacking to set
 	 */
 	public void setAttacking(boolean attacking) {
 		this.attacking = attacking;
 	}
+}
 
-
-	}
 
