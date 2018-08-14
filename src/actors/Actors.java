@@ -25,18 +25,7 @@ interface GameplayInterFace{
  * @Author Johnny Meng
  *
  */
-public abstract class Actors implements GameplayInterFace {
-	private  int frames;
-  
-/**
- * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
- * @param setHealth
- * @param setDamage
- * @param setW
- * @param setH
- * @param setOFF
- * @param setFrames
- */
+
 public abstract class Actors implements GameplayInterFace {
 	private  int frames;	
 	public static final int MOVERES = 1;
@@ -265,7 +254,7 @@ public abstract class Actors implements GameplayInterFace {
 		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		this.getImageView().setViewport(anim);
 		animCounter++;
-		if (animCounter==frames-1)animCounter=0
+		if (animCounter==frames-1)animCounter=0;
 	}
 
 	

@@ -5,10 +5,6 @@ import actors.*;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class EnemyTest{
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();

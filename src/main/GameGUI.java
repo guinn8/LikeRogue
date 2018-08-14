@@ -6,32 +6,26 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
- * feature : - Sword: change damage to 3 - Healthbag: return full health -
- * inventory bar: Store iteams - chest return 3 choices
- * 
+ *this interface handles the GUI elements relating to gameplay like the health bar and sword.
  * @author zhaoning meng
  */
 public interface GameGUI {
 	 ImageView sword = new ImageView(new Image("file:res/sprites/inventory/sword.jpg"));
-
-	
 	 ImageView sword2 = new ImageView(new Image("file:res/sprites/inventory/sword2.jpg"));
-	
 	 ImageView sword3 = new ImageView(new Image("file:res/sprites/inventory/sword3.jpg"));
-	
 	 ImageView sword4 = new ImageView(new Image("file:res/sprites/inventory/sword4.jpg"));
-
 	 ImageView healthbag = new ImageView(new Image("file:res/sprites/inventory/health.png"));
-	
-
 	 ImageView inventory = new ImageView(new Image("file:res/sprites/inventory/inventorybar.png"));
-	 
 	 Rectangle healthBar= new Rectangle();
 	 Rectangle hbOutline= new Rectangle();
 	
 	Rectangle white= new Rectangle();
+	/**
+	 * this method creates the GUI objects required
+	 * @return a root pane with gui objects in it
+	 */
 	public static  Pane Inventory() {
-		 Pane gui= new Pane();
+		Pane gui= new Pane();
 			
 		white.setX(0);
 		white.setY(600);
@@ -113,24 +107,56 @@ public interface GameGUI {
 		gui.getChildren().add(healthBar);
 		return gui;
 	}
+	/**
+	 * redraws the healthbar based on the health passed to it
+	 * @param health the health bar is drawn in proporton to health
+	 */
 	public static void drawHealthBar(int health) {
 		healthBar.setWidth(health*60);
 	}
+	
+	/**
+	 * Setter for health 
+	 * @param vis sets true to allow object to be visible.
+	 */
 	public static void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
 	}
+	/**
+	 * Setter for Sword 
+	 * @param vis sets true to allow object to be visible.
+	 */
 	public static void setSwordVis(boolean vis) {
 		sword.setVisible(vis);
 	}
+	
+	/**
+	 * Setter for Sword2 
+	 * @param vis sets true to allow object to be visible.
+	 */
 	public static void setSword2Vis(boolean vis) {
 		sword2.setVisible(vis);
 	}
+	
+	/**
+	 * Setter for Sword3 
+	 * @param vis sets true to allow object to be visible.
+	 */
 	public static void setSword3Vis(boolean vis) {
 		sword3.setVisible(vis);
 	}
+	
+	/**
+	 * Setter for Sword4 
+	 * @param vis sets true to allow object to be visible.
+	 */
 	public static void setSword4Vis(boolean vis) {
 		sword4.setVisible(vis);
 	}
+	/**
+	 * Getter for health 
+	 * @return vis returns true if object is visible, false if not visible.
+	 */
 	public static boolean getHealthVis() {
 		return healthbag.isVisible();
 	}

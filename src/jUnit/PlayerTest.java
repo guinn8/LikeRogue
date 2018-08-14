@@ -2,9 +2,7 @@ package jUnit;
 
 
 import actors.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import main.*;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
