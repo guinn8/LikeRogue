@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
+
+
 /**
  * This class deals with the inventory system and creates the items.
  * @author zhaoning meng
@@ -30,6 +32,8 @@ public class Inventory {
 	final private Image inventoryBarImage = new Image("file:res/sprites/inventory/inventorybar.png");
 	
 	private Rectangle white= new Rectangle();
+	
+	
 	/**
 	 * This method adds the images to Core
 	 */
@@ -97,6 +101,8 @@ public class Inventory {
 		healthbag.setImage(healthBagImage);
 		Core.addLayout(healthbag);
 	}
+	
+	
 	/**
 	 * Setter for health 
 	 * @param vis sets true to allow object to be visible.
@@ -104,6 +110,7 @@ public class Inventory {
 	public void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
 	}
+	
 	
 	/**
 	 * Setter for Sword 
@@ -113,6 +120,7 @@ public class Inventory {
 		sword.setVisible(vis);
 	}
 	
+	
 	/**
 	 * Setter for Sword2 
 	 * @param vis sets true to allow object to be visible.
@@ -120,6 +128,7 @@ public class Inventory {
 	public void setSword2Vis(boolean vis) {
 		sword2.setVisible(vis);
 	}
+	
 	
 	/**
 	 * Setter for Sword3 
@@ -129,6 +138,7 @@ public class Inventory {
 		sword3.setVisible(vis);
 	}
 	
+	
 	/**
 	 * Setter for Sword4 
 	 * @param vis sets true to allow object to be visible.
@@ -136,6 +146,7 @@ public class Inventory {
 	public void setSword4Vis(boolean vis) {
 		sword4.setVisible(vis);
 	}
+	
 	
 	/**
 	 * Getter for health 
