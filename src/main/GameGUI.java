@@ -17,9 +17,8 @@ public interface GameGUI {
 	 ImageView healthbag = new ImageView(new Image("file:res/sprites/inventory/health.png"));
 	 ImageView inventory = new ImageView(new Image("file:res/sprites/inventory/inventorybar.png"));
 	 Rectangle healthBar= new Rectangle();
-	 Rectangle hbOutline= new Rectangle();
-	
-	Rectangle white= new Rectangle();
+	 Rectangle hbOutline= new Rectangle();	
+	 Rectangle white= new Rectangle();
 	/**
 	 * this method creates the GUI objects required
 	 * @return a root pane with gui objects in it
@@ -34,7 +33,6 @@ public interface GameGUI {
 		white.setFill(Color.WHITE);
 		gui.getChildren().add(white);
 
-	
 		inventory.setLayoutX(40);
 		inventory.setLayoutY(506);
 		inventory.setPreserveRatio(true);
@@ -49,17 +47,13 @@ public interface GameGUI {
 		sword.setFitWidth(60);
 		sword.setVisible(false);
 		gui.getChildren().add(sword);
-		
-		
-		
+			
 		sword2.setLayoutX(150);
 		sword2.setLayoutY(600);
 		sword2.setPreserveRatio(false);
 		sword2.setFitHeight(50);
 		sword2.setFitWidth(60);
-		sword2.setVisible(false);
-	
-		
+		sword2.setVisible(false);	
 		gui.getChildren().add(sword2);
 		
 		sword3.setLayoutX(220);
@@ -67,9 +61,7 @@ public interface GameGUI {
 		sword3.setPreserveRatio(false);
 		sword3.setFitHeight(50);
 		sword3.setFitWidth(60);
-		sword3.setVisible(false);
-	
-		
+		sword3.setVisible(false);		
 		gui.getChildren().add(sword3);
 		
 		sword4.setLayoutX(285);
@@ -77,22 +69,17 @@ public interface GameGUI {
 		sword4.setPreserveRatio(false);
 		sword4.setFitHeight(50);
 		sword4.setFitWidth(60);
-		sword4.setVisible(false);
-		
+		sword4.setVisible(false);	
 		gui.getChildren().add(sword4);
 		
-
 		healthbag.setLayoutX(420);
 		healthbag.setLayoutY(600);
 		healthbag.setPreserveRatio(true);
 		healthbag.setFitWidth(160);
 		healthbag.setFitHeight(60);
-		healthbag.setVisible(false);
-		
-
+		healthbag.setVisible(false);	
 		gui.getChildren().add(healthbag);
-		
-		
+			
 		hbOutline.setX(0);
 		hbOutline.setY(660);
 		hbOutline.setWidth(600);
@@ -105,8 +92,11 @@ public interface GameGUI {
 		healthBar.setHeight(20);
 		healthBar.setFill(Color.RED);
 		gui.getChildren().add(healthBar);
-		return gui;
+		
+		return gui;	
 	}
+	
+	
 	/**
 	 * redraws the healthbar based on the health passed to it
 	 * @param health the health bar is drawn in proporton to health
@@ -115,6 +105,7 @@ public interface GameGUI {
 		healthBar.setWidth(health*60);
 	}
 	
+	
 	/**
 	 * Setter for health 
 	 * @param vis sets true to allow object to be visible.
@@ -122,6 +113,8 @@ public interface GameGUI {
 	public static void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
 	}
+	
+	
 	/**
 	 * Setter for Sword 
 	 * @param vis sets true to allow object to be visible.
@@ -129,6 +122,7 @@ public interface GameGUI {
 	public static void setSwordVis(boolean vis) {
 		sword.setVisible(vis);
 	}
+	
 	
 	/**
 	 * Setter for Sword2 
@@ -138,6 +132,7 @@ public interface GameGUI {
 		sword2.setVisible(vis);
 	}
 	
+	
 	/**
 	 * Setter for Sword3 
 	 * @param vis sets true to allow object to be visible.
@@ -146,6 +141,7 @@ public interface GameGUI {
 		sword3.setVisible(vis);
 	}
 	
+	
 	/**
 	 * Setter for Sword4 
 	 * @param vis sets true to allow object to be visible.
@@ -153,6 +149,8 @@ public interface GameGUI {
 	public static void setSword4Vis(boolean vis) {
 		sword4.setVisible(vis);
 	}
+	
+	
 	/**
 	 * Getter for health 
 	 * @return vis returns true if object is visible, false if not visible.
@@ -161,3 +159,4 @@ public interface GameGUI {
 		return healthbag.isVisible();
 	}
 }
+
