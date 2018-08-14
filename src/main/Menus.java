@@ -36,21 +36,23 @@ public interface Menus {
 		 BackgroundSize backSize = new BackgroundSize(1000, 1000, true, true, true, true);
 		 BackgroundImage floor = new BackgroundImage(background2, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,backSize);
 		 Background background= new Background(floor);
-			
+		
 		 
+	 /**
+	 * layout the Background
+	 */
 		 Pane layout = new Pane();
-			
-		 
+		 layout.setBackground(background);
+ 
 		 VBox vbox= new VBox();
 		 vbox.setLayoutX(175);
 		 vbox.setLayoutY(50);
-		 vbox.setSpacing(20);
-		
-
-		 
-		 layout.setBackground(background);
-
-		 
+	     vbox.setSpacing(20);	
+	     
+	     
+	/**
+	 * set the Game name	 
+	 */
 		 Text t = new Text();
 		 t.setText("like Rogue");
 		 t.setStroke(Color.BLUE);  
@@ -59,21 +61,32 @@ public interface Menus {
 		 vbox.getChildren().add(t);
 		 
 		 
+	/**
+	 * Add Button to start Games	 		 
+	 */
 		 Button start = new Button();
 		 start.setText("Start The Game");
 		 start.setMinWidth(150);
 		 start.setMinHeight(70);
 		 start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		 start.setOnAction(e->{
+<<<<<<< HEAD
 			 Core.setMap(0);
 			Core.setToMain();	
 		
 		 });
 		 
 		 
+=======
+			Core.setToMain();		
+		 });	 
+>>>>>>> 053754d8d3c9b70ce27c22d4047b3a28026bfc25
 		 vbox.getChildren().add(start);
-			
+
 		 
+	/**
+	 * Add button to exit Game	 
+	 */
 		 Button button2 = new Button();
 		 button2.setText("Leave The Game");
 		 button2.setLayoutY(280);
@@ -82,11 +95,12 @@ public interface Menus {
 		 button2.setOnAction( e->{
 			Platform.exit();	
 		 });
-		 
-		 
-		 vbox.getChildren().add(button2);
-			
-		 
+		 	 vbox.getChildren().add(button2);
+	
+		 	 
+	/**
+	 * This Button to load the Game	 
+	 */
 		 Button load = new Button();
 		 load.setText("Load last game");
 		 load.setMinWidth(150);
@@ -105,14 +119,10 @@ public interface Menus {
 				e1.printStackTrace();
 				}
 		 });
-		 
-		 
 		 vbox.getChildren().add(load);
 		 layout.getChildren().add(vbox);
-			
-		 
-		 return layout;
-			
+				 
+		 return layout;		
 	}
 
 	
@@ -127,15 +137,14 @@ public interface Menus {
 		 BackgroundSize backSize = new BackgroundSize(1000, 1000, true, true, true, true);
 		 BackgroundImage floor = new BackgroundImage(background3, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,backSize);
 		 Background background= new Background(floor);	
-		 Pane layout = new Pane();	
-	
-		 
+		 Pane layout = new Pane();		 
          layout.setBackground(background);
     
          
+     /**
+      * Add Text win or lose    
+      */
          Text t = new Text();
-       	
-
          t.setText(message);	
        	 t.setStroke(Color.BLACK);  
        	 t.setFill(Color.RED);
@@ -143,23 +152,24 @@ public interface Menus {
        	 t.setLayoutX(80);
        	 t.setLayoutY(200);
        	 layout.getChildren().add(t);
-    
+   
        	 
-       	 Text s = new Text();
-       	 
-       	 
+    /** Add Text To Show Player Scores
+     */    	 
+       	 Text s = new Text();	 
        	 s.setText("Your Score is   "+ Integer.toString(score));
        	 s.setStroke(Color.BLACK);  
        	 s.setFill(Color.RED);
        	 s.setFont(Font.font ("Verdana", 50));
        	 s.setLayoutX(80);
-       	 s.setLayoutY(300);
-       	 
-       	 
+       	 s.setLayoutY(300);	 
        	 layout.getChildren().add(s);
 	
 
-		 
+	 /**
+	  * Add button to let player leave
+	  *  
+	  */
 	     Button button2 = new Button();
 		 button2.setText("Leave");
 		 button2.setLayoutX(215);
@@ -169,11 +179,10 @@ public interface Menus {
 		 button2.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		 button2.setOnAction( e->{
 			 Platform.exit();	
-		 });
-		
-		 
+		 });	 
 		layout.getChildren().add(button2);	
 		return layout;	
 	} 
 
 }
+
