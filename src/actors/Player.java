@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
 
+
 /**
  * This class primarily deals with player movement,state and actions.
  * @author Eric Zhang
@@ -24,6 +25,8 @@ public class Player extends Actors {
 	private ImageView damage = new ImageView();
 	private ImageView player = new ImageView(soldierImage); 
 	private Image damageImage = new Image("file:res/sprites/player/damage.png"); 
+	
+	
 	/**
 	 * Constructor for player
 	 * @param setHealth Initial Health
@@ -56,6 +59,8 @@ public class Player extends Actors {
 		player.setId("player");
 		Core.addSolid(player);
 	}	
+	
+	
 	/**
 	 * This method will let the player attack and shows the sprite of the attack.
 	 * @param dir the integer that determines the direction of the attack.
@@ -83,20 +88,26 @@ public class Player extends Actors {
 				damage.setLayoutY(player.getLayoutY());
 			}
 	return false;
-	}	
+	}
+	
+	
 	/**
 	 * This method draws the health bar at the bottom
 	 */
 	public void drawHealthBar() {
 		healthBar.setWidth(this.getHealth()*60);
 	}
+	
+	
 	/**
 	 * This method will teleport the damage sprite away from the canvas when its called.
 	 */
 	public void resetDamage() {
 		damage.setLayoutX(-1000);
 		damage.setLayoutY(-1000);
-	}	
+	}
+	
+	
 	/**
 	 * Getter for bounds of the player
 	 * @return bounds the boundaries of the player sprite
@@ -104,6 +115,7 @@ public class Player extends Actors {
 	public Bounds getBounds() {
 		return player.getBoundsInParent();
 	}
+	
 	
 	/**
 	 * Getter for ImageView of the player
