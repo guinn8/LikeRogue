@@ -49,7 +49,6 @@ public class Enemy extends Actors {
 	 * @return 0 always returns 0
 	 */
 	public int move(double pX, double pY) {
-
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -104,6 +103,7 @@ public class Enemy extends Actors {
 	/**
 	 * Empty method in here so interface can run properly.
 	 */
-	public void resetDamage() {}
+	public void resetHitMarker() {}
 }
+
 
