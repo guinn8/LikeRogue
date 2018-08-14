@@ -1,16 +1,27 @@
 package main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.*;
-
 import actors.Enemy;
-
 import java.io.*;
 
+/**
+ * This class deals with the map
+ *
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @author Johnny Meng
+ */
 public class Map {
+	public static Map[] progress = new Map[4];
+	private static int mapNum=0;
+	
+
+	
+	
 	private int playerX;
 	private int playerY;
+	
 	private static final int size = 12;
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
@@ -23,11 +34,20 @@ public class Map {
 	private Image finishImage = new Image("file:res/sprites/map/X.png");
 
 	private File mapFile;
+	
+	/**
+	 * Map Constructor
+	 * @param setMapFile
+	 */
 	public Map(File setMapFile) {
 		mapFile=setMapFile;	
 	}
 	
-	public void createMap()  {
+	/**
+	 * This creates the map from a text file
+	 * 
+	 */
+	protected void createMap()  {
 		
 		
 		
@@ -102,15 +122,15 @@ public class Map {
 	
 	mapMaker.close();
 	}
-	
-	/**
+
+	/** 
 	 * This moves the enemies that are currently alive to the player's location.
 	 * @param pX is the player's x coordinate
 	 * @param is the player's y coordinate
 	 */
 	public void moveEnemys() {
 		for (Enemy e: enemyArray) {
-			e.move(Core.player1.getX(), Core.player1.getY());
+			e.move(Core.getPlayerX(),Core.getPlayerY());
 		}
 	}
 	
@@ -118,7 +138,8 @@ public class Map {
 	 * Handles collision detection between enemies and walls.
 	 */
 	public void checkEnemys() {
-		for (Enemy e: enemyArray) Core.check(e);
+		for (Enemy e: enemyArray) Core.checkCollision(e);
+		
 	}
 	/**
 	 * Handles collision detection between enemies
@@ -132,10 +153,11 @@ public class Map {
 			}
 		}
 		return false;
-		
-		
-}
-	public void removeMap() {
+	}
+	/**
+	 * This will remove the current map.
+	 */
+	protected void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
@@ -146,11 +168,33 @@ public class Map {
 			}
 		}
 	}
+	/**
+	 * Getter for PX
+	 * @return playerX
+	 */
 	public int getPX(){
 		return playerX;
 	}
+	/**
+	 * Setter for PY
+	 * @return playerY
+	 */
 	public int getPY(){
 		return playerY;
+	}
+
+	/**
+	 * @return the mapNum
+	 */
+	public static int getMapNum() {
+		return mapNum;
+	}
+
+	/**
+	 * @param mapNum the mapNum to set
+	 */
+	public static void setMapNum(int mapNum) {
+		Map.mapNum = mapNum;
 	}
 	
 
