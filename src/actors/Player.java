@@ -43,7 +43,6 @@ public class Player extends Actors {
 		player.setViewport(soldierPort);		
 		player.setId("player");
 		Core.addSolid(player);
-		Core.addSolid(damage);
 	}
 
 	
