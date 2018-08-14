@@ -25,7 +25,7 @@ public class Player extends Actors {
 	private Rectangle2D soldierPort;
 	
 	
-	private ImageView damage = new ImageView(new Image("file:res/sprites/player/damage.png"));
+	private ImageView hitMarker = new ImageView(new Image("file:res/sprites/player/damage.png"));
 	private ImageView player = new ImageView(new Image("file:res/sprites/player/soldier.png")); 
 
 	
@@ -49,11 +49,11 @@ public class Player extends Actors {
 		//Core.addSolid(soldier);
 
 		
-		damage.setId("damage");
-		damage.setFitHeight(getH());
-		damage.setFitWidth(getW());
+		hitMarker.setId("damage");
+		hitMarker.setFitHeight(getH());
+		hitMarker.setFitWidth(getW());
 	
-		Core.addSolid(damage);
+		Core.addSolid(hitMarker);
 		
 
 		//player.setImage(playerDown);
@@ -73,23 +73,23 @@ public class Player extends Actors {
 		
 			//up
 			if (getDirection()==3) {
-				damage.setLayoutX(player.getLayoutX());
-				damage.setLayoutY(player.getLayoutY() - getH()-2);
+				hitMarker.setLayoutX(player.getLayoutX());
+				hitMarker.setLayoutY(player.getLayoutY() - getH()-2);
 			}
 			//down
 			else if (getDirection()==0) {
-				damage.setLayoutX(player.getLayoutX());
-				damage.setLayoutY(player.getLayoutY()+getH()+2);
+				hitMarker.setLayoutX(player.getLayoutX());
+				hitMarker.setLayoutY(player.getLayoutY()+getH()+2);
 			}
 			//left
 			else if (getDirection()==1) {
-				damage.setLayoutX(player.getLayoutX() - getW()-2);
-				damage.setLayoutY(player.getLayoutY());
+				hitMarker.setLayoutX(player.getLayoutX() - getW()-2);
+				hitMarker.setLayoutY(player.getLayoutY());
 			}
 			//right
 			else if (getDirection()==2) {
-				damage.setLayoutX(player.getLayoutX()+getW()+2);
-				damage.setLayoutY(player.getLayoutY());
+				hitMarker.setLayoutX(player.getLayoutX()+getW()+2);
+				hitMarker.setLayoutY(player.getLayoutY());
 			}
 	return false;
 	}
@@ -98,9 +98,9 @@ public class Player extends Actors {
 	/**
 	 * This method will teleport the damage sprite away from the canvas when its called.
 	 */
-	public void resetDamage() {
-		damage.setLayoutX(-1000);
-		damage.setLayoutY(-1000);
+	public void resetHitMarker() {
+		hitMarker.setLayoutX(-1000);
+		hitMarker.setLayoutY(-1000);
 	}
 	
 	public Bounds getBounds() {

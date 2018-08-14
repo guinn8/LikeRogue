@@ -26,9 +26,7 @@ import javafx.scene.input.KeyCode;
  * @author Eric Zhang
  * @author Gavin Guinn
  */
-interface coreInter{
-	
-}
+
 public class Core extends Application implements Menus, GameGUI {
 	/**
 	 * Main method. Launches the game 
@@ -36,59 +34,73 @@ public class Core extends Application implements Menus, GameGUI {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	//width and height of the window
 	public static final int WIDTH=590;
 	public static final int HEIGHT=670;
+	
+	//this pane manages heads-up interface items like healthbar and inventory bar
 	private static Pane gameScreen = new Pane(GameGUI.Inventory());
+	
+	//this boolean stops the geme loop if an end state is reached
 	private static boolean isRunning=true;
+	
+	//this is the group of all objects that are solid(walls, character, enemys)
 	private static Group solid= new Group();
+	
+	//this is the file the current map number is saved to
 	private static File save= new File("res/save.txt");
 	
+	//the game progresses map to map in order through the map array 
 	private static Map[] mapArray = new Map[4];
+	
 	private static Player player1 = new Player(10,1);
+	
+	// the scene on which all gui elements are drawn on
 	private static Scene root;
 
 	/**
-         * This starts the window and initializes the game. This has all the core game mechanics and takes in
-         * player movement, attack and sets the game loop.
-         * @param stage the area that the map is created on.
-         * @throws InterruptedException
-         * @throws FileNotFoundException
-         */
+     * This starts the window and initializes the game. This has all the core game mechanics and takes in
+     * player movement, attack and sets the game loop.
+     * @param stage the area that the map is created on.
+     * @throws InterruptedException
+     * @throws FileNotFoundException
+     */
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
 		stage.setResizable(false);
+		
+		//This block populates the array of maps with instances Map
 		mapArray[0]= new Map(new File("res/layouts/map0.txt"));
 		mapArray[1]= new Map(new File("res/layouts/map1.txt"));
 		mapArray[2]= new Map(new File("res/layouts/map2.txt"));
 		mapArray[3]= new Map(new File("res/layouts/map3.txt"));
 		
+		//this ridiculous statement sets the background 
 		gameScreen.setBackground(
 				new Background(
 					new BackgroundImage(
 						new Image("file:res/sprites/map/floor.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,
 							new BackgroundSize(10000, 100000, true, true, true, true))));
 		
+		//Initializes the root to the start menu
 		root = new Scene(Menus.start(), WIDTH, HEIGHT);
 		stage.setScene(root);
 		stage.show();
 		
 		
-		/**
-		 * 
-		 */
+		
+		//This event listener saves the current map to a text file on close
 		stage.setOnCloseRequest((WindowEvent e1)->{
 			try {
 				PrintWriter writer = new PrintWriter(save);
 				writer.println(Map.getMapNum());
 				writer.close();
 			} catch (FileNotFoundException e2) {
-				e2.printStackTrace();
+				System.out.println("file save failed");
 			}
 		});
 		
 		
-		/**
-		 * 
-		 */
+		//this event listener handles keyboard input and prompts the correct response
 		root.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.D) {
 				player1.setDelta(Actors.MOVERES,0);
@@ -104,7 +116,6 @@ public class Core extends Application implements Menus, GameGUI {
 
 			else if (e.getCode() == KeyCode.W) {
 				player1.setDelta(0, -Actors.MOVERES);
-			
 			}
 			
 			else if (e.getCode() == KeyCode.H) {
@@ -120,16 +131,17 @@ public class Core extends Application implements Menus, GameGUI {
 		});
 		
 		
-		/**
-		 * 
-		 */
+		//this animation timer makes up main loop which makes sure events are responded to promptly
 		AnimationTimer gameLoop = new AnimationTimer() {
+			
+			//this timer allows for events to be timed to happen only after a certain inverval
 			int timer;
 			@Override
 			public void handle(long arg0) {
 				if (isRunning==true) {
 					timer++;
-					player1.resetDamage();
+					
+					player1.resetHitMarker();
 					player1.move();
 					
 					if (timer%5==0) {
