@@ -257,6 +257,12 @@ public abstract class Actors implements GameplayInterFace {
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
 	}
+	public int getW() {
+		return W;
+	}
+	public int getH() {
+		return H;
+	}
 	
 	
 }

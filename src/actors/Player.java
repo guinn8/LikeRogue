@@ -28,8 +28,7 @@ public class Player extends Actors {
 	
 	
 	private boolean attacking=false;
-	/**
-	 * 
+	 /** 
 	 * @param setX
 	 * @param setY
 	 * @param setHealth

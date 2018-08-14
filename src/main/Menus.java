@@ -66,7 +66,7 @@ public interface Menus {
 		 start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		 start.setOnAction(e->{
 			Core.setToMain();	
-			Core.setMap(0);	
+		
 		 });
 		 
 		 
