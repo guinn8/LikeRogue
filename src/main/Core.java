@@ -315,7 +315,7 @@ public class Core extends Application implements Menus, GameGUI {
 	 * Sets the map. Used when the player transitions from the start screen to the gameplay.
 	 */
 	public static void setToMain() {
-		setMap(0);
+		
 		root.setRoot(gameScreen);
 	}
 

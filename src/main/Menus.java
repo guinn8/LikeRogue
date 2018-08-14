@@ -65,6 +65,7 @@ public interface Menus {
 		 start.setMinHeight(70);
 		 start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		 start.setOnAction(e->{
+			 Core.setMap(0);
 			Core.setToMain();	
 		
 		 });
@@ -94,8 +95,9 @@ public interface Menus {
 		 load.setOnAction( e->{
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(Core.getSave()));
-				Core.setToMain();	
+				
 				Core.setMap(Integer.parseInt(br.readLine()));
+				Core.setToMain();	
 				br.close();
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
