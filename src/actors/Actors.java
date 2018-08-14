@@ -13,7 +13,7 @@ import main.Core;
 interface GameplayInterFace{
 	
 	
-	public abstract  void resetDamage(); 
+	public abstract  void resetHitMarker(); 
 }
 
   /**

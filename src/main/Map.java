@@ -145,7 +145,7 @@ public class Map {
 	 * Handles collision detection between enemies
 	 * @return true if the enemy has another enemy in its way
 	 */
-	public boolean eCheck(ImageView i, Enemy en) {
+	public boolean enemyEnemyCollis(ImageView i, Enemy en) {
 		for (Enemy e: enemyArray) {
 			if(e==en)break;
 			if(i==e.getImageView()) {

@@ -104,6 +104,6 @@ public class Enemy extends Actors {
 	/**
 	 * Empty method in here so interface can run properly.
 	 */
-	public void resetDamage() {}
+	public void resetHitMarker() {}
 }
 
