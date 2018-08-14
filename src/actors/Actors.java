@@ -6,6 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import main.Core;
 
+
 /**
  * This interface has methods that affect the state of the player and/or enemy in some way.
  *
@@ -15,6 +16,7 @@ interface GameplayInterFace{
 	public abstract void drawHealthBar();
 	public abstract  void resetDamage(); 
 }
+
 
 /**
  * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
@@ -36,6 +38,8 @@ public abstract class Actors implements GameplayInterFace {
 	private int damage;
 	private int W;
 	private int H;
+	
+	
 	/**
 	 * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
 	 * @param setHealth
@@ -53,16 +57,21 @@ public abstract class Actors implements GameplayInterFace {
 		frames=setFrames;
 	}
 	
+	
 	/**
 	 * abstract method for getting the boundaries of an object
 	 * @return the boundaries of an object
 	 */
 	public abstract Bounds getBounds();	
+	
+	
 	/**
 	 * abstract method for getting the ImageView of an object.
 	 * @return the ImageView.
 	 */
 	protected abstract ImageView getImageView();	
+	
+	
 	/**
 	 * This method evaluates the state of the player and enemy. It'll check their health and see if they should be dead
 	 * @return a boolean that returns true if the player/enemy is still alive and false otherwise.
@@ -74,11 +83,15 @@ public abstract class Actors implements GameplayInterFace {
 		}
 		return true;	
 	}	
+	
+	
 	/**
 	 * @throws FileNotFoundException 
 	 *  
 	 */
 	public int dir = 0;	
+	
+	
 	/**
 	 * This method handles the animated movement of the player and enemy.
 	 * @return a integer that will determine what direction the player will be going.
@@ -118,6 +131,8 @@ public abstract class Actors implements GameplayInterFace {
 			
 		return dir;
 	}	
+	
+	
 	/**
 	 * A setter for delta.
 	 * @param vX
@@ -128,6 +143,7 @@ public abstract class Actors implements GameplayInterFace {
 		deltaY=vY;
 	}
 	
+	
 	/**
 	 * a getter for health.
 	 * @return a integer that represents health.
@@ -135,6 +151,7 @@ public abstract class Actors implements GameplayInterFace {
 	public int getHealth() {
 		return health;
 	}
+	
 	
 	/**
 	 * A setter for health.
@@ -145,6 +162,7 @@ public abstract class Actors implements GameplayInterFace {
 		health=setHealth;
 	}
 	
+	
 	/**
 	 * A getter for damage.
 	 * @return an integer that represents damage.
@@ -152,6 +170,7 @@ public abstract class Actors implements GameplayInterFace {
 	public int getDamage() {
 		return damage;
 	}
+	
 	
 	/**
 	 * A setter for damage.
@@ -161,6 +180,7 @@ public abstract class Actors implements GameplayInterFace {
 		if(setDamage>=0&&setDamage<=10)damage=setDamage;		
 	}
 	
+	
 	/**
 	 * A getter for deltaX (X-coordinate)
 	 * @return a double that represents deltaX/x-coordinates
@@ -169,6 +189,7 @@ public abstract class Actors implements GameplayInterFace {
 		return deltaX;
 	}
 	
+	
 	/**
 	 * A getter for deltaY (Y-coordinate)
 	 * @return a double that represents deltaY/y-coordinates
@@ -176,6 +197,8 @@ public abstract class Actors implements GameplayInterFace {
 	public double getDeltaY() {
 		return deltaY;
 	}	
+	
+	
 	/**
 	 * This method will teleport a sprite to a set of coordinates.
 	 * @param x the X-Coordinate
@@ -185,6 +208,7 @@ public abstract class Actors implements GameplayInterFace {
 		this.getImageView().setLayoutX(x);
 		this.getImageView().setLayoutY(y);
 	}
+	
 	
 	/**
 	 * This method will remove a sprite from the canvas.
@@ -196,6 +220,7 @@ public abstract class Actors implements GameplayInterFace {
 		this.getImageView().setLayoutY(-100);		
 	}
 
+	
 	/**
 	 * A getter for LastX
 	 * @return the lastX
@@ -204,6 +229,7 @@ public abstract class Actors implements GameplayInterFace {
 		return lastX;
 	}
 
+	
 	/**
 	 * A setter for LastX
 	 * @param lastX the lastX to set
@@ -212,6 +238,7 @@ public abstract class Actors implements GameplayInterFace {
 		this.lastX = lastX;
 	}
 
+	
 	/**
 	 * A getter for LastY
 	 * @return the lastY
@@ -220,6 +247,7 @@ public abstract class Actors implements GameplayInterFace {
 		return lastY;
 	}
 
+	
 	/**
 	 * A setter for LastY
 	 * @param lastY the lastY to set
@@ -227,6 +255,7 @@ public abstract class Actors implements GameplayInterFace {
 	public void setLastY(double lastY) {
 		this.lastY = lastY;
 	}
+
 	
 	/**
 	 * A getter for X
@@ -237,6 +266,7 @@ public abstract class Actors implements GameplayInterFace {
 		
 	}
 	
+	
 	/**
 	 * A getter for y
 	 * @return the current y-coordinate
@@ -246,6 +276,7 @@ public abstract class Actors implements GameplayInterFace {
 		
 	}
 	int animCounter=0;
+	
 	
 	/**
 	 * This method creates the animations for player and enemy.
@@ -260,6 +291,7 @@ public abstract class Actors implements GameplayInterFace {
 		}
 	}
 
+	
 	/**
 	 * Getter for w
 	 * @return the w
@@ -268,6 +300,7 @@ public abstract class Actors implements GameplayInterFace {
 		return W;
 	}
 
+	
 	/**
 	 * Setter for w
 	 * @param w the w to set
@@ -276,6 +309,7 @@ public abstract class Actors implements GameplayInterFace {
 		W = w;
 	}
 
+	
 	/**
 	 * Getter for h
 	 * @return the h
@@ -283,6 +317,8 @@ public abstract class Actors implements GameplayInterFace {
 	public int getH() {
 		return H;
 	}
+
+	
 	/**
 	 * Setter for h
 	 * @param h the h to set
