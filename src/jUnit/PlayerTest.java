@@ -57,33 +57,35 @@ public class PlayerTest{
 		assertEquals("testSetDeltaY: DeltaY wrong",1, p.getDeltaY());
 	}*/
 	
-	@Test
-	public void testAttackUp() {
-		Player p = new Player(0,0);
-		p.attack(3);
-		assertEquals("testAttack: Expected boolean: false", false, p.attack(3));
-	}
-/*	
-	@Test
-	public void testAttackDown() {
-		Player p = new Player(0,0);
-		p.attack(0);
-		assertEquals("testAttack: Expected boolean: false", false, p.attack(0));
-	}
-	*/
-	@Test
-	public void testAttackLeft() {
-		Player p = new Player(0,0);
-		p.attack(1);
-		assertEquals("testAttack: Expected boolean: false", false, p.attack(1));
-	}
-
-	@Test
-	public void testAttackRight() {
-		Player p = new Player(0,0);
-		p.attack(2);
-		assertEquals("testAttack: Expected boolean: false", false, p.attack(2));
-	}
+//	@Test
+//	public void testAttackUp() {
+//		Player p = new Player(0,0);
+//		p.attack(3);
+//		assertEquals("testAttack: Expected boolean: false", false, p.attack(3));
+//	}
+///*	
+//	@Test
+//	public void testAttackDown() {
+//		Player p = new Player(0,0);
+//		p.attack(0);
+//		assertEquals("testAttack: Expected boolean: false", false, p.attack(0));
+//	}
+//	*/
+//	@Test
+//	public void testAttackLeft() {
+//		Player p = new Player(0,0);
+//		p.setDirection(1);
+//		p.attack();
+//		assertEquals("testAttack: Expected boolean: false", false, p.attack(1));
+//	}
+//
+//	@Test
+//	public void testAttackRight() {
+//		Player p = new Player(0,0);
+//		p.attack(2);
+//		assertEquals("testAttack: Expected boolean: false", false, p.attack(2));
+//	}
+	
 	@Test
 	public void testResetDamX() {
 		Player p = new Player(0,0);
