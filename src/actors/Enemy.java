@@ -18,6 +18,7 @@ import main.*;
 public class Enemy extends Actors {
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
+	
 	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
 
@@ -49,8 +50,7 @@ public class Enemy extends Actors {
 	 * @return 0 always returns 0
 	 */
 	public int move(double pX, double pY) {
-		if (this.checkAlive()==true) {
-		
+
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -59,11 +59,10 @@ public class Enemy extends Actors {
 			double len= Math.sqrt(vX*vX+vY*vY);
 			vX=(vX/len);
 			vY=(vY/len);
-			
 			this.setDelta(vX, vY);
-			if(Core.check(this)==true)super.move();
-		}
-		return 0;
+			if(Core.checkCollision(this)==true)super.move();
+		  return 0;
+
 	}
 	
 	
