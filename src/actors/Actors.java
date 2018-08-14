@@ -83,35 +83,16 @@ public abstract class Actors implements GameplayInterFace {
 				dir=3;
 				
 			}
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 			if (Core.check(this)) {
 				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-<<<<<<< HEAD
-
-			 
-			if(Core.check(this)==true) {
-			getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
-			getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-
-=======
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 			}
 		}
 		animate(dir);
 		setDelta(0,0);
-<<<<<<< HEAD
-			
-	
-		}
-=======
 		
 		
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 		return dir;
 	}
 

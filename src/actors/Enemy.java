@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
-//Credits to user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
+//thanks user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
 
 /**
  * This class deals primarily with the enemy movement and state.
@@ -16,6 +16,7 @@ import main.*;
  *
  */
 public class Enemy extends Actors {
+	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
 	
@@ -40,21 +41,11 @@ public class Enemy extends Actors {
 
 		enemy.setId("enemy");
 		enemy.setViewport(enemyport);
+		
 	}
 
 	
-<<<<<<< HEAD
-	/**
-	 * This allows the enemy to move towards the player.
-	 * @param pX the player's x coordinate
-	 * @param pY the player's y coordinate
-	 * @return 0 always returns 0
-	 */
-	public void move(double pX, double pY) {
-
-=======
 	public int move(double pX, double pY) {
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 
 		//if (this.checkAlive()==true) {
 			
@@ -62,13 +53,6 @@ public class Enemy extends Actors {
 			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 
 		
-<<<<<<< HEAD
-
-		if (this.checkAlive()==true) {
-
-
-=======
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -78,22 +62,13 @@ public class Enemy extends Actors {
 			vX=(vX/len);
 			vY=(vY/len);
 			
-<<<<<<< HEAD
-			this.setDelta(vX, vY);
-			if(Core.check(this)==true)super.move();
-		
-		}
-		
-=======
 			//System.out.println("dX: "+vX+" dY: "+vY);
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
 		//}
 		return 0;
 
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 	}
-	
 	
 	/**
 	 * Getter for Bounds
@@ -104,7 +79,6 @@ public class Enemy extends Actors {
 		return enemy.getBoundsInParent();
 	}
 	
-	
 	/**
 	 * getter for ImageView
 	 * @return an ImageView of the enemy sprite. 
@@ -113,7 +87,6 @@ public class Enemy extends Actors {
 	public ImageView getImageView() {
 		return enemy;
 	}
-	
 	
 	/**
 	 * lets the enemy attack in a certain direction
@@ -124,12 +97,10 @@ public class Enemy extends Actors {
 		return false;
 	}
 	
-	
 	/**
 	 * Empty method in here so interface can run properly
 	 */
 	public void drawHealthBar() {}
-	
 	
 	/**
 	 * Empty method in here so interface can run properly.

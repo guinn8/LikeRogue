@@ -26,18 +26,10 @@ public class Map {
 	public Map(File setMapFile) {
 		mapFile=setMapFile;	
 	}
-
+	
+	public void createMap()  {
 		
 		
-<<<<<<< HEAD
-	/**
-	 * This creates the map from a text file
-	 * @return ArrayList<Enemy> is an arraylist that has the enemy objects.
-	 */
-	public void  createMap()  {
-		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
-=======
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 		
 		int posX = 0;
 		int posY = 0;
@@ -109,7 +101,6 @@ public class Map {
 		}
 	
 	mapMaker.close();
-
 	}
 	
 	/**
@@ -144,13 +135,6 @@ public class Map {
 		
 		
 }
-<<<<<<< HEAD
-	/*
-	 * This will remove the current map.
-	 */
-
-=======
->>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {

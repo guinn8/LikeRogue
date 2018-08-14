@@ -64,7 +64,7 @@ public class Core extends Application implements Menus {
 	private static boolean attack = false;
 	private static Scene scene = new Scene(layout, WIDTH, HEIGHT);
 	
-
+	//Stage stage= new Stage();
 
 	/**
          * This starts the window and initializes the game. This has all the core game mechanics and takes in
