@@ -1,6 +1,5 @@
 package actors;
 
-
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -19,10 +18,8 @@ public class Enemy extends Actors {
 	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
-	
 	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
-
 	/**
 	 * This is the constructor for enemy.
 	 * @param setX Initial x-coordinate
@@ -35,17 +32,15 @@ public class Enemy extends Actors {
 		enemy.setScaleX(2.5);
 		enemy.setScaleY(2.5);
 		enemy.setLayoutX(setX);
-		enemy.setLayoutY(setY);
-		
+		enemy.setLayoutY(setY);	
 		Core.addSolid(enemy);
-
 		enemy.setId("enemy");
 		enemy.setViewport(enemyport);
 		
 	}
-
 	
 	public int move(double pX, double pY) {
+<<<<<<< HEAD
 
 		//if (this.checkAlive()==true) {
 			
@@ -53,6 +48,9 @@ public class Enemy extends Actors {
 			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 
 		
+=======
+		if (this.checkAlive()==true) {
+>>>>>>> 4984da9600051d44c18e162dc2a81d86f77404ea
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -61,13 +59,11 @@ public class Enemy extends Actors {
 			double len= Math.sqrt(vX*vX+vY*vY);
 			vX=(vX/len);
 			vY=(vY/len);
-			
-			//System.out.println("dX: "+vX+" dY: "+vY);
+
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
 		//}
 		return 0;
-
 	}
 	
 	/**
