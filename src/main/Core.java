@@ -73,7 +73,7 @@ public class Core extends Application implements Menus, GameGUI {
 		root = new Scene(Menus.start(), WIDTH, HEIGHT);
 		stage.setScene(root);
 		stage.show();
-		
+		 
 		
 		
 		//This event listener saves the current map to a text file on close
