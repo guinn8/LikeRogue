@@ -18,6 +18,7 @@ import main.*;
 public class Enemy extends Actors {
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
+	
 	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
 
@@ -42,6 +43,7 @@ public class Enemy extends Actors {
 	}
 
 	
+<<<<<<< HEAD
 	/**
 	 * This allows the enemy to move towards the player.
 	 * @param pX the player's x coordinate
@@ -50,6 +52,9 @@ public class Enemy extends Actors {
 	 */
 	public void move(double pX, double pY) {
 
+=======
+	public int move(double pX, double pY) {
+>>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 
 		//if (this.checkAlive()==true) {
 			
@@ -57,10 +62,13 @@ public class Enemy extends Actors {
 			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 
 		
+<<<<<<< HEAD
 
 		if (this.checkAlive()==true) {
 
 
+=======
+>>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -70,11 +78,20 @@ public class Enemy extends Actors {
 			vX=(vX/len);
 			vY=(vY/len);
 			
+<<<<<<< HEAD
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
 		
 		}
 		
+=======
+			//System.out.println("dX: "+vX+" dY: "+vY);
+			this.setDelta(vX, vY);
+			if(Core.check(this)==true)super.move();
+		//}
+		return 0;
+
+>>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 	}
 	
 	

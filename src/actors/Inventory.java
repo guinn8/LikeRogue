@@ -6,11 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.*;
 
-
+//import javafx.scene.layout.*;
 /**
- * This class deals with the inventory system and creates the items.
+ * feature : - Sword: change damage to 3 - Healthbag: return full health -
+ * inventory bar: Store iteams - chest return 3 choices
+ * 
  * @author zhaoning meng
  */
+//Eric's Changes: Added getter and setter for healthbag, sworda.
 public class Inventory {
 	
 	private ImageView sword = new ImageView();
@@ -32,10 +35,9 @@ public class Inventory {
 	final private Image inventoryBarImage = new Image("file:res/sprites/inventory/inventorybar.png");
 	
 	private Rectangle white= new Rectangle();
-	
-	
 	/**
-	 * This method adds the images to Core
+	 * Those method in which add Image to the Core
+	 * 
 	 */
 	public Inventory() {
 
@@ -102,56 +104,21 @@ public class Inventory {
 		Core.addLayout(healthbag);
 	}
 	
-	
-	/**
-	 * Setter for health 
-	 * @param vis sets true to allow object to be visible.
-	 */
 	public void setHealthVis(boolean vis) {
 		healthbag.setVisible(vis);
 	}
-	
-	
-	/**
-	 * Setter for Sword 
-	 * @param vis sets true to allow object to be visible.
-	 */
 	public void setSwordVis(boolean vis) {
 		sword.setVisible(vis);
 	}
-	
-	
-	/**
-	 * Setter for Sword2 
-	 * @param vis sets true to allow object to be visible.
-	 */
 	public void setSword2Vis(boolean vis) {
 		sword2.setVisible(vis);
 	}
-	
-	
-	/**
-	 * Setter for Sword3 
-	 * @param vis sets true to allow object to be visible.
-	 */
 	public void setSword3Vis(boolean vis) {
 		sword3.setVisible(vis);
 	}
-	
-	
-	/**
-	 * Setter for Sword4 
-	 * @param vis sets true to allow object to be visible.
-	 */
 	public void setSword4Vis(boolean vis) {
 		sword4.setVisible(vis);
 	}
-	
-	
-	/**
-	 * Getter for health 
-	 * @return vis returns true if object is visible, false if not visible.
-	 */
 	public boolean getHealthVis() {
 		return healthbag.isVisible();
 	}

@@ -8,13 +8,6 @@ import actors.Enemy;
 
 import java.io.*;
 
-/**
- * This class deals with the map
- * 
- * @author Eric Zhang
- * @author Gavin Guinn
- * @author Johnny Meng
- */
 public class Map {
 	private int playerX;
 	private int playerY;
@@ -36,12 +29,15 @@ public class Map {
 
 		
 		
+<<<<<<< HEAD
 	/**
 	 * This creates the map from a text file
 	 * @return ArrayList<Enemy> is an arraylist that has the enemy objects.
 	 */
 	public void  createMap()  {
 		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
+=======
+>>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 		
 		int posX = 0;
 		int posY = 0;
@@ -148,10 +144,13 @@ public class Map {
 		
 		
 }
+<<<<<<< HEAD
 	/*
 	 * This will remove the current map.
 	 */
 
+=======
+>>>>>>> parent of 9261af5... Merge branch 'master' of https://github.com/guinn8/LikeRogue
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
@@ -163,19 +162,9 @@ public class Map {
 			}
 		}
 	}
-	
-	/**
-	 * Getter for PX
-	 * @return playerX
-	 */
 	public int getPX(){
 		return playerX;
 	}
-	
-	/**
-	 * Setter for PY
-	 * @return playerY
-	 */
 	public int getPY(){
 		return playerY;
 	}
