@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
-//thanks user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
+//Credits to user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
 
 /**
  * This class deals primarily with the enemy movement and state.
@@ -16,10 +16,8 @@ import main.*;
  *
  */
 public class Enemy extends Actors {
-	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
 	private ImageView enemy = new ImageView(enemySprite);
-	
 	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
 
@@ -41,17 +39,17 @@ public class Enemy extends Actors {
 
 		enemy.setId("enemy");
 		enemy.setViewport(enemyport);
-		
 	}
 
 	
+	/**
+	 * This allows the enemy to move towards the player.
+	 * @param pX the player's x coordinate
+	 * @param pY the player's y coordinate
+	 * @return 0 always returns 0
+	 */
 	public int move(double pX, double pY) {
-
-		//if (this.checkAlive()==true) {
-			
-			//double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
-			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
-
+		if (this.checkAlive()==true) {
 		
 			double eX=this.getX();
 			double eY=this.getY();
@@ -62,13 +60,12 @@ public class Enemy extends Actors {
 			vX=(vX/len);
 			vY=(vY/len);
 			
-			//System.out.println("dX: "+vX+" dY: "+vY);
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
-		//}
+		}
 		return 0;
-
 	}
+	
 	
 	/**
 	 * Getter for Bounds
@@ -79,6 +76,7 @@ public class Enemy extends Actors {
 		return enemy.getBoundsInParent();
 	}
 	
+	
 	/**
 	 * getter for ImageView
 	 * @return an ImageView of the enemy sprite. 
@@ -87,6 +85,7 @@ public class Enemy extends Actors {
 	public ImageView getImageView() {
 		return enemy;
 	}
+	
 	
 	/**
 	 * lets the enemy attack in a certain direction
@@ -97,10 +96,12 @@ public class Enemy extends Actors {
 		return false;
 	}
 	
+	
 	/**
 	 * Empty method in here so interface can run properly
 	 */
 	public void drawHealthBar() {}
+	
 	
 	/**
 	 * Empty method in here so interface can run properly.
