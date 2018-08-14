@@ -1,12 +1,20 @@
 package actors;
 
-import java.io.FileNotFoundException;
+
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import main.Core;
-/**
+
+
+interface GameplayInterFace{
+	public abstract boolean attack(int dir);
+	public abstract void drawHealthBar();
+	public abstract  void resetDamage(); 
+}
+  
+  /**
  * This abstract class deals with the state of our player and enemy sprites. It also handles the animations
  * for the player and enemy movement.
  * 
@@ -15,18 +23,23 @@ import main.Core;
  * @Author Johnny Meng
  *
  */
-public abstract class Actors {
-	private static int frames;
+public abstract class Actors implements GameplayInterFace {
+	private  int frames;
+
+	
 	public static final int MOVERES = 1;
-	private double lastX;
-	private double lastY;
+
 	private double deltaX = 0;
 	private double deltaY = 0;
 	private int health;
 	private int damage;
-	protected int W;
-	protected int H;
-	protected int OFF;
+
+	private int W;
+	private int H;
+	private int direction;
+	private int hitCount;
+
+
 
 	/**
 	 * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
@@ -61,42 +74,48 @@ public abstract class Actors {
 	}
 	
 	int dir = 0;
+  
 	/**
 	 * This method handles the animated movement of the player and enemy.
 	 * @return a integer that will determine what direction the player will be going.
 	 */
-	public int move(){
-		
+	public  void move(){
+		if (deltaX==0&&deltaY==0) return;
 		for (int i = 0; i < 10; i++) {
+      
 			//left
-			if(getDeltaX()<0) {
-				dir=1;
-				animate(dir);
+			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
+				setDirection(1);
+				//animate(dir);
+				//if (this instanceof Enemy)System.out.println("left");
 			}
+      
 			//right
-			if(getDeltaX()>0) {
-				dir=2;
-				animate(dir);
+			else if(getDeltaX()>0 && getDeltaY()<getDeltaX()) {
+				setDirection(2);
+				//animate(dir);
 			}
+      
 			//up
-			if(getDeltaY()>0) {
-				dir=0;
-				animate(dir);
+			else if(getDeltaY()>0 && getDeltaX()<getDeltaY()) {
+				setDirection(0);
+				//animate(dir);
 			}
+      
 			//down
-			if(getDeltaY()<0) {
-				dir=3;
-				animate(dir);
+			else if(getDeltaY()<0 && getDeltaX()>getDeltaY()) {
+				setDirection(3);
 			}
-			if (Core.check(this)) {
+      
+			if (Core.checkCollision(this)) {
 				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
 			}
 		}
+
+		animate(getDirection());
 		setDelta(0,0);
-		
-		return dir;
 	}
 	/**
 	 * A setter for delta.
@@ -178,37 +197,7 @@ public abstract class Actors {
 		
 	}
 
-	/**
-	 * A getter for LastX
-	 * @return the lastX
-	 */
-	public double getLastX() {
-		return lastX;
-	}
 
-	/**
-	 * A setter for LastX
-	 * @param lastX the lastX to set
-	 */
-	public void setLastX(double lastX) {
-		this.lastX = lastX;
-	}
-
-	/**
-	 * A getter for LastY
-	 * @return the lastY
-	 */
-	public double getLastY() {
-		return lastY;
-	}
-
-	/**
-	 * A setter for LastY
-	 * @param lastY the lastY to set
-	 */
-	public void setLastY(double lastY) {
-		this.lastY = lastY;
-	}
 	
 	/**
 	 * A getter for X
@@ -235,13 +224,38 @@ public abstract class Actors {
 	 */
 	public void animate(int r) {
 		
-		Rectangle2D anim= new Rectangle2D(W*animCounter+OFF, r*H, W, H);
-		
-	
+		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		this.getImageView().setViewport(anim);
-		
 		animCounter++;
 		if (animCounter==frames-1)animCounter=0;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public int getDirection() {
+		return direction;
+	}
+
+	/**
+	 * @param direction the direction to set
+	 */
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	/**
+	 * @return the hitCount
+	 */
+	public int getHitCount() {
+		return hitCount;
+	}
+
+	/**
+	 * @param hitCount the hitCount to set
+	 */
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
 	}
 	
 	

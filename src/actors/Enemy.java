@@ -7,6 +7,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
 //thanks user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
+
+/**
+ * This class deals primarily with the enemy movement and state.
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @Author Johnny Meng
+ *
+ */
 public class Enemy extends Actors {
 	
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
@@ -15,7 +23,13 @@ public class Enemy extends Actors {
 	private Rectangle2D enemyport= new Rectangle2D(0, 0, getW(), getH());
 	
 
-	
+	/**
+	 * This is the constructor for enemy.
+	 * @param setX Initial x-coordinate
+	 * @param setY Initial y-coordinate
+	 * @param setHealth Initial  health
+	 * @param setDamage Initial Damage
+	 */
 	public Enemy(int setX, int setY, int setHealth, int setDamage) {
 		super(setHealth, setDamage,16,18,0, 4);
 		enemy.setScaleX(2.5);
@@ -30,11 +44,14 @@ public class Enemy extends Actors {
 		
 	}
 
+	
+	public int move(double pX, double pY) {
 
-	public int move() {
-		if (this.checkAlive()==true) {
-			double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
-			double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
+		//if (this.checkAlive()==true) {
+			
+			//double pX=Core.getPlayer1().getX()-Core.getPlayer1().getImageView().getFitWidth()/2;
+			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
+
 		
 			double eX=this.getX();
 			double eY=this.getY();
@@ -44,31 +61,49 @@ public class Enemy extends Actors {
 			double len= Math.sqrt(vX*vX+vY*vY);
 			vX=(vX/len);
 			vY=(vY/len);
-			
+
 			//System.out.println("dX: "+vX+" dY: "+vY);
 			this.setDelta(vX, vY);
-			if(Core.check(this)==true)super.move();
-		}
+			if(Core.checkCollision(this)==true)super.move();
+		//}
 		return 0;
 
 	}
-
+	
+	/**
+	 * Getter for Bounds
+	 * @return the current bounds of the enemy sprite
+	 */
 	@Override
 	public Bounds getBounds() {
 		return enemy.getBoundsInParent();
 	}
-
+	
+	/**
+	 * getter for ImageView
+	 * @return an ImageView of the enemy sprite. 
+	 */
 	@Override
 	public ImageView getImageView() {
 		return enemy;
 	}
 	
-	public void setUserData(Integer num) {
-		enemy.setUserData(num);
-	}
-	public int getUserData() {
-		return (int) enemy.getUserData();
+	/**
+	 * lets the enemy attack in a certain direction
+	 * @param dir is an integer that represents direction
+	 * @boolean always returns false.
+	 */
+	public boolean attack(int dir) {
+		return false;
 	}
 	
+	/**
+	 * Empty method in here so interface can run properly
+	 */
+	public void drawHealthBar() {}
 	
+	/**
+	 * Empty method in here so interface can run properly.
+	 */
+	public void resetDamage() {}
 }
