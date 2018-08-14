@@ -5,8 +5,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
-//thanks user https://opengameart.org/users/erbarlow for player sprites
-
 
 /**
  * This class primarily deals with player movement,state and actions.
@@ -16,13 +14,10 @@ import main.*;
  *thanks user https://opengameart.org/users/erbarlow for player sprites
  */
 public class Player extends Actors {
-	private Rectangle2D soldierPort;
 	private ImageView hitMarker = new ImageView(new Image("file:res/sprites/player/damage.png"));
-
 	private ImageView player = new ImageView(new Image("file:res/sprites/player/soldier.png")); 
 	private boolean attacking=false;
 
-	
 	/**
 	 * Constructor for player
 	 * @param setHealth Initial Health
@@ -30,17 +25,12 @@ public class Player extends Actors {
 	 */
 	public Player(int setHealth, int setDamage){
 		super(setHealth, setDamage,32,32,0,4);
-		soldierPort= new Rectangle2D(0, 0, getW(), getH());
-	
 		hitMarker.setId("damage");
 		hitMarker.setFitHeight(getH());
 		hitMarker.setFitWidth(getW());
 	
 		Core.addSolid(hitMarker);
-		player.setViewport(soldierPort);
-
-		
-		player.setViewport(soldierPort);		
+		player.setViewport(new Rectangle2D(0, 0, getW(), getH()));		
 		player.setId("player");
 		Core.addSolid(player);
 	}

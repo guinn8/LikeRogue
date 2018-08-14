@@ -13,25 +13,16 @@ import java.io.*;
  * @author Johnny Meng
  */
 public class Map {
-	public static Map[] progress = new Map[4];
 	private static int mapNum=0;
-	
-
-	
-	
-	private int playerX;
-	private int playerY;
-	
+	private int playerStartX;
+	private int playerStartY;
 	private static final int size = 12;
 	private static final int tileSize = 50;
-	private ImageView[][] map = new ImageView[size][size];
 	
-	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
+	private ImageView[][] map = new ImageView[size][size];//array of imageview objects that constitute the map
 	
-	
-	private Image chestImage = new Image("file:res/sprites/map/chest.png");
-	private Image brickImage = new Image("file:res/sprites/map/wall3.png");
-	private Image finishImage = new Image("file:res/sprites/map/X.png");
+	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();// array of all enemys created by the map file
+
 
 	private File mapFile;
 	
@@ -48,79 +39,74 @@ public class Map {
 	 * 
 	 */
 	protected void createMap()  {
+		int arrayX = 0;
+		int arrayY = 0;
 		
-		
-		
-		int posX = 0;
-		int posY = 0;
+		String mapLayout = ""; //String that repersents the map
 	
-		Integer enemyNum = 0;
-		Scanner mapMaker = null;
+		//trys to create a string from the map file
 		try {
-			mapMaker = new Scanner(mapFile);
+			Scanner mapMaker = new Scanner(mapFile);
+			while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); //loops through the file and appends the lines to a string
+			mapMaker.close();
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("could not find map file");
 		}
-		String mapLayout = "";
-		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
 		
-		String layout = mapLayout;
 		
-		for (int i = 0; i < layout.length(); i++) {
-			if (i % size == 0 && i != 0) {
-				posY++;
-				posX = 0;
+		//this block parses the string and appends it to a square 2d array 
+		for (int i = 0; i < mapLayout.length(); i++) {
+			if (i % size == 0 && i != 0) {//i!=0 because i dont want it to increment y on 0
+				arrayY++;
+				arrayX = 0;
 			} 
-			else if (i != 0)posX++;
+			else if (i != 0)arrayX++;
 		
-			if (layout.charAt(i) == '#') {
-				map[posX][posY] = new ImageView();
-				map[posX][posY].setImage(brickImage);
-				map[posX][posY].setLayoutX(posX * tileSize);
-				map[posX][posY].setLayoutY(posY * tileSize);
-				map[posX][posY].setId("wall");
-				Core.addSolid(map[posX][posY]);
+			if (mapLayout.charAt(i) == '#') {
+				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/wall3.png"));
+				map[arrayX][arrayY].setLayoutX(arrayX * tileSize);
+				map[arrayX][arrayY].setLayoutY(arrayY * tileSize);
+				map[arrayX][arrayY].setId("wall");
+				Core.addSolid(map[arrayX][arrayY]);
 			}
 
-			else if (layout.charAt(i) == '!') {
-				map[posX][posY] = new ImageView();
-				map[posX][posY].setImage(chestImage);
-				map[posX][posY].setFitHeight(tileSize);
-				map[posX][posY].setFitWidth(tileSize);
-				map[posX][posY].setLayoutX(posX * tileSize);
-				map[posX][posY].setLayoutY(posY * tileSize);
-				map[posX][posY].setId("chest");
-				Core.addSolid(map[posX][posY]);
+			else if (mapLayout.charAt(i) == '!') {
+				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/chest.png"));
+				map[arrayX][arrayY].setFitHeight(tileSize);
+				map[arrayX][arrayY].setFitWidth(tileSize);
+				map[arrayX][arrayY].setLayoutX(arrayX * tileSize);
+				map[arrayX][arrayY].setLayoutY(arrayY * tileSize);
+				map[arrayX][arrayY].setId("chest");
+				Core.addSolid(map[arrayX][arrayY]);
 			}
 			
-			else if (layout.charAt(i) == 'X') {
-				map[posX][posY] = new ImageView();
-				map[posX][posY].setImage(finishImage);
-				map[posX][posY].setFitHeight(tileSize);
-				map[posX][posY].setFitWidth(tileSize);
-				map[posX][posY].setLayoutX(posX * tileSize);
-				map[posX][posY].setLayoutY(posY * tileSize);
-				map[posX][posY].setId("finish");
-				Core.addSolid(map[posX][posY]);	
+			else if (mapLayout.charAt(i) == 'X') {
+				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/X.png"));
+			
+				map[arrayX][arrayY].setFitHeight(tileSize);
+				map[arrayX][arrayY].setFitWidth(tileSize);
+				map[arrayX][arrayY].setLayoutX(arrayX * tileSize);
+				map[arrayX][arrayY].setLayoutY(arrayY * tileSize);
+				map[arrayX][arrayY].setId("finish");
+				Core.addSolid(map[arrayX][arrayY]);	
 			}
-			else if (layout.charAt(i) == 'P') {
-				playerX=(posX * tileSize+1);
-				playerY=(posY * tileSize+1);
+			else if (mapLayout.charAt(i) == 'P') {
+				playerStartX=(arrayX * tileSize+1);
+				playerStartY=(arrayY * tileSize+1);
 			}
 			
-			else if (layout.charAt(i) == 'E') {
-				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
+			else if (mapLayout.charAt(i) == 'E') {
+				Enemy e=new Enemy((arrayX * tileSize +1), (arrayY * tileSize) +1, 10, 2);
 				
 				enemyArray.add(e);
 				
-				enemyNum++;
+		
 
 			}
 
 		}
 	
-	mapMaker.close();
+	
 	}
 
 	/** 
@@ -173,14 +159,14 @@ public class Map {
 	 * @return playerX
 	 */
 	public int getPX(){
-		return playerX;
+		return playerStartX;
 	}
 	/**
 	 * Setter for PY
 	 * @return playerY
 	 */
 	public int getPY(){
-		return playerY;
+		return playerStartY;
 	}
 
 	/**

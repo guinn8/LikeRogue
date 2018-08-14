@@ -6,14 +6,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.*;
-//Credits to user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
 
 /**
  * This class deals primarily with the enemy movement and state.
  * @author Eric Zhang
  * @author Gavin Guinn
  * @Author Johnny Meng
- *
+ * Credits to user kemono for the enemy sprite https://opengameart.org/content/monster-sprites
  */
 public class Enemy extends Actors {
 	private Image enemySprite = new Image("file:res/sprites/enemy/skellysprite.png");
