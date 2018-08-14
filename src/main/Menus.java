@@ -70,17 +70,12 @@ public interface Menus {
 		 start.setMinHeight(70);
 		 start.setStyle("-fx-font: 24 arial; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4e4e; -fx-background-radius: 20; ");
 		 start.setOnAction(e->{
-<<<<<<< HEAD
+
 			 Core.setMap(0);
 			Core.setToMain();	
 		
 		 });
-		 
-		 
-=======
-			Core.setToMain();		
-		 });	 
->>>>>>> 053754d8d3c9b70ce27c22d4047b3a28026bfc25
+
 		 vbox.getChildren().add(start);
 
 		 
