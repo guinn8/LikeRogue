@@ -102,18 +102,14 @@ public abstract class Actors implements GameplayInterFace {
 			//left
 			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
 				dir=1;
-				//animate(dir);
-				//if (this instanceof Enemy)System.out.println("left");
 			}
 			//right
 			else if(getDeltaX()>0 && getDeltaY()<getDeltaX()) {
 				dir=2;
-				//animate(dir);
 			}
 			//up
 			else if(getDeltaY()>0 && getDeltaX()<getDeltaY()) {
 				dir=0;
-				//animate(dir);
 			}
 			//down
 			else if(getDeltaY()<0 && getDeltaX()>getDeltaY()) {
