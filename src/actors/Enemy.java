@@ -48,8 +48,8 @@ public class Enemy extends Actors {
 	 * @param pY the player's y coordinate
 	 * @return 0 always returns 0
 	 */
-	public int move(double pX, double pY) {
-<<<<<<< HEAD
+	public void move(double pX, double pY) {
+
 
 		//if (this.checkAlive()==true) {
 			
@@ -57,13 +57,10 @@ public class Enemy extends Actors {
 			//double pY=Core.getPlayer1().getY()-Core.getPlayer1().getImageView().getFitHeight()/2;
 
 		
-=======
+
 		if (this.checkAlive()==true) {
-<<<<<<< HEAD
->>>>>>> 4984da9600051d44c18e162dc2a81d86f77404ea
-=======
-		
->>>>>>> 4516b78dbe1dc69889694dfdee1054db18ba5f19
+
+
 			double eX=this.getX();
 			double eY=this.getY();
 		
@@ -75,8 +72,9 @@ public class Enemy extends Actors {
 			
 			this.setDelta(vX, vY);
 			if(Core.check(this)==true)super.move();
-		//}
-		return 0;
+		
+		}
+		
 	}
 	
 	

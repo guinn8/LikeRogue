@@ -33,15 +33,14 @@ public class Map {
 	public Map(File setMapFile) {
 		mapFile=setMapFile;	
 	}
-	
-	public void createMap()  {
+
 		
 		
 	/**
 	 * This creates the map from a text file
 	 * @return ArrayList<Enemy> is an arraylist that has the enemy objects.
 	 */
-	public  ArrayList<Enemy> createMap()  {
+	public void  createMap()  {
 		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
 		
 		int posX = 0;
@@ -114,6 +113,7 @@ public class Map {
 		}
 	
 	mapMaker.close();
+
 	}
 	
 	/**
@@ -148,10 +148,10 @@ public class Map {
 		
 		
 }
-=======
+	/*
 	 * This will remove the current map.
 	 */
->>>>>>> 4984da9600051d44c18e162dc2a81d86f77404ea
+
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
