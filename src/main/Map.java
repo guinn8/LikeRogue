@@ -20,10 +20,7 @@ public class Map {
 	private static final int tileSize = 50;
 	
 	private ImageView[][] map = new ImageView[size][size];//array of imageview objects that constitute the map
-	
 	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();// array of all enemys created by the map file
-
-
 	private File mapFile;
 	
 	/**
@@ -61,7 +58,8 @@ public class Map {
 				arrayX = 0;
 			} 
 			else if (i != 0)arrayX++;
-		
+			
+			//walls
 			if (mapLayout.charAt(i) == '#') {
 				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/wall3.png"));
 				map[arrayX][arrayY].setLayoutX(arrayX * tileSize);
@@ -69,7 +67,8 @@ public class Map {
 				map[arrayX][arrayY].setId("wall");
 				Core.addSolid(map[arrayX][arrayY]);
 			}
-
+			
+			//chest
 			else if (mapLayout.charAt(i) == '!') {
 				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/chest.png"));
 				map[arrayX][arrayY].setFitHeight(tileSize);
@@ -79,10 +78,9 @@ public class Map {
 				map[arrayX][arrayY].setId("chest");
 				Core.addSolid(map[arrayX][arrayY]);
 			}
-			
+			//finish
 			else if (mapLayout.charAt(i) == 'X') {
 				map[arrayX][arrayY] = new ImageView(new Image("file:res/sprites/map/X.png"));
-			
 				map[arrayX][arrayY].setFitHeight(tileSize);
 				map[arrayX][arrayY].setFitWidth(tileSize);
 				map[arrayX][arrayY].setLayoutX(arrayX * tileSize);
@@ -90,22 +88,17 @@ public class Map {
 				map[arrayX][arrayY].setId("finish");
 				Core.addSolid(map[arrayX][arrayY]);	
 			}
+			//place to teleport the player to 
 			else if (mapLayout.charAt(i) == 'P') {
 				playerStartX=(arrayX * tileSize+1);
 				playerStartY=(arrayY * tileSize+1);
 			}
-			
+			//place to start the enemys
 			else if (mapLayout.charAt(i) == 'E') {
 				Enemy e=new Enemy((arrayX * tileSize +1), (arrayY * tileSize) +1, 10, 2);
-				
 				enemyArray.add(e);
-				
-		
-
 			}
-
 		}
-	
 	
 	}
 
@@ -131,25 +124,24 @@ public class Map {
 	 * Handles collision detection between enemies
 	 * @return true if the enemy has another enemy in its way
 	 */
-	public boolean enemyEnemyCollis(ImageView i, Enemy en) {
+	public boolean enemyEnemyCollis(ImageView i, Enemy check) {
 		for (Enemy e: enemyArray) {
-			if(e==en)break;
-			if(i==e.getImageView()) {
-				return true;
-			}
+			if(i==e.getImageView() && e!=check) return true;// checks to see if imageview i is equal to a specific enemy and checks to make sure that enemy is not equal  the the enemy that the colision is being checked on 
 		}
 		return false;
 	}
+	
+	
 	/**
 	 * This will remove the current map.
 	 */
 	protected void removeMap() {
-		for(ImageView[] lists:map) {
+		for(ImageView[] lists:map) {//loops through the list and removes all the items
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
 			}
+			
 			for (Enemy e: enemyArray) {
-				
 				e.remove();
 			}
 		}

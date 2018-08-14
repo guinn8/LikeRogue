@@ -117,7 +117,7 @@ public class Core extends Application implements Menus, GameGUI {
 					player1.setHealth(10);
 					GameGUI.setHealthVis(false);
 				}
-			}	
+			}
 			//attack
 			else if (e.getCode() == KeyCode.SPACE) {
 				player1.setAttacking(true);
