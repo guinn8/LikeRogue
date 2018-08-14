@@ -9,8 +9,19 @@ import actors.Enemy;
 import java.io.*;
 
 public class Map {
+	public static Map[] progress = new Map[4];
+	private static int mapNum=0;
+	
+	static {
+		progress[0]= new Map(new File("res/layouts/map0.txt"));
+		progress[1]= new Map(new File("res/layouts/map1.txt"));
+		progress[2]= new Map(new File("res/layouts/map2.txt"));
+		progress[3]= new Map(new File("res/layouts/map3.txt"));
+	}
+	
 	private int playerX;
 	private int playerY;
+	
 	private static final int size = 12;
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
@@ -102,15 +113,15 @@ public class Map {
 	
 	mapMaker.close();
 	}
-	
-	/**
+
+	/** 
 	 * This moves the enemies that are currently alive to the player's location.
 	 * @param pX is the player's x coordinate
 	 * @param is the player's y coordinate
 	 */
 	public void moveEnemys() {
 		for (Enemy e: enemyArray) {
-			e.move(Core.player1.getX(), Core.player1.getY());
+			e.move(Core.getPlayerX(),Core.getPlayerY());
 		}
 	}
 	
@@ -118,7 +129,8 @@ public class Map {
 	 * Handles collision detection between enemies and walls.
 	 */
 	public void checkEnemys() {
-		for (Enemy e: enemyArray) Core.check(e);
+		for (Enemy e: enemyArray) Core.checkCollision(e);
+		
 	}
 	/**
 	 * Handles collision detection between enemies
@@ -151,6 +163,20 @@ public class Map {
 	}
 	public int getPY(){
 		return playerY;
+	}
+
+	/**
+	 * @return the mapNum
+	 */
+	public static int getMapNum() {
+		return mapNum;
+	}
+
+	/**
+	 * @param mapNum the mapNum to set
+	 */
+	public static void setMapNum(int mapNum) {
+		Map.mapNum = mapNum;
 	}
 	
 

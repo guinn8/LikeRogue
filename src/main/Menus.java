@@ -46,9 +46,10 @@ public interface Menus {
 		 vbox.setLayoutY(50);
 		 vbox.setSpacing(20);
 		
+
 		 
 		 layout.setBackground(background);
-			
+
 		 
 		 Text t = new Text();
 		 t.setText("like Rogue");
@@ -172,4 +173,5 @@ public interface Menus {
 		layout.getChildren().add(button2);	
 		return layout;	
 	} 
+
 }
