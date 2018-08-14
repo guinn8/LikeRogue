@@ -38,25 +38,13 @@ public class Core extends Application implements Menus, GameGUI {
 	public static final int WIDTH=590;
 	public static final int HEIGHT=670;
 	
-	//this pane manages heads-up interface items like healthbar and inventory bar
-	private static Pane gameScreen = new Pane(GameGUI.Inventory());
-	
-	//this boolean stops the geme loop if an end state is reached
-	private static boolean isRunning=true;
-	
-	//this is the group of all objects that are solid(walls, character, enemys)
-	private static Group solid= new Group();
-	
-	//this is the file the current map number is saved to
-	private static File save= new File("res/save.txt");
-	
-	//the game progresses map to map in order through the map array 
-	private static Map[] mapArray = new Map[4];
-	
+	private static Pane gameScreen = new Pane(GameGUI.Inventory());//this pane manages heads-up interface items like healthbar and inventory bar
+	private static boolean isRunning=true;//this boolean stops the game loop if an end state is reached
+	private static Group solid= new Group();//this is the group of all objects that are solid(walls, character, enemys)
+	private static File save= new File("res/save.txt");//this is the file the current map number is saved to
+	private static Map[] mapArray = new Map[4];//the game progresses map to map in order through the map array 
 	private static Player player1 = new Player(10,1);
-	
-	// the scene on which all gui elements are drawn on
-	private static Scene root;
+	private static Scene root;// the scene on which all gui elements are drawn on
 
 	/**
      * This starts the window and initializes the game. This has all the core game mechanics and takes in
@@ -101,30 +89,36 @@ public class Core extends Application implements Menus, GameGUI {
 		
 		
 		//this event listener handles keyboard input and prompts the correct response
+		//setDelta() sets the amounts the player should move on the next loop of the game cycle
 		root.setOnKeyPressed(e -> {
+			//right
 			if (e.getCode() == KeyCode.D) {
 				player1.setDelta(Actors.MOVERES,0);
 			}
-
+			
+			//left
 			else if (e.getCode() == KeyCode.A) {
 				player1.setDelta(-Actors.MOVERES,0);	
 			}
-
+			
+			//down
 			else if (e.getCode() == KeyCode.S) {
 				player1.setDelta(0, Actors.MOVERES);;
 			}
-
+			
+			//up
 			else if (e.getCode() == KeyCode.W) {
 				player1.setDelta(0, -Actors.MOVERES);
 			}
 			
+			//use the healthpack
 			else if (e.getCode() == KeyCode.H) {
 				if (GameGUI.getHealthVis() == true) {
 					player1.setHealth(10);
 					GameGUI.setHealthVis(false);
 				}
 			}	
-			
+			//attack
 			else if (e.getCode() == KeyCode.SPACE) {
 				player1.setAttacking(true);
 			}
@@ -140,29 +134,31 @@ public class Core extends Application implements Menus, GameGUI {
 			public void handle(long arg0) {
 				if (isRunning==true) {
 					timer++;
+		
+					player1.resetHitMarker();//sets the players hit marker off the map every frame
+					player1.move();//moves the player according the the values set by keyboard input
 					
-					player1.resetHitMarker();
-					player1.move();
-					
-					if (timer%5==0) {
-						mapArray[Map.getMapNum()].moveEnemys();
-						GameGUI.drawHealthBar(player1.getHealth()) ;
+					if (timer%5==0) {					
+						mapArray[Map.getMapNum()].moveEnemys();//loops through the current maps enemy array and moves all the enemies											
+						GameGUI.drawHealthBar(player1.getHealth());//refreshes healthbar to players current health
+						
+						//this block handles the player dying
 						if(player1.getHealth()<=0) {
-							Pane endlayout=Menus.end(player1.getDamage(),"You Lose");
 							isRunning=false;
-							root.setRoot(endlayout);
+							root.setRoot(Menus.end(player1.getDamage(),"You Lose"));// sets the page to the end screen
 						}
 					}
-				
+					
+					//this block handles the player attacking 
 					if (timer%15==0) {
 						if(player1.isAttacking()==true) {
-							player1.attack();
-							mapArray[Map.getMapNum()].checkEnemys();
-							player1.setAttacking(false);
+							player1.attack();//sets the hit marker to adjancent to the player on screen
+							mapArray[Map.getMapNum()].checkEnemys();// checks to see if enemies are hit
+							player1.setAttacking(false);//removes the attack flag
 						}
 					}
 
-					if (timer==1000)timer=0;
+					if (timer==1000)timer=0;// loops timer so it doesnt overflow
 				}
 			}
 		}; gameLoop.start();
@@ -178,56 +174,54 @@ public class Core extends Application implements Menus, GameGUI {
 	 * @throws FileNotFoundException 
 	 **/
 	public static boolean checkCollision(Actors actor) {
-		for (Node object : solid.getChildren()) {
+		
+		for (Node object : solid.getChildren()) {//loops through every solid object
+			
+			//this monster if statement checks if the actor being checked intersects with any solid object
 			if (object.getBoundsInParent().intersects(actor.getBounds().getMinX() + actor.getDeltaX(), actor.getBounds().getMinY() + actor.getDeltaY(), 
 				actor.getBounds().getWidth(), actor.getBounds().getHeight()) && object.getId() != null) {
 							
 				if (object.getId().equals("wall")) return false;
 				
-				if  (actor instanceof Player) {
-					if (object.getId().equals("enemy")){
-						return false;
-					}
+				//player cannot move through enemy
+			
+				if (object.getId().equals("enemy")&&actor instanceof Player)return false;
+				
+				//enemy cannot move through player
+				if (object.getId().equals("player")&&actor instanceof Enemy){
+					hit(player1,actor);// damage is done to the player if a intersection is detected
+					return false;
 				}
 				
-				if(actor instanceof Enemy) {
-					if (object.getId().equals("player")){
-						hit( player1,actor);
-						return false;
-					}
-				}
 				
 				if (object.getId().equals("chest")) {
-					solid.getChildren().remove(object);
-					chestRoll();
-						return false;
+					solid.getChildren().remove(object);// removes the chest if intersection detected
+					chestRoll();//random roll for a drop from the chest
+					return false;
 				}
 			
 					
 				if (object.getId().equals("finish")) {
-					if  (actor instanceof Player)nextMap();
+					if  (actor instanceof Player)nextMap();// if the player intersects the finish marker the map is set to next in the array
 					return false;
 					
 				}
 				
+				// intersecting the players hitmarker
 				if (object.getId().equals("damage")) {
-					
-					actor.setHealth(actor.getHealth()-player1.getDamage());
-						
+					actor.setHealth(actor.getHealth()-player1.getDamage());// damages the enemy
 					actor.checkAlive();
 					return false;
 				}
-					
-				if(actor instanceof Enemy) {
-					if (object.getId().equals("enemy")){
-						if(mapArray[Map.getMapNum()].eCheck((ImageView)object, (Enemy) actor)==true) {
-							return false;
-						
-						}
+				//checks for enemy enemy collision, enemy cannot move through enemy
+				if (object.getId().equals("enemy")&&actor instanceof Enemy){
+					if(mapArray[Map.getMapNum()].enemyEnemyCollis((ImageView)object, (Enemy) actor)==true) {// loops through every object in the enemy array checking for collisions
+						return false;
 					}
 				}	
 			}
 		}
+	//return true if no intersection detected	
 	return true;
 	}
 
@@ -239,9 +233,9 @@ public class Core extends Application implements Menus, GameGUI {
 	 */
 	private static void hit(Actors actor1, Actors actor2) {
 		actor1.setHitCount(actor1.getHitCount()+1);
-		if (actor1.getHitCount()==15) {
+		
+		if (actor1.getHitCount()==15) {// checks the number of intersctions, this makes sure the enemy doesnt instantly kill the player
 			actor1.setHealth(actor1.getHealth()-actor2.getDamage());
-			
 			actor1.setHitCount(0);
 		}
 		actor1.checkAlive();
@@ -252,23 +246,54 @@ public class Core extends Application implements Menus, GameGUI {
 	 * This advances the player to the next map when called.
 	 */
 	private static void nextMap() {
-		Map.setMapNum(Map.getMapNum()+1);
+		Map.setMapNum(Map.getMapNum()+1);//increments the mapnumber
 		if(Map.getMapNum()<mapArray.length) {	
-			mapArray[Map.getMapNum()].createMap();
-			player1.teleport(mapArray[Map.getMapNum()].getPX(), mapArray[Map.getMapNum()].getPY());			
+			mapArray[Map.getMapNum()].createMap();// creates the next map
+			player1.teleport(mapArray[Map.getMapNum()].getPX(), mapArray[Map.getMapNum()].getPY());// moves the player to a spot indicated by the map object	
 		}
 	
-		else {
-			Map.setMapNum(3);
-			Pane endlayout=Menus.end(player1.getDamage(),"You Win");
+		else {//hit the finish marker on the last map
 			isRunning=false;
-			root.setRoot(endlayout);
+			root.setRoot(Menus.end(player1.getDamage(),"You Win"));//sets the layout to the end menu
 		}
-		
-	mapArray[Map.getMapNum()-1].removeMap();  
-		
+	mapArray[Map.getMapNum()-1].removeMap();  //removes the last map	
 	}
 
+	/**
+	 * This is the random number generator which determiens what a player gets out of a chest.
+	 */
+	private static void chestRoll() {
+		int roll = (int) (Math.ceil(Math.random() * 2));
+		//this block handles swords
+		if (roll== 1 && player1.getDamage()!=10) {// if the player has the best sword the chest will always return a healthpack
+			
+			// this block increments swords to the next best
+			if(player1.getDamage()==1){
+				GameGUI.setSwordVis(true);
+				player1.setDamage(3);
+			}
+			else if(player1.getDamage()==3) {
+				GameGUI.setSwordVis(false);
+				GameGUI.setSword2Vis(true);
+				player1.setDamage(4);
+			}
+			else if(player1.getDamage()==4) {
+				GameGUI.setSword2Vis(false);
+				GameGUI.setSword3Vis(true);
+				player1.setDamage(5);
+			}
+			else if(player1.getDamage()==5) {
+				GameGUI.setSword3Vis(false);
+				GameGUI.setSword4Vis(true);
+				player1.setDamage(10);
+			}
+		}
+		//handles healthpacks
+		else if(GameGUI.getHealthVis()!=true) {
+			GameGUI.setHealthVis(true);
+		}
+	}
+	
 	
 	/**
 	 * Adds walls and enemies and other objects that you can collide with.
@@ -303,60 +328,31 @@ public class Core extends Application implements Menus, GameGUI {
 		return save;
 	}
 	
-	
 	/**
-	 * This is the random number generator which determiens what a player gets out of a chest.
-	 */
-	private static void chestRoll() {
-		int roll = (int) (Math.ceil(Math.random() * 2));
-		if (roll== 1 && player1.getDamage()!=10) {
-			if(player1.getDamage()==1){
-				GameGUI.setSwordVis(true);
-				player1.setDamage(3);
-			}
-			else if(player1.getDamage()==3) {
-				GameGUI.setSwordVis(false);
-				GameGUI.setSword2Vis(true);
-				player1.setDamage(4);
-			}
-			else if(player1.getDamage()==4) {
-				GameGUI.setSword2Vis(false);
-				GameGUI.setSword3Vis(true);
-				player1.setDamage(5);
-			}
-			else if(player1.getDamage()==5) {
-				GameGUI.setSword3Vis(false);
-				GameGUI.setSword4Vis(true);
-				player1.setDamage(10);
-			}
-		}
-		
-		else if(GameGUI.getHealthVis()!=true) {
-			GameGUI.setHealthVis(true);
-		}
-		
-	}
-	
-	
-	
-	/**
-	 *
+	 * method sets the current map to the number passed to it
+	 * @param num mapNum to set
 	 */
 	public static void setMap(int num) {
-		
 		Map.setMapNum(num);
 		mapArray[num].createMap();
 		player1.teleport(mapArray[num].getPX(), mapArray[num].getPY());
-		
 		gameScreen.getChildren().add(solid);
 	}
 	
+	
+	/**
+	 * gets the players x position
+	 * @return player x position
+	 */
 	public static double getPlayerX() {
 		return player1.getX();
 	}
-
+	
+	/**
+	 * gets the players y position
+	 * @return player y position
+	 */
 	public static double getPlayerY() {
 		return player1.getY();
-		
 	}
 }

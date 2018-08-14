@@ -38,7 +38,7 @@ public class Player extends Actors {
 	 * @param setDamage Initial Damage
 	 */
 	public Player(int setHealth, int setDamage){
-		super(setHealth, setDamage,32,32,0,3);
+		super(setHealth, setDamage,32,32,0,4);
 		soldierPort= new Rectangle2D(0, 0, getW(), getH());
 		
 		
