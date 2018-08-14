@@ -83,11 +83,11 @@ public abstract class Actors implements GameplayInterFace {
 				dir=3;
 				
 			}
-			 
-				if(Core.check(this)==true) {
+			if (Core.check(this)) {
+				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-				}
+			}
 		}
 		animate(dir);
 		setDelta(0,0);

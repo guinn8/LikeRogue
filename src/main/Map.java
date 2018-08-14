@@ -15,7 +15,7 @@ public class Map {
 	private static final int tileSize = 50;
 	private ImageView[][] map = new ImageView[size][size];
 	
-	
+	private ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
 	
 	
 	private Image chestImage = new Image("file:res/sprites/map/chest.png");
@@ -27,8 +27,9 @@ public class Map {
 		mapFile=setMapFile;	
 	}
 	
-	public  ArrayList<Enemy> createMap()  {
-		 ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
+	public void createMap()  {
+		
+		
 		
 		int posX = 0;
 		int posY = 0;
@@ -45,7 +46,7 @@ public class Map {
 		while(mapMaker.hasNextLine()) mapLayout = mapLayout + mapMaker.nextLine(); 
 		
 		String layout = mapLayout;
-
+		
 		for (int i = 0; i < layout.length(); i++) {
 			if (i % size == 0 && i != 0) {
 				posY++;
@@ -90,12 +91,7 @@ public class Map {
 			
 			else if (layout.charAt(i) == 'E') {
 				Enemy e=new Enemy((posX * tileSize +1), (posY * tileSize) +1, 10, 2);
-			
-				//map[posX][posY].setUserData(enemyNum);
-			
-	
-				//e.setLastX(posX * tileSize +1);
-				//e.setLastY((posY * tileSize) +1);
+				
 				enemyArray.add(e);
 				
 				enemyNum++;
@@ -103,16 +99,49 @@ public class Map {
 			}
 
 		}
+	
 	mapMaker.close();
-	return enemyArray;
 	}
 	
+	/**
+	 * This moves the enemies that are currently alive to the player's location.
+	 * @param pX is the player's x coordinate
+	 * @param is the player's y coordinate
+	 */
+	public void moveEnemys() {
+		for (Enemy e: enemyArray) {
+			e.move(Core.player1.getX(), Core.player1.getY());
+		}
+	}
+	
+	/**
+	 * Handles collision detection between enemies and walls.
+	 */
+	public void checkEnemys() {
+		for (Enemy e: enemyArray) Core.check(e);
+	}
+	/**
+	 * Handles collision detection between enemies
+	 * @return true if the enemy has another enemy in its way
+	 */
+	public boolean eCheck(ImageView i, Enemy en) {
+		for (Enemy e: enemyArray) {
+			if(e==en)break;
+			if(i==e.getImageView()) {
+				return true;
+			}
+		}
+		return false;
+		
+		
+}
 	public void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
 			}
-			for (Enemy e: Core.enemyArray) {
+			for (Enemy e: enemyArray) {
+				
 				e.remove();
 			}
 		}

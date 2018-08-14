@@ -5,7 +5,6 @@ import javafx.scene.layout.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import actors.*;
 import javafx.animation.AnimationTimer;
@@ -27,7 +26,7 @@ import javafx.scene.input.KeyCode;
  * @author Eric Zhang
  * @author Gavin Guinn
  */
-public  class Core extends Application {
+public class Core extends Application implements Menus {
 	/**
 	 * Main method. Launches the game 
 	 */
@@ -36,20 +35,16 @@ public  class Core extends Application {
 		launch(args);
 	}
 	
-	static ArrayList<Enemy>enemyArray= new ArrayList<Enemy>();
-	private static StartMenu start= new StartMenu();
-	private static  Feedbackscreen end;
+	
+	//private static StartMenu start= new StartMenu();
+	
+	
 	public static int mapNum;
 	private static int hitCount=0;
 	private static Pane layout = new Pane();
 	
 	private static boolean running=true;
 	private static Group solid= new Group();
-
-	private File map0=new File("res/layouts/map0.txt");
-	private File map1=new File("res/layouts/map1.txt");
-	private File map2=new File("res/layouts/map2.txt");
-	private File map3=new File("res/layouts/map3.txt");
 	
 	private static File save= new File("res/save.txt");
 	
@@ -61,15 +56,15 @@ public  class Core extends Application {
 	private Background background= new Background(floor);
 	
 	private static Inventory inventory = new Inventory();
-	private static Player player1 = new Player(10000,1);
+	static Player player1 = new Player(10,1);
 	
 	public static final int WIDTH=600;
 	public static final int HEIGHT=680;
 	
 	private static boolean attack = false;
 	private static Scene scene = new Scene(layout, WIDTH, HEIGHT);
-	static Pane endlayout;
-	Stage stage= new Stage();
+	
+	//Stage stage= new Stage();
 
 	/**
          * This starts the window and initializes the game. This has all the core game mechanics and takes in
@@ -79,36 +74,28 @@ public  class Core extends Application {
          * @throws FileNotFoundException
          */
 	public void start(Stage stage) throws InterruptedException, FileNotFoundException {
+		File map0=new File("res/layouts/map0.txt");
+		File map1=new File("res/layouts/map1.txt");
+		File map2=new File("res/layouts/map2.txt");
+		File map3=new File("res/layouts/map3.txt");
 		
-		stage.setResizable(false);
 		progress[0]= new Map(map0);
 		progress[1]= new Map(map1);
 		progress[2]= new Map(map2);
 		progress[3]= new Map(map3);
-		    
+		
+		stage.setResizable(false);
 		layout.setBackground(background);
-		
-		
-		Pane startLayout=start.start();
-		
+		Pane startLayout=Menus.start();
 	    scene.setRoot(startLayout);
-    	
 		stage.setScene(scene);
 		
-		
-		
-		
-
 		stage.show();
 		
-		
 		stage.setOnCloseRequest((WindowEvent e1)->{
-		
-			
 			try {
 				PrintWriter writer = new PrintWriter(getSave());
 				writer.println(mapNum);
-			
 				writer.close();
 			} catch (FileNotFoundException e2) {
 				// TODO Auto-generated catch block
@@ -117,25 +104,22 @@ public  class Core extends Application {
 		});
 
 		scene.setOnKeyPressed(e -> {
-			
 			if (e.getCode() == KeyCode.D) {
 				player1.setDelta(Actors.MOVERES,0);
-				player1.setPlayerRight();
 			}
 
 			else if (e.getCode() == KeyCode.A) {
 				player1.setDelta(-Actors.MOVERES,0);
-				player1.setPlayerLeft();				
+						
 			}
 
 			else if (e.getCode() == KeyCode.S) {
-				player1.setDelta(0, Actors.MOVERES);
-				player1.setPlayerDown();
+				player1.setDelta(0, Actors.MOVERES);;
 			}
 
 			else if (e.getCode() == KeyCode.W) {
 				player1.setDelta(0, -Actors.MOVERES);
-				player1.setPlayerUp();
+			
 			}
 			
 			else if (e.getCode() == KeyCode.H) {
@@ -151,53 +135,45 @@ public  class Core extends Application {
 		});
 
 		AnimationTimer gameLoop = new AnimationTimer() {
-			
+			int dir;
 			int timer;
 			@Override
 			public void handle(long arg0) {
 				if (running==true) {
 					timer++;
-	
-					
-					
-	
-			checkEnemys();
-					
-					
-	
-					
+
 					player1.resetDamage();
-					
-					
+			
 					if (timer%5==0) {
-						
-						
-						moveEnemys(player1.getX(),player1.getY());
+						progress[mapNum].moveEnemys();
 						player1.drawHealthBar() ;
-					
 					}
-					
-					player1.setLastX(player1.getX());
-					player1.setLastY(player1.getY());
+				
 					
 					if(player1.getHealth()<=0) {
-						end= new Feedbackscreen(player1.getDamage(),"You Lose");
-						endlayout=end.end();
+				
+						Pane endlayout=Menus.end(player1.getDamage(),"You Lose");
+						running=false;
 						scene.setRoot(endlayout);
-						stage.setScene(scene);
-				}
+					}
 					
-					int dir=player1.move();
+					if(check(player1)==true) {
+						dir=player1.move();
+					}
+					
+					
 					if (timer%15==0) {
 						if(attack==true) {
 							player1.attack(dir);
 							attack=false;
 						}
 					}
+					
 					if (timer==1000)timer=0;
-					}
+				}
 			}
-		}; gameLoop.start();}
+		}; gameLoop.start();
+	}
 		
 	
 	/**
@@ -209,8 +185,6 @@ public  class Core extends Application {
 	 * @throws FileNotFoundException 
 	 **/
 	public static boolean check(Actors actor) {
-		
-	
 		for (Node object : solid.getChildren()) {
 			if (object.getBoundsInParent().intersects(actor.getBounds().getMinX() + actor.getDeltaX(), actor.getBounds().getMinY() + actor.getDeltaY(), 
 				actor.getBounds().getWidth(), actor.getBounds().getHeight()) && object.getId() != null) {
@@ -253,20 +227,15 @@ public  class Core extends Application {
 					
 				if(actor instanceof Enemy) {
 					if (object.getId().equals("enemy")){
-						
-						if(eCheck((ImageView)object, (Enemy) actor)==true) {
-						
+						if(progress[mapNum].eCheck((ImageView)object, (Enemy) actor)==true) {
 							return false;
 						
+						}
 					}
-					}
-				}
-				
+				}	
 			}
 		}
-		
-			
-		return true;
+	return true;
 	}
 
 	
@@ -291,7 +260,6 @@ public  class Core extends Application {
 	 */
 	private static void nextMap() {
 		mapNum++;
-		
 		if(mapNum<progress.length) {	
 			progress[mapNum].createMap();
 			player1.teleport(progress[mapNum].getPX(), progress[mapNum].getPY());			
@@ -299,11 +267,12 @@ public  class Core extends Application {
 	
 		else {
 			mapNum=3;
-			end= new Feedbackscreen(player1.getDamage(),"You Win");
-			endlayout=end.end();
+			//end= new Feedbackscreen(player1.getDamage(),"You Win");
+			Pane endlayout=Menus.end(player1.getDamage(),"You Win");
 			running=false;
 			scene.setRoot(endlayout);
 		}
+		
 	progress[mapNum-1].removeMap();  
 		
 	}
@@ -352,29 +321,28 @@ public  class Core extends Application {
 	 */
 	private static void chestRoll() {
 		int roll = (int) (Math.ceil(Math.random() * 2));
-		
-		
-		
 		if (roll== 1) {
-			
 			if(player1.getDamage()==1){
-				
-			inventory.setSwordVis(true);
-			player1.setDamage(3);}
+				inventory.setSwordVis(true);
+				player1.setDamage(3);
+			}
 			else if(player1.getDamage()==3) {
 				inventory.setSwordVis(false);
 				inventory.setSword2Vis(true);
 				player1.setDamage(4);
-			}else if(player1.getDamage()==4) {
+			}
+			else if(player1.getDamage()==4) {
 				inventory.setSword2Vis(false);
 				inventory.setSword3Vis(true);
 				player1.setDamage(5);
-			}else if(player1.getDamage()==5) {
+			}
+			else if(player1.getDamage()==5) {
 				inventory.setSword3Vis(false);
 				inventory.setSword4Vis(true);
 				player1.setDamage(10);
 			}
 		}
+		
 		else if (roll == 2) {
 			inventory.setHealthVis(true);
 		}
@@ -383,57 +351,12 @@ public  class Core extends Application {
 	/**
 	 *
 	 */
-	private static void createMap(int num) {
+	public static void setMap(int num) {
 		mapNum=num;
-		enemyArray=progress[num].createMap();
+		progress[num].createMap();
 		player1.teleport(progress[num].getPX(), progress[num].getPY());
 		player1.setLastX(progress[num].getPX());
 		player1.setLastY(progress[num].getPY());
 		layout.getChildren().add(solid);
-	}
-	
-	/**
-	 * Setter for the map.
-	 * @param n is the integer that represents which map to set as.
-	 */
-	public static void setMap(int n) {
-		createMap(n);	
-	} 
-	
-	/**
-	 * This moves the enemies that are currently alive to the player's location.
-	 * @param pX is the player's x coordinate
-	 * @param is the player's y coordinate
-	 */
-	public void moveEnemys(double pX, double pY) {
-		for (Enemy e: enemyArray) {
-			if (e.checkAlive()==true)e.move(pX,pY);
-			
-		}
-	}
-	
-	/**
-	 * Handles collision detection between enemies and walls.
-	 */
-	public void checkEnemys() {
-		for (Enemy e: enemyArray) Core.check(e);
-			
-	}
-	
-	
-	/**
-	 * Handles collision detection between enemies
-	 * @return true if the enemy has another enemy in its way
-	 */
-	public static boolean eCheck(ImageView i, Enemy en) {
-		for (Enemy e: enemyArray) {
-			if(e==en)break;
-			if(i==e.getImageView()) {
-				return true;
-			}
-		}
-		return false;
-		
-		
 	}
 }
