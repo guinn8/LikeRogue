@@ -1,23 +1,23 @@
 package main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.*;
-
 import actors.Enemy;
-
 import java.io.*;
 
+/**
+ * This class deals with the map
+ *
+ * @author Eric Zhang
+ * @author Gavin Guinn
+ * @author Johnny Meng
+ */
 public class Map {
 	public static Map[] progress = new Map[4];
 	private static int mapNum=0;
 	
-	static {
-		progress[0]= new Map(new File("res/layouts/map0.txt"));
-		progress[1]= new Map(new File("res/layouts/map1.txt"));
-		progress[2]= new Map(new File("res/layouts/map2.txt"));
-		progress[3]= new Map(new File("res/layouts/map3.txt"));
-	}
+
+	
 	
 	private int playerX;
 	private int playerY;
@@ -34,11 +34,20 @@ public class Map {
 	private Image finishImage = new Image("file:res/sprites/map/X.png");
 
 	private File mapFile;
+	
+	/**
+	 * Map Constructor
+	 * @param setMapFile
+	 */
 	public Map(File setMapFile) {
 		mapFile=setMapFile;	
 	}
 	
-	public void createMap()  {
+	/**
+	 * This creates the map from a text file
+	 * 
+	 */
+	protected void createMap()  {
 		
 		
 		
@@ -144,10 +153,11 @@ public class Map {
 			}
 		}
 		return false;
-		
-		
-}
-	public void removeMap() {
+	}
+	/**
+	 * This will remove the current map.
+	 */
+	protected void removeMap() {
 		for(ImageView[] lists:map) {
 			for(ImageView item:lists) {
 				Core.removeSolid(item);
@@ -158,9 +168,17 @@ public class Map {
 			}
 		}
 	}
+	/**
+	 * Getter for PX
+	 * @return playerX
+	 */
 	public int getPX(){
 		return playerX;
 	}
+	/**
+	 * Setter for PY
+	 * @return playerY
+	 */
 	public int getPY(){
 		return playerY;
 	}

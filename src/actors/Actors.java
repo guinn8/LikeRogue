@@ -9,8 +9,8 @@ import main.Core;
 
 
 interface GameplayInterFace{
-	public abstract boolean attack(int dir);
-	public abstract void drawHealthBar();
+	
+	
 	public abstract  void resetDamage(); 
 }
   
