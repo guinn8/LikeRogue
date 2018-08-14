@@ -57,12 +57,9 @@ public interface Menus {
 			start.setOnAction(e->{
 			//fix this privacy leak
 				Core.setToMain();
-				
-					Core.setMap(0);
+
 			
 					// TODO Auto-generated catch block
-					
-				
 				
 				
 				
@@ -185,5 +182,9 @@ public interface Menus {
 		});
 		layout.getChildren().add(button2);	
 		return layout;	
+		
+		
 }
+
+	
 }

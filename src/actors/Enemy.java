@@ -61,10 +61,10 @@ public class Enemy extends Actors {
 			double len= Math.sqrt(vX*vX+vY*vY);
 			vX=(vX/len);
 			vY=(vY/len);
-			
+
 			//System.out.println("dX: "+vX+" dY: "+vY);
 			this.setDelta(vX, vY);
-			if(Core.check(this)==true)super.move();
+			if(Core.checkCollision(this)==true)super.move();
 		//}
 		return 0;
 

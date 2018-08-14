@@ -1,6 +1,6 @@
 package actors;
 
-import java.io.FileNotFoundException;
+
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
@@ -16,15 +16,15 @@ public abstract class Actors implements GameplayInterFace {
 
 	
 	public static final int MOVERES = 1;
-	private double lastX;
-	private double lastY;
+
 	private double deltaX = 0;
 	private double deltaY = 0;
 	private int health;
 	private int damage;
 	private int W;
 	private int H;
-
+	private int direction;
+	private int hitCount;
 
 
 	
@@ -52,48 +52,49 @@ public abstract class Actors implements GameplayInterFace {
 	}
 	
 	/**
+	 * @return 
 	 * @throws FileNotFoundException 
 	 *  
 	 */
-	public int dir = 0;
-	public int  move(){
-		if (deltaX==0&&deltaY==0)return dir;
+	
+	public  void move(){
+		if (deltaX==0&&deltaY==0) return;
 		
 		for (int i = 0; i < 10; i++) {
 			
 		
 			//left
 			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
-				dir=1;
+				setDirection(1);
 				//animate(dir);
 				//if (this instanceof Enemy)System.out.println("left");
 			}
 			//right
 			else if(getDeltaX()>0 && getDeltaY()<getDeltaX()) {
-				dir=2;
+				setDirection(2);
 				//animate(dir);
 			}
 			//up
 			else if(getDeltaY()>0 && getDeltaX()<getDeltaY()) {
-				dir=0;
+				setDirection(0);
 				//animate(dir);
 			}
 			//down
 			else if(getDeltaY()<0 && getDeltaX()>getDeltaY()) {
-				dir=3;
+				setDirection(3);
 				
 			}
-			if (Core.check(this)) {
+			if (Core.checkCollision(this)) {
 				
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
 			}
 		}
-		animate(dir);
+		animate(getDirection());
 		setDelta(0,0);
 		
 		
-		return dir;
+		
 	}
 
 	public void setDelta(double vX,double vY) {
@@ -134,33 +135,6 @@ public abstract class Actors implements GameplayInterFace {
 		
 	}
 
-	/**
-	 * @return the lastX
-	 */
-	public double getLastX() {
-		return lastX;
-	}
-
-	/**
-	 * @param lastX the lastX to set
-	 */
-	public void setLastX(double lastX) {
-		this.lastX = lastX;
-	}
-
-	/**
-	 * @return the lastY
-	 */
-	public double getLastY() {
-		return lastY;
-	}
-
-	/**
-	 * @param lastY the lastY to set
-	 */
-	public void setLastY(double lastY) {
-		this.lastY = lastY;
-	}
 	
 	public double getX() {
 		return this.getImageView().getLayoutX();
@@ -214,6 +188,34 @@ public abstract class Actors implements GameplayInterFace {
 	 */
 	public void setH(int h) {
 		H = h;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public int getDirection() {
+		return direction;
+	}
+
+	/**
+	 * @param direction the direction to set
+	 */
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	/**
+	 * @return the hitCount
+	 */
+	public int getHitCount() {
+		return hitCount;
+	}
+
+	/**
+	 * @param hitCount the hitCount to set
+	 */
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
 	}
 	
 
