@@ -10,11 +10,10 @@ import main.Core;
  * This interface has methods that affect the state of the player and/or enemy in some way.
  *
  */
-interface GameplayInterFace{
-	
-	
+interface GameplayInterFace{	
 	public abstract  void resetDamage(); 
 }
+
 
   /**
  * This abstract class deals with the state of our player and enemy sprites. It also handles the animations
@@ -25,7 +24,6 @@ interface GameplayInterFace{
  * @Author Johnny Meng
  *
  */
-
 public abstract class Actors implements GameplayInterFace {
 	private  int frames;	
 	public static final int MOVERES = 1;
@@ -39,7 +37,9 @@ public abstract class Actors implements GameplayInterFace {
 	private int H;
 	private int direction;
 	private int hitCount;
+	private int animCounter=0;
   
+	
 	/**
 	 * This is the super constructor for Actors. It is used in player and enemy when creating the characters.
 	 * @param setHealth
@@ -49,9 +49,7 @@ public abstract class Actors implements GameplayInterFace {
 	 * @param setOFF
 	 * @param setFrames
 	 */
-
 	Actors( int setHealth, int setDamage, int setW, int setH, int setOFF,int setFrames){
-
 		damage=setDamage;
 		health=setHealth;
 		W=setW;
@@ -65,7 +63,7 @@ public abstract class Actors implements GameplayInterFace {
 	 * @return the boundaries of an object
 	 */
 	public abstract Bounds getBounds();	
-	
+	 
 	
 	/**
 	 * abstract method for getting the ImageView of an object.
@@ -85,10 +83,7 @@ public abstract class Actors implements GameplayInterFace {
 		}
 		return true;	
 	}	
-	
-	
-	int dir = 0;
-  
+	  
 
   /**
 	 * This method handles the animated movement of the player and enemy.
@@ -100,46 +95,34 @@ public abstract class Actors implements GameplayInterFace {
       
 			//left
 			if(getDeltaX()<0 && getDeltaY()>getDeltaX()) {
-				setDirection(1);
-				//animate(dir);
-				//if (this instanceof Enemy)System.out.println("left");
+				setDirection(1);		
 			}
       
 			//right
 			else if(getDeltaX()>0 && getDeltaY()<getDeltaX()) {
-
 				setDirection(2);
-				//animate(dir);
-
 			}
       
 			//up
 			else if(getDeltaY()>0 && getDeltaX()<getDeltaY()) {
-
 				setDirection(0);
-				//animate(dir);
-
 			}
       
 			//down
 			else if(getDeltaY()<0 && getDeltaX()>getDeltaY()) {
 				setDirection(3);
 			}
-
-      
-			if (Core.checkCollision(this)) {
-				
+  
+			if (Core.checkCollision(this)) {			
 				getImageView().setLayoutY(getImageView().getLayoutY() + getDeltaY());
 				getImageView().setLayoutX(getImageView().getLayoutX() + getDeltaX());
-
 			}
 		}
-
-		animate(getDirection());
-		setDelta(0,0);
-
+		 animate(getDirection());
+		 setDelta(0,0);
 	}
 
+	
 	/**
 	 * A setter for delta.
 	 * @param vX
@@ -150,7 +133,6 @@ public abstract class Actors implements GameplayInterFace {
 		deltaY=vY;
 	}
 	
-
 	
 	/**
 	 * a getter for health.
@@ -160,15 +142,16 @@ public abstract class Actors implements GameplayInterFace {
 		return health;
 	}
 
+	
 	/**
 	 * A setter for health.
 	 * @param setHealth
 	 */
-	public void setHealth(int setHealth) {
-		
+	public void setHealth(int setHealth) {	
 		health=setHealth;
 	}
 
+	
 	/**
 	 * A getter for damage.
 	 * @return an integer that represents damage.
@@ -195,6 +178,7 @@ public abstract class Actors implements GameplayInterFace {
 		return deltaX;
 	}
 	
+	
 	/**
 	 * A getter for deltaY (Y-coordinate)
 	 * @return a double that represents deltaY/y-coordinates
@@ -213,6 +197,7 @@ public abstract class Actors implements GameplayInterFace {
 		this.getImageView().setLayoutX(x);
 		this.getImageView().setLayoutY(y);
 	}
+	
 	
 	/**
 	 * This method will remove a sprite from the canvas.
@@ -239,18 +224,15 @@ public abstract class Actors implements GameplayInterFace {
 	 * @return the current y-coordinate
 	 */
 	public double getY() {
-		return this.getImageView().getLayoutY();
-		
+		return this.getImageView().getLayoutY();	
 	}
-	int animCounter=0;
-  
+	
   
 	/**
 	 * This method creates the animations for player and enemy.
 	 * @param r the direction integer from move()
 	 */
-	public void animate(int r) {
-		
+	public void animate(int r) {	
 		Rectangle2D anim= new Rectangle2D(getW()*animCounter, r*getH(), getW(), getH());
 		this.getImageView().setViewport(anim);
 		animCounter++;
@@ -258,7 +240,7 @@ public abstract class Actors implements GameplayInterFace {
 	}
 
 	
-	/**
+	/**getmethod
 	 * @return the direction
 	 */
 	public int getDirection() {
@@ -266,7 +248,7 @@ public abstract class Actors implements GameplayInterFace {
 	}
 
 	
-	/**
+	/**setmethod
 	 * @param direction the direction to set
 	 */
 	public void setDirection(int direction) {
@@ -274,28 +256,37 @@ public abstract class Actors implements GameplayInterFace {
 	}
 
 	
-	/**
+	/**get method
 	 * @return the hitCount
-
 	 */
 	public int getHitCount() {
 		return hitCount;
 	}
 
 	
-/**
+    /**setmethod
 	 * @param hitCount the hitCount to set
 	 */
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
 	}
+	
+	
+	/**
+	 * get method 
+	 * @return W
+	 */
 	public int getW() {
 		return W;
 	}
+	
+	
+	/**
+	 * get method
+	 * @return H
+	 */
 	public int getH() {
 		return H;
 	}
-	
-	
-
+		
 }
